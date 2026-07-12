@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1783836397947,
+  "lastUpdate": 1783860192514,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -13310,6 +13310,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.096,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "d95b4559b63a8cbe9b056a0cd76a739ecc441e95",
+          "message": "refactor(profile): improve description of implementations of Executable",
+          "timestamp": "2026-07-12T21:37:58+09:00",
+          "tree_id": "b46e062f0d70db0987bd49dc0e7212c10ab3a7de",
+          "url": "https://github.com/shwaka/kohomology/commit/d95b4559b63a8cbe9b056a0cd76a739ecc441e95"
+        },
+        "date": 1783860191634,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.832,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.141,
             "unit": "s/op"
           }
         ]

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1783833340464,
+  "lastUpdate": 1783834116967,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -13242,6 +13242,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.506,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "1b4bb795357fc9bbfa2302fb3feab33ab8d8e02d",
+          "message": "refactor(core): unify duplicates in MatrixOperationInput and MatrixOperationMetrics",
+          "timestamp": "2026-07-12T14:20:43+09:00",
+          "tree_id": "ac3bdab6ff2645c30837c91d0e24a7824aba07bc",
+          "url": "https://github.com/shwaka/kohomology/commit/1b4bb795357fc9bbfa2302fb3feab33ab8d8e02d"
+        },
+        "date": 1783834115717,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.901,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.356,
             "unit": "s/op"
           }
         ]

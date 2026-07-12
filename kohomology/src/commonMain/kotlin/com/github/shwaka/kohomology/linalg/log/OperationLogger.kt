@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.linalg.log
 
+import com.github.shwaka.kohomology.util.TableFormatter
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
 import kotlin.time.measureTimedValue
@@ -45,9 +46,10 @@ public fun <K : OperationKind> formatSummaries(summaries: Map<K, OperationSummar
             summary.metricsText,
         )
     }
-    return TextTable(
+    return TableFormatter(
         data = listOf(header) + stringTable,
-    ).toPrettyString()
+        separator = " ",
+    ).formatPlain()
 }
 
 public fun interface OperationSummaryFactory<K : OperationKind, I : OperationInput<K>, S : OperationSummary<K>> {

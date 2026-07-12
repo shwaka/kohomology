@@ -15,7 +15,7 @@ class CohomologyOfFreeLoopSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val matrixSpace: MatrixSpace<S, V, M>,
     private val degreeLimit: Int,
 ) : Executable() {
-    override val description = "cohomology of free loop space of 2-sphere"
+    override val description = "H^*(LS^2) for *<$degreeLimit"
     override fun mainFun(): String {
         val sphereDim = 2
         val sphere = sphere(this.matrixSpace, sphereDim)
@@ -33,7 +33,7 @@ class CohomologyOfFreeLoopSpaceWithMultiDegree<S : Scalar, V : NumVector<S>, M :
     private val matrixSpace: MatrixSpace<S, V, M>,
     private val degreeLimit: Int,
 ) : Executable() {
-    override val description: String = "cohomology of free loop space of 2n-sphere (with MultiDegree)"
+    override val description: String = "H^*(LS^2) for *<$degreeLimit (with MultiDegree)"
     override fun mainFun(): String {
         val degreeIndeterminateList = listOf(
             DegreeIndeterminate("n", 1),
@@ -62,7 +62,7 @@ class CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree<S : Scalar, V : Nu
     private val matrixSpace: MatrixSpace<S, V, M>,
     private val degreeLimit: Int,
 ) : Executable() {
-    override val description: String = "cohomology of free loop space of 2n-sphere (with MultiDegree and FreeLoopSpace.withShiftDegree)"
+    override val description: String = "H^*(LS^2) for *<$degreeLimit (with MultiDegree and FreeLoopSpace.withShiftDegree)"
     override fun mainFun(): String {
         val degreeIndeterminateList = listOf(
             DegreeIndeterminate("n", 1),

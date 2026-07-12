@@ -21,6 +21,10 @@ private fun measurement(
     )
 }
 
+private fun String.trimLineEnds(): String {
+    return this.lines().joinToString("\n") { it.trimEnd() }
+}
+
 class MatrixLoggerTest : FreeSpec({
     "MatrixOperationSummaryFactory should create metrics for each operation" {
         val testCases = listOf(
@@ -261,6 +265,89 @@ class MatrixLoggerTest : FreeSpec({
         )
 
         summary.metricsText shouldBe metrics.toPrettyString()
+    }
+
+    "MatrixOperationMetrics should be converted to pretty strings" {
+        val metricsList = listOf(
+            MatrixOperationMetrics.Add(
+                maxRowCount = 4,
+                maxColCount = 3,
+            ) to "maxRow=4, maxCol=3",
+            MatrixOperationMetrics.MultiplyMatrix(
+                maxFirstRowCount = 2,
+                maxFirstColCount = 3,
+                maxSecondColCount = 4,
+            ) to "maxRow1=2, maxCol1=3, maxCol2=4",
+            MatrixOperationMetrics.JoinMatrices(
+                maxRowCount = 5,
+                maxColCountSum = 8,
+            ) to "maxRow=5, maxColSum=8",
+            MatrixOperationMetrics.ComputeRowSlice(
+                maxRowCount = 4,
+                maxColCount = 3,
+                maxRangeSize = 2,
+            ) to "maxRow=4, maxCol=3, maxRangeSize=2",
+        )
+
+        for ((metrics, expected) in metricsList) {
+            metrics.toPrettyString() shouldBe expected
+        }
+    }
+
+    "formatSummaries should format matrix operation summaries" {
+        val summaries: Map<MatrixOperation, MatrixOperationSummary> = listOf(
+            MatrixOperationSummary(
+                operation = MatrixOperation.ADD,
+                invocationCount = 2,
+                maxDuration = 5.milliseconds,
+                totalDuration = 6.milliseconds,
+                metrics = MatrixOperationMetrics.Add(
+                    maxRowCount = 4,
+                    maxColCount = 3,
+                ),
+            ),
+            MatrixOperationSummary(
+                operation = MatrixOperation.MULTIPLY_MATRIX,
+                invocationCount = 1,
+                maxDuration = 10.milliseconds,
+                totalDuration = 10.milliseconds,
+                metrics = MatrixOperationMetrics.MultiplyMatrix(
+                    maxFirstRowCount = 2,
+                    maxFirstColCount = 3,
+                    maxSecondColCount = 4,
+                ),
+            ),
+        ).associateBy { it.operation }
+        val expected = """
+            |          name total  max count metrics
+            |MultiplyMatrix  10ms 10ms     1 maxRow1=2, maxCol1=3, maxCol2=4
+            |           Add   6ms  5ms     2 maxRow=4, maxCol=3
+        """.trimMargin()
+
+        formatSummaries(summaries).trimLineEnds() shouldBe expected
+    }
+
+    "MatrixLogger should format summaries from recorded measurements" {
+        val logger = MatrixLogger()
+        logger.add(measurement(1, MatrixOperationInput.Add(rowCount = 2, colCount = 3)))
+        logger.add(measurement(5, MatrixOperationInput.Add(rowCount = 4, colCount = 1)))
+        logger.add(
+            measurement(
+                10,
+                MatrixOperationInput.MultiplyMatrix(
+                    firstRowCount = 2,
+                    firstColCount = 3,
+                    secondColCount = 4,
+                ),
+            ),
+        )
+        val expected = """
+            |          name total  max count metrics
+            |MultiplyMatrix  10ms 10ms     1 maxRow1=2, maxCol1=3, maxCol2=4
+            |           Add   6ms  5ms     2 maxRow=4, maxCol=3
+        """.trimMargin()
+
+        logger.getFormattedSummaries().trimLineEnds() shouldBe expected
     }
 
     "MatrixOperationSummaryFactory should throw for empty measurements" {

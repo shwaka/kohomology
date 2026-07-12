@@ -55,23 +55,28 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixLogTest(
                 matrix1.rowEchelonForm
 
                 logger.measurement.map { it.input } shouldBe listOf(
-                    MatrixOperationInput.Add(
+                    MatrixOperationInput.MatrixSize(
+                        operation = MatrixOperation.ADD,
                         rowCount = 2,
                         colCount = 3,
                     ),
-                    MatrixOperationInput.Subtract(
+                    MatrixOperationInput.MatrixSize(
+                        operation = MatrixOperation.SUBTRACT,
                         rowCount = 2,
                         colCount = 3,
                     ),
-                    MatrixOperationInput.MultiplyScalar(
+                    MatrixOperationInput.MatrixSize(
+                        operation = MatrixOperation.MULTIPLY_SCALAR,
                         rowCount = 2,
                         colCount = 3,
                     ),
-                    MatrixOperationInput.ComputeTranspose(
+                    MatrixOperationInput.MatrixSize(
+                        operation = MatrixOperation.COMPUTE_TRANSPOSE,
                         rowCount = 2,
                         colCount = 3,
                     ),
-                    MatrixOperationInput.ComputeRowEchelonForm(
+                    MatrixOperationInput.MatrixSize(
+                        operation = MatrixOperation.COMPUTE_ROW_ECHELON_FORM,
                         rowCount = 2,
                         colCount = 3,
                     ),
@@ -92,7 +97,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixLogTest(
                         firstColCount = 3,
                         secondColCount = 4,
                     ),
-                    MatrixOperationInput.MultiplyNumVector(
+                    MatrixOperationInput.MatrixSize(
+                        operation = MatrixOperation.MULTIPLY_NUM_VECTOR,
                         rowCount = 2,
                         colCount = 3,
                     ),
@@ -113,12 +119,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixLogTest(
                         firstColCount = 5,
                         secondColCount = 2,
                     ),
-                    MatrixOperationInput.ComputeRowSlice(
+                    MatrixOperationInput.Slice(
+                        operation = MatrixOperation.COMPUTE_ROW_SLICE,
                         rowCount = 4,
                         colCount = 5,
                         rangeSize = 2,
                     ),
-                    MatrixOperationInput.ComputeColSlice(
+                    MatrixOperationInput.Slice(
+                        operation = MatrixOperation.COMPUTE_COL_SLICE,
                         rowCount = 4,
                         colCount = 5,
                         rangeSize = 3,
@@ -136,11 +144,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixLogTest(
                 ).toMatrix(rowCount = 3, colCount = 4)
 
                 logger.measurement.map { it.input } shouldBe listOf(
-                    MatrixOperationInput.FromRowList(
+                    MatrixOperationInput.MatrixSize(
+                        operation = MatrixOperation.FROM_ROW_LIST,
                         rowCount = 2,
                         colCount = 3,
                     ),
-                    MatrixOperationInput.FromRowMap(
+                    MatrixOperationInput.MatrixSize(
+                        operation = MatrixOperation.FROM_ROW_MAP,
                         rowCount = 3,
                         colCount = 4,
                     ),
@@ -159,7 +169,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixLogTest(
                     it.shouldNotBeNull()
                     it.invocationCount shouldBe 2
                     val metrics = it.metrics
-                    metrics.shouldBeInstanceOf<MatrixOperationMetrics.Add>()
+                    metrics.shouldBeInstanceOf<MatrixOperationMetrics.MatrixSize>()
                     metrics.maxRowCount shouldBe 2
                 }
                 summaries[MatrixOperation.MULTIPLY_MATRIX].let {

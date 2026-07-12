@@ -21,6 +21,32 @@ private fun measurement(
     )
 }
 
+private fun matrixSizeInput(
+    operation: MatrixOperation,
+    rowCount: Int,
+    colCount: Int,
+): MatrixOperationInput.MatrixSize {
+    return MatrixOperationInput.MatrixSize(
+        operation = operation,
+        rowCount = rowCount,
+        colCount = colCount,
+    )
+}
+
+private fun sliceInput(
+    operation: MatrixOperation,
+    rowCount: Int,
+    colCount: Int,
+    rangeSize: Int,
+): MatrixOperationInput.Slice {
+    return MatrixOperationInput.Slice(
+        operation = operation,
+        rowCount = rowCount,
+        colCount = colCount,
+        rangeSize = rangeSize,
+    )
+}
+
 private fun String.trimLineEnds(): String {
     return this.lines().joinToString("\n") { it.trimEnd() }
 }
@@ -31,10 +57,10 @@ class MatrixLoggerTest : FreeSpec({
             MatrixLoggerTestCase(
                 operation = MatrixOperation.ADD,
                 measurements = listOf(
-                    measurement(1, MatrixOperationInput.Add(rowCount = 2, colCount = 3)),
-                    measurement(2, MatrixOperationInput.Add(rowCount = 4, colCount = 1)),
+                    measurement(1, matrixSizeInput(MatrixOperation.ADD, rowCount = 2, colCount = 3)),
+                    measurement(2, matrixSizeInput(MatrixOperation.ADD, rowCount = 4, colCount = 1)),
                 ),
-                expectedMetrics = MatrixOperationMetrics.Add(
+                expectedMetrics = MatrixOperationMetrics.MatrixSize(
                     maxRowCount = 4,
                     maxColCount = 3,
                 ),
@@ -42,10 +68,10 @@ class MatrixLoggerTest : FreeSpec({
             MatrixLoggerTestCase(
                 operation = MatrixOperation.SUBTRACT,
                 measurements = listOf(
-                    measurement(1, MatrixOperationInput.Subtract(rowCount = 2, colCount = 3)),
-                    measurement(2, MatrixOperationInput.Subtract(rowCount = 4, colCount = 1)),
+                    measurement(1, matrixSizeInput(MatrixOperation.SUBTRACT, rowCount = 2, colCount = 3)),
+                    measurement(2, matrixSizeInput(MatrixOperation.SUBTRACT, rowCount = 4, colCount = 1)),
                 ),
-                expectedMetrics = MatrixOperationMetrics.Subtract(
+                expectedMetrics = MatrixOperationMetrics.MatrixSize(
                     maxRowCount = 4,
                     maxColCount = 3,
                 ),
@@ -79,10 +105,10 @@ class MatrixLoggerTest : FreeSpec({
             MatrixLoggerTestCase(
                 operation = MatrixOperation.MULTIPLY_NUM_VECTOR,
                 measurements = listOf(
-                    measurement(1, MatrixOperationInput.MultiplyNumVector(rowCount = 2, colCount = 3)),
-                    measurement(2, MatrixOperationInput.MultiplyNumVector(rowCount = 4, colCount = 1)),
+                    measurement(1, matrixSizeInput(MatrixOperation.MULTIPLY_NUM_VECTOR, rowCount = 2, colCount = 3)),
+                    measurement(2, matrixSizeInput(MatrixOperation.MULTIPLY_NUM_VECTOR, rowCount = 4, colCount = 1)),
                 ),
-                expectedMetrics = MatrixOperationMetrics.MultiplyNumVector(
+                expectedMetrics = MatrixOperationMetrics.MatrixSize(
                     maxRowCount = 4,
                     maxColCount = 3,
                 ),
@@ -90,10 +116,10 @@ class MatrixLoggerTest : FreeSpec({
             MatrixLoggerTestCase(
                 operation = MatrixOperation.MULTIPLY_SCALAR,
                 measurements = listOf(
-                    measurement(1, MatrixOperationInput.MultiplyScalar(rowCount = 2, colCount = 3)),
-                    measurement(2, MatrixOperationInput.MultiplyScalar(rowCount = 4, colCount = 1)),
+                    measurement(1, matrixSizeInput(MatrixOperation.MULTIPLY_SCALAR, rowCount = 2, colCount = 3)),
+                    measurement(2, matrixSizeInput(MatrixOperation.MULTIPLY_SCALAR, rowCount = 4, colCount = 1)),
                 ),
-                expectedMetrics = MatrixOperationMetrics.MultiplyScalar(
+                expectedMetrics = MatrixOperationMetrics.MatrixSize(
                     maxRowCount = 4,
                     maxColCount = 3,
                 ),
@@ -101,10 +127,10 @@ class MatrixLoggerTest : FreeSpec({
             MatrixLoggerTestCase(
                 operation = MatrixOperation.COMPUTE_ROW_ECHELON_FORM,
                 measurements = listOf(
-                    measurement(1, MatrixOperationInput.ComputeRowEchelonForm(rowCount = 2, colCount = 3)),
-                    measurement(2, MatrixOperationInput.ComputeRowEchelonForm(rowCount = 4, colCount = 1)),
+                    measurement(1, matrixSizeInput(MatrixOperation.COMPUTE_ROW_ECHELON_FORM, rowCount = 2, colCount = 3)),
+                    measurement(2, matrixSizeInput(MatrixOperation.COMPUTE_ROW_ECHELON_FORM, rowCount = 4, colCount = 1)),
                 ),
-                expectedMetrics = MatrixOperationMetrics.ComputeRowEchelonForm(
+                expectedMetrics = MatrixOperationMetrics.MatrixSize(
                     maxRowCount = 4,
                     maxColCount = 3,
                 ),
@@ -112,10 +138,10 @@ class MatrixLoggerTest : FreeSpec({
             MatrixLoggerTestCase(
                 operation = MatrixOperation.COMPUTE_TRANSPOSE,
                 measurements = listOf(
-                    measurement(1, MatrixOperationInput.ComputeTranspose(rowCount = 2, colCount = 3)),
-                    measurement(2, MatrixOperationInput.ComputeTranspose(rowCount = 4, colCount = 1)),
+                    measurement(1, matrixSizeInput(MatrixOperation.COMPUTE_TRANSPOSE, rowCount = 2, colCount = 3)),
+                    measurement(2, matrixSizeInput(MatrixOperation.COMPUTE_TRANSPOSE, rowCount = 4, colCount = 1)),
                 ),
-                expectedMetrics = MatrixOperationMetrics.ComputeTranspose(
+                expectedMetrics = MatrixOperationMetrics.MatrixSize(
                     maxRowCount = 4,
                     maxColCount = 3,
                 ),
@@ -150,7 +176,8 @@ class MatrixLoggerTest : FreeSpec({
                 measurements = listOf(
                     measurement(
                         1,
-                        MatrixOperationInput.ComputeRowSlice(
+                        sliceInput(
+                            operation = MatrixOperation.COMPUTE_ROW_SLICE,
                             rowCount = 2,
                             colCount = 3,
                             rangeSize = 1,
@@ -158,14 +185,15 @@ class MatrixLoggerTest : FreeSpec({
                     ),
                     measurement(
                         2,
-                        MatrixOperationInput.ComputeRowSlice(
+                        sliceInput(
+                            operation = MatrixOperation.COMPUTE_ROW_SLICE,
                             rowCount = 4,
                             colCount = 1,
                             rangeSize = 3,
                         ),
                     ),
                 ),
-                expectedMetrics = MatrixOperationMetrics.ComputeRowSlice(
+                expectedMetrics = MatrixOperationMetrics.Slice(
                     maxRowCount = 4,
                     maxColCount = 3,
                     maxRangeSize = 3,
@@ -176,7 +204,8 @@ class MatrixLoggerTest : FreeSpec({
                 measurements = listOf(
                     measurement(
                         1,
-                        MatrixOperationInput.ComputeColSlice(
+                        sliceInput(
+                            operation = MatrixOperation.COMPUTE_COL_SLICE,
                             rowCount = 2,
                             colCount = 3,
                             rangeSize = 1,
@@ -184,14 +213,15 @@ class MatrixLoggerTest : FreeSpec({
                     ),
                     measurement(
                         2,
-                        MatrixOperationInput.ComputeColSlice(
+                        sliceInput(
+                            operation = MatrixOperation.COMPUTE_COL_SLICE,
                             rowCount = 4,
                             colCount = 1,
                             rangeSize = 3,
                         ),
                     ),
                 ),
-                expectedMetrics = MatrixOperationMetrics.ComputeColSlice(
+                expectedMetrics = MatrixOperationMetrics.Slice(
                     maxRowCount = 4,
                     maxColCount = 3,
                     maxRangeSize = 3,
@@ -200,10 +230,10 @@ class MatrixLoggerTest : FreeSpec({
             MatrixLoggerTestCase(
                 operation = MatrixOperation.FROM_ROW_LIST,
                 measurements = listOf(
-                    measurement(1, MatrixOperationInput.FromRowList(rowCount = 2, colCount = 3)),
-                    measurement(2, MatrixOperationInput.FromRowList(rowCount = 4, colCount = 1)),
+                    measurement(1, matrixSizeInput(MatrixOperation.FROM_ROW_LIST, rowCount = 2, colCount = 3)),
+                    measurement(2, matrixSizeInput(MatrixOperation.FROM_ROW_LIST, rowCount = 4, colCount = 1)),
                 ),
-                expectedMetrics = MatrixOperationMetrics.FromRowList(
+                expectedMetrics = MatrixOperationMetrics.MatrixSize(
                     maxRowCount = 4,
                     maxColCount = 3,
                 ),
@@ -211,10 +241,10 @@ class MatrixLoggerTest : FreeSpec({
             MatrixLoggerTestCase(
                 operation = MatrixOperation.FROM_ROW_MAP,
                 measurements = listOf(
-                    measurement(1, MatrixOperationInput.FromRowMap(rowCount = 2, colCount = 3)),
-                    measurement(2, MatrixOperationInput.FromRowMap(rowCount = 4, colCount = 1)),
+                    measurement(1, matrixSizeInput(MatrixOperation.FROM_ROW_MAP, rowCount = 2, colCount = 3)),
+                    measurement(2, matrixSizeInput(MatrixOperation.FROM_ROW_MAP, rowCount = 4, colCount = 1)),
                 ),
-                expectedMetrics = MatrixOperationMetrics.FromRowMap(
+                expectedMetrics = MatrixOperationMetrics.MatrixSize(
                     maxRowCount = 4,
                     maxColCount = 3,
                 ),
@@ -233,8 +263,8 @@ class MatrixLoggerTest : FreeSpec({
         val summary = MatrixOperationSummaryFactory.create(
             operation = MatrixOperation.ADD,
             measurements = listOf(
-                measurement(1, MatrixOperationInput.Add(rowCount = 2, colCount = 3)),
-                measurement(5, MatrixOperationInput.Add(rowCount = 4, colCount = 1)),
+                measurement(1, matrixSizeInput(MatrixOperation.ADD, rowCount = 2, colCount = 3)),
+                measurement(5, matrixSizeInput(MatrixOperation.ADD, rowCount = 4, colCount = 1)),
             ),
         )
 
@@ -243,7 +273,7 @@ class MatrixLoggerTest : FreeSpec({
             invocationCount = 2,
             maxDuration = 5.milliseconds,
             totalDuration = 6.milliseconds,
-            metrics = MatrixOperationMetrics.Add(
+            metrics = MatrixOperationMetrics.MatrixSize(
                 maxRowCount = 4,
                 maxColCount = 3,
             ),
@@ -251,7 +281,7 @@ class MatrixLoggerTest : FreeSpec({
     }
 
     "metricsText should be metrics.toPrettyString()" {
-        val metrics = MatrixOperationMetrics.ComputeRowSlice(
+        val metrics = MatrixOperationMetrics.Slice(
             maxRowCount = 4,
             maxColCount = 3,
             maxRangeSize = 2,
@@ -269,7 +299,7 @@ class MatrixLoggerTest : FreeSpec({
 
     "MatrixOperationMetrics should be converted to pretty strings" {
         val metricsList = listOf(
-            MatrixOperationMetrics.Add(
+            MatrixOperationMetrics.MatrixSize(
                 maxRowCount = 4,
                 maxColCount = 3,
             ) to "maxRow=4, maxCol=3",
@@ -282,7 +312,7 @@ class MatrixLoggerTest : FreeSpec({
                 maxRowCount = 5,
                 maxColCountSum = 8,
             ) to "maxRow=5, maxColSum=8",
-            MatrixOperationMetrics.ComputeRowSlice(
+            MatrixOperationMetrics.Slice(
                 maxRowCount = 4,
                 maxColCount = 3,
                 maxRangeSize = 2,
@@ -301,7 +331,7 @@ class MatrixLoggerTest : FreeSpec({
                 invocationCount = 2,
                 maxDuration = 5.milliseconds,
                 totalDuration = 6.milliseconds,
-                metrics = MatrixOperationMetrics.Add(
+                metrics = MatrixOperationMetrics.MatrixSize(
                     maxRowCount = 4,
                     maxColCount = 3,
                 ),
@@ -329,8 +359,8 @@ class MatrixLoggerTest : FreeSpec({
 
     "MatrixLogger should format summaries from recorded measurements" {
         val logger = MatrixLogger()
-        logger.add(measurement(1, MatrixOperationInput.Add(rowCount = 2, colCount = 3)))
-        logger.add(measurement(5, MatrixOperationInput.Add(rowCount = 4, colCount = 1)))
+        logger.add(measurement(1, matrixSizeInput(MatrixOperation.ADD, rowCount = 2, colCount = 3)))
+        logger.add(measurement(5, matrixSizeInput(MatrixOperation.ADD, rowCount = 4, colCount = 1)))
         logger.add(
             measurement(
                 10,
@@ -364,7 +394,7 @@ class MatrixLoggerTest : FreeSpec({
             MatrixOperationSummaryFactory.create(
                 operation = MatrixOperation.ADD,
                 measurements = listOf(
-                    measurement(1, MatrixOperationInput.Subtract(rowCount = 2, colCount = 3)),
+                    measurement(1, matrixSizeInput(MatrixOperation.SUBTRACT, rowCount = 2, colCount = 3)),
                 ),
             )
         }

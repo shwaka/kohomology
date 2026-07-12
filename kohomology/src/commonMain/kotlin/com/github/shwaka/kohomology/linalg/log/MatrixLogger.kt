@@ -20,18 +20,27 @@ public enum class MatrixOperation(
 }
 
 public sealed interface MatrixOperationInput : OperationInput<MatrixOperation> {
-    public data class Add(
+    public data class MatrixSize(
+        override val operation: MatrixOperation,
         public val rowCount: Int,
         public val colCount: Int,
     ) : MatrixOperationInput {
-        override val operation: MatrixOperation = MatrixOperation.ADD
-    }
-
-    public data class Subtract(
-        public val rowCount: Int,
-        public val colCount: Int,
-    ) : MatrixOperationInput {
-        override val operation: MatrixOperation = MatrixOperation.SUBTRACT
+        init {
+            require(
+                operation in setOf(
+                    MatrixOperation.ADD,
+                    MatrixOperation.SUBTRACT,
+                    MatrixOperation.MULTIPLY_NUM_VECTOR,
+                    MatrixOperation.MULTIPLY_SCALAR,
+                    MatrixOperation.COMPUTE_ROW_ECHELON_FORM,
+                    MatrixOperation.COMPUTE_TRANSPOSE,
+                    MatrixOperation.FROM_ROW_LIST,
+                    MatrixOperation.FROM_ROW_MAP,
+                )
+            ) {
+                "Unsupported operation for MatrixSize: $operation"
+            }
+        }
     }
 
     public data class MultiplyMatrix(
@@ -46,34 +55,6 @@ public sealed interface MatrixOperationInput : OperationInput<MatrixOperation> {
             get() = this.firstColCount
     }
 
-    public data class MultiplyNumVector(
-        public val rowCount: Int,
-        public val colCount: Int,
-    ) : MatrixOperationInput {
-        override val operation: MatrixOperation = MatrixOperation.MULTIPLY_NUM_VECTOR
-    }
-
-    public data class MultiplyScalar(
-        public val rowCount: Int,
-        public val colCount: Int,
-    ) : MatrixOperationInput {
-        override val operation: MatrixOperation = MatrixOperation.MULTIPLY_SCALAR
-    }
-
-    public data class ComputeRowEchelonForm(
-        public val rowCount: Int,
-        public val colCount: Int,
-    ) : MatrixOperationInput {
-        override val operation: MatrixOperation = MatrixOperation.COMPUTE_ROW_ECHELON_FORM
-    }
-
-    public data class ComputeTranspose(
-        public val rowCount: Int,
-        public val colCount: Int,
-    ) : MatrixOperationInput {
-        override val operation: MatrixOperation = MatrixOperation.COMPUTE_TRANSPOSE
-    }
-
     public data class JoinMatrices(
         public val rowCount: Int,
         public val firstColCount: Int,
@@ -82,41 +63,29 @@ public sealed interface MatrixOperationInput : OperationInput<MatrixOperation> {
         override val operation: MatrixOperation = MatrixOperation.JOIN_MATRICES
     }
 
-    public data class ComputeRowSlice(
+    public data class Slice(
+        override val operation: MatrixOperation,
         public val rowCount: Int,
         public val colCount: Int,
         public val rangeSize: Int,
     ) : MatrixOperationInput {
-        override val operation: MatrixOperation = MatrixOperation.COMPUTE_ROW_SLICE
-    }
-
-    public data class ComputeColSlice(
-        public val rowCount: Int,
-        public val colCount: Int,
-        public val rangeSize: Int,
-    ) : MatrixOperationInput {
-        override val operation: MatrixOperation = MatrixOperation.COMPUTE_COL_SLICE
-    }
-
-    public data class FromRowList(
-        public val rowCount: Int,
-        public val colCount: Int,
-    ) : MatrixOperationInput {
-        override val operation: MatrixOperation = MatrixOperation.FROM_ROW_LIST
-    }
-
-    public data class FromRowMap(
-        public val rowCount: Int,
-        public val colCount: Int,
-    ) : MatrixOperationInput {
-        override val operation: MatrixOperation = MatrixOperation.FROM_ROW_MAP
+        init {
+            require(
+                operation in setOf(
+                    MatrixOperation.COMPUTE_ROW_SLICE,
+                    MatrixOperation.COMPUTE_COL_SLICE,
+                )
+            ) {
+                "Unsupported operation for Slice: $operation"
+            }
+        }
     }
 }
 
 public sealed interface MatrixOperationMetrics {
     public fun toPrettyString(): String
 
-    public data class Add(
+    public data class MatrixSize(
         public val maxRowCount: Int,
         public val maxColCount: Int,
     ) : MatrixOperationMetrics {
@@ -125,30 +94,10 @@ public sealed interface MatrixOperationMetrics {
 
         public companion object {
             public fun fromInputs(
-                inputs: List<MatrixOperationInput.Add>,
-            ): Add {
+                inputs: List<MatrixOperationInput.MatrixSize>,
+            ): MatrixSize {
                 require(inputs.isNotEmpty()) { "inputs must not be empty." }
-                return Add(
-                    maxRowCount = inputs.maxOf { it.rowCount },
-                    maxColCount = inputs.maxOf { it.colCount },
-                )
-            }
-        }
-    }
-
-    public data class Subtract(
-        public val maxRowCount: Int,
-        public val maxColCount: Int,
-    ) : MatrixOperationMetrics {
-        override fun toPrettyString(): String =
-            "maxRow=$maxRowCount, maxCol=$maxColCount"
-
-        public companion object {
-            public fun fromInputs(
-                inputs: List<MatrixOperationInput.Subtract>,
-            ): Subtract {
-                require(inputs.isNotEmpty()) { "inputs must not be empty." }
-                return Subtract(
+                return MatrixSize(
                     maxRowCount = inputs.maxOf { it.rowCount },
                     maxColCount = inputs.maxOf { it.colCount },
                 )
@@ -178,86 +127,6 @@ public sealed interface MatrixOperationMetrics {
         }
     }
 
-    public data class MultiplyNumVector(
-        public val maxRowCount: Int,
-        public val maxColCount: Int,
-    ) : MatrixOperationMetrics {
-        override fun toPrettyString(): String =
-            "maxRow=$maxRowCount, maxCol=$maxColCount"
-
-        public companion object {
-            public fun fromInputs(
-                inputs: List<MatrixOperationInput.MultiplyNumVector>,
-            ): MultiplyNumVector {
-                require(inputs.isNotEmpty()) { "inputs must not be empty." }
-                return MultiplyNumVector(
-                    maxRowCount = inputs.maxOf { it.rowCount },
-                    maxColCount = inputs.maxOf { it.colCount },
-                )
-            }
-        }
-    }
-
-    public data class MultiplyScalar(
-        public val maxRowCount: Int,
-        public val maxColCount: Int,
-    ) : MatrixOperationMetrics {
-        override fun toPrettyString(): String =
-            "maxRow=$maxRowCount, maxCol=$maxColCount"
-
-        public companion object {
-            public fun fromInputs(
-                inputs: List<MatrixOperationInput.MultiplyScalar>,
-            ): MultiplyScalar {
-                require(inputs.isNotEmpty()) { "inputs must not be empty." }
-                return MultiplyScalar(
-                    maxRowCount = inputs.maxOf { it.rowCount },
-                    maxColCount = inputs.maxOf { it.colCount },
-                )
-            }
-        }
-    }
-
-    public data class ComputeRowEchelonForm(
-        public val maxRowCount: Int,
-        public val maxColCount: Int,
-    ) : MatrixOperationMetrics {
-        override fun toPrettyString(): String =
-            "maxRow=$maxRowCount, maxCol=$maxColCount"
-
-        public companion object {
-            public fun fromInputs(
-                inputs: List<MatrixOperationInput.ComputeRowEchelonForm>,
-            ): ComputeRowEchelonForm {
-                require(inputs.isNotEmpty()) { "inputs must not be empty." }
-                return ComputeRowEchelonForm(
-                    maxRowCount = inputs.maxOf { it.rowCount },
-                    maxColCount = inputs.maxOf { it.colCount },
-                )
-            }
-        }
-    }
-
-    public data class ComputeTranspose(
-        public val maxRowCount: Int,
-        public val maxColCount: Int,
-    ) : MatrixOperationMetrics {
-        override fun toPrettyString(): String =
-            "maxRow=$maxRowCount, maxCol=$maxColCount"
-
-        public companion object {
-            public fun fromInputs(
-                inputs: List<MatrixOperationInput.ComputeTranspose>,
-            ): ComputeTranspose {
-                require(inputs.isNotEmpty()) { "inputs must not be empty." }
-                return ComputeTranspose(
-                    maxRowCount = inputs.maxOf { it.rowCount },
-                    maxColCount = inputs.maxOf { it.colCount },
-                )
-            }
-        }
-    }
-
     public data class JoinMatrices(
         public val maxRowCount: Int,
         public val maxColCountSum: Int,
@@ -278,7 +147,7 @@ public sealed interface MatrixOperationMetrics {
         }
     }
 
-    public data class ComputeRowSlice(
+    public data class Slice(
         public val maxRowCount: Int,
         public val maxColCount: Int,
         public val maxRangeSize: Int,
@@ -288,75 +157,13 @@ public sealed interface MatrixOperationMetrics {
 
         public companion object {
             public fun fromInputs(
-                inputs: List<MatrixOperationInput.ComputeRowSlice>,
-            ): ComputeRowSlice {
+                inputs: List<MatrixOperationInput.Slice>,
+            ): Slice {
                 require(inputs.isNotEmpty()) { "inputs must not be empty." }
-                return ComputeRowSlice(
+                return Slice(
                     maxRowCount = inputs.maxOf { it.rowCount },
                     maxColCount = inputs.maxOf { it.colCount },
                     maxRangeSize = inputs.maxOf { it.rangeSize },
-                )
-            }
-        }
-    }
-
-    public data class ComputeColSlice(
-        public val maxRowCount: Int,
-        public val maxColCount: Int,
-        public val maxRangeSize: Int,
-    ) : MatrixOperationMetrics {
-        override fun toPrettyString(): String =
-            "maxRow=$maxRowCount, maxCol=$maxColCount, maxRangeSize=$maxRangeSize"
-
-        public companion object {
-            public fun fromInputs(
-                inputs: List<MatrixOperationInput.ComputeColSlice>,
-            ): ComputeColSlice {
-                require(inputs.isNotEmpty()) { "inputs must not be empty." }
-                return ComputeColSlice(
-                    maxRowCount = inputs.maxOf { it.rowCount },
-                    maxColCount = inputs.maxOf { it.colCount },
-                    maxRangeSize = inputs.maxOf { it.rangeSize },
-                )
-            }
-        }
-    }
-
-    public data class FromRowList(
-        public val maxRowCount: Int,
-        public val maxColCount: Int,
-    ) : MatrixOperationMetrics {
-        override fun toPrettyString(): String =
-            "maxRow=$maxRowCount, maxCol=$maxColCount"
-
-        public companion object {
-            public fun fromInputs(
-                inputs: List<MatrixOperationInput.FromRowList>,
-            ): FromRowList {
-                require(inputs.isNotEmpty()) { "inputs must not be empty." }
-                return FromRowList(
-                    maxRowCount = inputs.maxOf { it.rowCount },
-                    maxColCount = inputs.maxOf { it.colCount },
-                )
-            }
-        }
-    }
-
-    public data class FromRowMap(
-        public val maxRowCount: Int,
-        public val maxColCount: Int,
-    ) : MatrixOperationMetrics {
-        override fun toPrettyString(): String =
-            "maxRow=$maxRowCount, maxCol=$maxColCount"
-
-        public companion object {
-            public fun fromInputs(
-                inputs: List<MatrixOperationInput.FromRowMap>,
-            ): FromRowMap {
-                require(inputs.isNotEmpty()) { "inputs must not be empty." }
-                return FromRowMap(
-                    maxRowCount = inputs.maxOf { it.rowCount },
-                    maxColCount = inputs.maxOf { it.colCount },
                 )
             }
         }
@@ -409,29 +216,29 @@ public object MatrixOperationSummaryFactory :
     ): MatrixOperationMetrics {
         return when (operation) {
             MatrixOperation.ADD ->
-                MatrixOperationMetrics.Add.fromInputs(measurements.castedInputs())
+                MatrixOperationMetrics.MatrixSize.fromInputs(measurements.castedInputs())
             MatrixOperation.SUBTRACT ->
-                MatrixOperationMetrics.Subtract.fromInputs(measurements.castedInputs())
+                MatrixOperationMetrics.MatrixSize.fromInputs(measurements.castedInputs())
             MatrixOperation.MULTIPLY_MATRIX ->
                 MatrixOperationMetrics.MultiplyMatrix.fromInputs(measurements.castedInputs())
             MatrixOperation.MULTIPLY_NUM_VECTOR ->
-                MatrixOperationMetrics.MultiplyNumVector.fromInputs(measurements.castedInputs())
+                MatrixOperationMetrics.MatrixSize.fromInputs(measurements.castedInputs())
             MatrixOperation.MULTIPLY_SCALAR ->
-                MatrixOperationMetrics.MultiplyScalar.fromInputs(measurements.castedInputs())
+                MatrixOperationMetrics.MatrixSize.fromInputs(measurements.castedInputs())
             MatrixOperation.COMPUTE_ROW_ECHELON_FORM ->
-                MatrixOperationMetrics.ComputeRowEchelonForm.fromInputs(measurements.castedInputs())
+                MatrixOperationMetrics.MatrixSize.fromInputs(measurements.castedInputs())
             MatrixOperation.COMPUTE_TRANSPOSE ->
-                MatrixOperationMetrics.ComputeTranspose.fromInputs(measurements.castedInputs())
+                MatrixOperationMetrics.MatrixSize.fromInputs(measurements.castedInputs())
             MatrixOperation.JOIN_MATRICES ->
                 MatrixOperationMetrics.JoinMatrices.fromInputs(measurements.castedInputs())
             MatrixOperation.COMPUTE_ROW_SLICE ->
-                MatrixOperationMetrics.ComputeRowSlice.fromInputs(measurements.castedInputs())
+                MatrixOperationMetrics.Slice.fromInputs(measurements.castedInputs())
             MatrixOperation.COMPUTE_COL_SLICE ->
-                MatrixOperationMetrics.ComputeColSlice.fromInputs(measurements.castedInputs())
+                MatrixOperationMetrics.Slice.fromInputs(measurements.castedInputs())
             MatrixOperation.FROM_ROW_LIST ->
-                MatrixOperationMetrics.FromRowList.fromInputs(measurements.castedInputs())
+                MatrixOperationMetrics.MatrixSize.fromInputs(measurements.castedInputs())
             MatrixOperation.FROM_ROW_MAP ->
-                MatrixOperationMetrics.FromRowMap.fromInputs(measurements.castedInputs())
+                MatrixOperationMetrics.MatrixSize.fromInputs(measurements.castedInputs())
         }
     }
 }

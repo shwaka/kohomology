@@ -48,7 +48,8 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     override fun add(first: M, second: M): M {
-        val input = MatrixOperationInput.Add(
+        val input = MatrixOperationInput.MatrixSize(
+            operation = MatrixOperation.ADD,
             rowCount = first.rowCount,
             colCount = first.colCount,
         )
@@ -58,7 +59,8 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     override fun subtract(first: M, second: M): M {
-        val input = MatrixOperationInput.Subtract(
+        val input = MatrixOperationInput.MatrixSize(
+            operation = MatrixOperation.SUBTRACT,
             rowCount = first.rowCount,
             colCount = first.colCount,
         )
@@ -79,7 +81,8 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     override fun multiply(matrix: M, numVector: V): V {
-        val input = MatrixOperationInput.MultiplyNumVector(
+        val input = MatrixOperationInput.MatrixSize(
+            operation = MatrixOperation.MULTIPLY_NUM_VECTOR,
             rowCount = matrix.rowCount,
             colCount = matrix.colCount,
         )
@@ -89,7 +92,8 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     override fun multiply(matrix: M, scalar: S): M {
-        val input = MatrixOperationInput.MultiplyScalar(
+        val input = MatrixOperationInput.MatrixSize(
+            operation = MatrixOperation.MULTIPLY_SCALAR,
             rowCount = matrix.rowCount,
             colCount = matrix.colCount,
         )
@@ -99,7 +103,8 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     override fun computeRowEchelonForm(matrix: M): RowEchelonForm<S, V, M> {
-        val input = MatrixOperationInput.ComputeRowEchelonForm(
+        val input = MatrixOperationInput.MatrixSize(
+            operation = MatrixOperation.COMPUTE_ROW_ECHELON_FORM,
             rowCount = matrix.rowCount,
             colCount = matrix.colCount,
         )
@@ -113,7 +118,8 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     override fun computeTranspose(matrix: M): M {
-        val input = MatrixOperationInput.ComputeTranspose(
+        val input = MatrixOperationInput.MatrixSize(
+            operation = MatrixOperation.COMPUTE_TRANSPOSE,
             rowCount = matrix.rowCount,
             colCount = matrix.colCount,
         )
@@ -134,7 +140,8 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     override fun computeRowSlice(matrix: M, rowRange: IntRange): M {
-        val input = MatrixOperationInput.ComputeRowSlice(
+        val input = MatrixOperationInput.Slice(
+            operation = MatrixOperation.COMPUTE_ROW_SLICE,
             rowCount = matrix.rowCount,
             colCount = matrix.colCount,
             rangeSize = rowRange.toList().size,
@@ -145,7 +152,8 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     override fun computeColSlice(matrix: M, colRange: IntRange): M {
-        val input = MatrixOperationInput.ComputeColSlice(
+        val input = MatrixOperationInput.Slice(
+            operation = MatrixOperation.COMPUTE_COL_SLICE,
             rowCount = matrix.rowCount,
             colCount = matrix.colCount,
             rangeSize = colRange.toList().size,
@@ -156,7 +164,8 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     override fun fromRowList(rowList: List<List<S>>, colCount: Int?): M {
-        val input = MatrixOperationInput.FromRowList(
+        val input = MatrixOperationInput.MatrixSize(
+            operation = MatrixOperation.FROM_ROW_LIST,
             rowCount = rowList.size,
             colCount = colCount ?: rowList[0].size,
         )
@@ -166,7 +175,8 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     override fun fromRowMap(rowMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): M {
-        val input = MatrixOperationInput.FromRowMap(
+        val input = MatrixOperationInput.MatrixSize(
+            operation = MatrixOperation.FROM_ROW_MAP,
             rowCount = rowCount,
             colCount = colCount,
         )

@@ -22,7 +22,18 @@ private val PrettyParen = Paren(
     lowerRight = "⎦"
 )
 
+private fun <T> Collection<Collection<T>>.assertRectangle(): Boolean {
+    if (this.isEmpty()) {
+        return true
+    }
+    return this.map { row -> row.size }.distinct().size <= 1
+}
+
 public class StringTable(private val data: List<List<String>>, private val paren: Paren = PrettyParen) {
+    init {
+        require(this.data.assertRectangle()) { "Non-rectangle" }
+    }
+
     override fun toString(): String {
         val rowStringList = this.data.map { row -> row.toString() }
         val joinedRowStrings = rowStringList.joinToString(this.paren.separator)

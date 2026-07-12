@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.util
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 
@@ -62,5 +63,16 @@ class StringTableTest : FreeSpec({
         """.trimMargin()
 
         table.toPrettyString() shouldBe expected
+    }
+
+    "non-rectangle table should throw IllegalArgumentException" {
+        val data = listOf(
+            listOf("1", "2"),
+            listOf("3"),
+        )
+
+        shouldThrow<IllegalArgumentException> {
+            StringTable(data)
+        }
     }
 })

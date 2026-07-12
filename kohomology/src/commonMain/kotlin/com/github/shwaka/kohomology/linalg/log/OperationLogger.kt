@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.linalg.log
 
+import com.github.shwaka.kohomology.util.Alignment
 import com.github.shwaka.kohomology.util.TableFormatter
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
@@ -46,9 +47,17 @@ public fun <K : OperationKind> formatSummaries(summaries: Map<K, OperationSummar
             summary.metricsText,
         )
     }
+    val alignments = listOf(
+        Alignment.RIGHT,
+        Alignment.RIGHT,
+        Alignment.RIGHT,
+        Alignment.RIGHT,
+        Alignment.LEFT,
+    )
     return TableFormatter(
         data = listOf(header) + stringTable,
         separator = " ",
+        alignments = alignments,
     ).formatPlain()
 }
 

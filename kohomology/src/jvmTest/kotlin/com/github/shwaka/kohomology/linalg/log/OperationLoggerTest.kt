@@ -80,9 +80,9 @@ class OperationLoggerTest : FreeSpec({
             ),
         ).associateBy { it.operation }
         val expected = """
-            |name total  max count    metrics
+            |name total  max count metrics   
             |Slow  20ms 15ms     2 maxSize=30
-            |Fast   5ms  5ms     1  maxSize=2
+            |Fast   5ms  5ms     1 maxSize=2 
         """.trimMargin()
 
         formatSummaries(summaries) shouldBe expected

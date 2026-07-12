@@ -6,6 +6,33 @@
 #   "pandas",
 # ]
 # ///
+#
+# Usage:
+#   1. Publish the current kohomology snapshot to mavenLocal:
+#        cd kohomology
+#        ./gradlew publishToMavenLocal
+#
+#   2. Export operation measurements:
+#        cd ../profile
+#        ./gradlew exportOperationMeasurementsCSV
+#
+#      To select a target non-interactively:
+#        ./gradlew exportOperationMeasurementsCSV -DmeasurementTarget=4
+#
+#      To change the output directory:
+#        ./gradlew exportOperationMeasurementsCSV \
+#          -DmeasurementTarget=4 \
+#          -DmeasurementOutputDir=/tmp/kohomology-operation-measurements
+#
+#   3. Plot the exported CSV:
+#        cd ..
+#        scripts/plot-operation-measurements.py \
+#          profile/build/kohomology/operation-measurements/matrix-operations.csv
+#
+#      For a log-log plot using work_size:
+#        scripts/plot-operation-measurements.py \
+#          profile/build/kohomology/operation-measurements/matrix-operations.csv \
+#          --x-column work_size --log-x --log-y
 
 from __future__ import annotations
 

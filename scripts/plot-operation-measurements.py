@@ -2,10 +2,12 @@
 # /// script
 # requires-python = ">=3.10"
 # dependencies = [
+#   "argcomplete",
 #   "matplotlib",
 #   "pandas",
 # ]
 # ///
+# PYTHON_ARGCOMPLETE_OK
 #
 # Usage:
 #   1. Publish the current kohomology snapshot to mavenLocal:
@@ -65,6 +67,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--log-x", action="store_true")
     parser.add_argument("--log-y", action="store_true")
     parser.add_argument("--show", action="store_true")
+    try:
+        import argcomplete
+
+        argcomplete.autocomplete(parser)
+    except ImportError:
+        pass
     return parser.parse_args()
 
 

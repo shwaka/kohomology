@@ -344,6 +344,45 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 mat.isIdentity().shouldBeTrue()
                 mat.isNotIdentity().shouldBeFalse()
             }
+            "toPrettyString should return a bracketed table" {
+                val mat = listOf(
+                    listOf(one, zero),
+                    listOf(zero, one),
+                ).toMatrix()
+                val oneString = one.toString()
+                val zeroString = zero.toString()
+                val expected = """
+                    |⎡ $oneString $zeroString ⎤
+                    |⎣ $zeroString $oneString ⎦
+                """.trimMargin()
+
+                mat.toPrettyString() shouldBe expected
+            }
+            "toPrettyString for matrix with single row" {
+                val mat = listOf(
+                    listOf(one, -one, zero),
+                ).toMatrix()
+                val oneString = one.toString()
+                val zeroString = zero.toString()
+                val minusOneString = (-one).toString()
+                val expected = "[ $oneString $minusOneString $zeroString ]"
+
+                mat.toPrettyString() shouldBe expected
+            }
+            "toPrettyString for 3×0 matrix" {
+                val mat = matrixSpace.getZero(rowCount = 3, colCount = 0)
+                val expected = """
+                    |⎡  ⎤
+                    |⎥  ⎥
+                    |⎣  ⎦
+                """.trimMargin()
+                mat.toPrettyString() shouldBe expected
+            }
+            "toPrettyString for 0×3 matrix" {
+                val mat = matrixSpace.getZero(rowCount = 0, colCount = 3)
+                val expected = "[ ]"
+                mat.toPrettyString() shouldBe expected
+            }
             "toString and toPrettyString should not throw for square matrix of rank 2" {
                 shouldNotThrowAny {
                     m.toString()

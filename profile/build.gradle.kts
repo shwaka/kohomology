@@ -30,7 +30,7 @@ repositories {
 dependencies {
     testImplementation(kotlin("test-junit"))
     implementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime-jvm:0.4.0")
-    implementation("com.github.shwaka.kohomology:kohomology:0.14-SNAPSHOT")
+    implementation("com.github.shwaka.kohomology:kohomology-jvm:0.14-SNAPSHOT")
     implementation("com.github.shwaka.counter:simple-counter:0.2")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
 }
@@ -48,6 +48,11 @@ application {
 }
 
 tasks.withType<JavaExec> {
+    javaLauncher.set(
+        javaToolchains.launcherFor {
+            languageVersion.set(JavaLanguageVersion.of(17))
+        }
+    )
     // required for readLine() (in profile)
     standardInput = System.`in`
 }
@@ -80,4 +85,15 @@ tasks.register("lf") { dependsOn("ktlintFormat") }
 task("formatBenchmarkResult", JavaExec::class) {
     mainClass.set("com.github.shwaka.kohomology.profile.FormatBenchmarkResultKt")
     classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register("exportOperationMeasurementsCSV", JavaExec::class) {
+    mainClass.set("com.github.shwaka.kohomology.profile.measurement.ExportOperationMeasurementsCSVKt")
+    classpath = sourceSets["main"].runtimeClasspath
+    standardInput = System.`in`
+    listOf("measurementTarget", "measurementOutputDir").forEach { key ->
+        System.getProperty(key)?.let { value ->
+            systemProperty(key, value)
+        }
+    }
 }

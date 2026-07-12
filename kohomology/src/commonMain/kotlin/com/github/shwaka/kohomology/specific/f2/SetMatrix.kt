@@ -6,7 +6,7 @@ import com.github.shwaka.kohomology.linalg.MatrixContext
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.RowEchelonForm
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.util.StringTable
+import com.github.shwaka.kohomology.util.MatrixFormatter
 import com.github.shwaka.kohomology.util.isOdd
 
 public class SetMatrix<S : Scalar>(
@@ -36,13 +36,13 @@ public class SetMatrix<S : Scalar>(
             }
     }
 
-    private fun toStringTable(): StringTable {
+    private fun toStringTable(): MatrixFormatter {
         val valueList = (0 until this.rowCount).map { rowInd ->
             (0 until this.colCount).map { colInd ->
                 this[rowInd, colInd].toString()
             }
         }
-        return StringTable(valueList)
+        return MatrixFormatter(valueList)
     }
 
     override fun toPrettyString(): String {

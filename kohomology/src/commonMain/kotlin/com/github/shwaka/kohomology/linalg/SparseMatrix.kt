@@ -4,7 +4,7 @@ import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.echeloncalc.InPlaceSparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.linalg.echeloncalc.SparseRowEchelonFormCalculator
-import com.github.shwaka.kohomology.util.StringTable
+import com.github.shwaka.kohomology.util.MatrixFormatter
 import com.github.shwaka.kohomology.util.cancel.CancellationContext
 
 public class SparseMatrix<S : Scalar>(
@@ -55,13 +55,13 @@ public class SparseMatrix<S : Scalar>(
             }
     }
 
-    private fun toStringTable(): StringTable {
+    private fun toStringTable(): MatrixFormatter {
         val valueList = (0 until this.rowCount).map { rowInd ->
             (0 until this.colCount).map { colInd ->
                 this[rowInd, colInd].toString()
             }
         }
-        return StringTable(valueList)
+        return MatrixFormatter(valueList)
     }
 
     override fun toPrettyString(): String {

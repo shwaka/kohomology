@@ -2,7 +2,7 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
-import com.github.shwaka.kohomology.util.StringTable
+import com.github.shwaka.kohomology.util.MatrixFormatter
 
 public data class DenseMatrix<S : Scalar>(
     override val numVectorSpace: DenseNumVectorSpace<S>,
@@ -21,8 +21,8 @@ public data class DenseMatrix<S : Scalar>(
         if (this.rowList.any { row -> row.size != this.colCount })
             throw InvalidSizeException("The length of each row must be equal to colCount")
     }
-    private fun toStringTable(): StringTable {
-        return StringTable(this.rowList.map { row -> row.map { it.toString() } })
+    private fun toStringTable(): MatrixFormatter {
+        return MatrixFormatter(this.rowList.map { row -> row.map { it.toString() } })
     }
 
     override fun toPrettyString(): String {

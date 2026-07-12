@@ -22,7 +22,7 @@ private val PrettyParen = Paren(
     lowerRight = "⎦"
 )
 
-internal class StringTable(private val data: List<List<String>>, private val paren: Paren = PrettyParen) {
+internal class MatrixFormatter(private val data: List<List<String>>, private val paren: Paren = PrettyParen) {
     private val formatter: TableFormatter = TableFormatter(this.data, separator = this.paren.separator)
 
     override fun toString(): String {

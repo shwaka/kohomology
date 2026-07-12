@@ -4,15 +4,15 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 
-class StringTableTest : FreeSpec({
+class MatrixFormatterTest : FreeSpec({
     "toString for empty table" {
-        val table = StringTable(emptyList())
+        val table = MatrixFormatter(emptyList())
 
         table.toString() shouldBe "[  ]"
     }
 
     "toPrettyString for empty table" {
-        val table = StringTable(emptyList())
+        val table = MatrixFormatter(emptyList())
 
         table.toPrettyString() shouldBe "[ ]"
     }
@@ -22,7 +22,7 @@ class StringTableTest : FreeSpec({
             listOf("1", "22", "333"),
             listOf("44", "5", "6"),
         )
-        val table = StringTable(data)
+        val table = MatrixFormatter(data)
 
         table.toString() shouldBe "[ [1, 22, 333] [44, 5, 6] ]"
     }
@@ -31,7 +31,7 @@ class StringTableTest : FreeSpec({
         val data = listOf(
             listOf("1", "22", "333"),
         )
-        val table = StringTable(data)
+        val table = MatrixFormatter(data)
 
         table.toPrettyString() shouldBe "[ 1 22 333 ]"
     }
@@ -41,7 +41,7 @@ class StringTableTest : FreeSpec({
             listOf("1", "22", "333"),
             listOf("44", "5", "6"),
         )
-        val table = StringTable(data)
+        val table = MatrixFormatter(data)
         val expected = """
             |⎡  1 22 333 ⎤
             |⎣ 44  5   6 ⎦
@@ -56,7 +56,7 @@ class StringTableTest : FreeSpec({
             listOf("44", "5", "6"),
         )
         val paren = Paren(separator = ",")
-        val table = StringTable(data, paren)
+        val table = MatrixFormatter(data, paren)
         val expected = """
             |[  1,22,333 ]
             |[ 44, 5,  6 ]
@@ -72,7 +72,7 @@ class StringTableTest : FreeSpec({
         )
 
         shouldThrow<IllegalArgumentException> {
-            StringTable(data)
+            MatrixFormatter(data)
         }
     }
 })

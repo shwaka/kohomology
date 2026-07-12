@@ -17,6 +17,8 @@ import com.github.shwaka.kohomology.specific.DecomposedSparseMatrixSpaceOverRati
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.specific.f2.SetMatrixSpaceOverF2Boolean
 import java.io.File
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
@@ -90,6 +92,10 @@ private fun outputDir(): File {
     return File(System.getProperty("measurementOutputDir") ?: "build/kohomology/operation-measurements")
 }
 
+private fun timestamp(): String {
+    return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"))
+}
+
 @ExperimentalTime
 fun main() {
     val target = selectTarget(measurementTargetList())
@@ -108,7 +114,11 @@ fun main() {
 
     val outputDir = outputDir()
     val filenamePrefix = target.executable.filename
-    File(outputDir, "${filenamePrefix}_matrix-operations.csv").writeCSV(target.matrixSpaceWithLog.logger.getMeasurementsCSV())
-    File(outputDir, "${filenamePrefix}_ref-operations.csv").writeCSV(target.matrixSpaceWithLog.refLogger.getMeasurementsCSV())
-    File(outputDir, "${filenamePrefix}_summaries.txt").writeText(target.matrixSpaceWithLog.getFormattedSummaries())
+    val timestamp = timestamp()
+    File(outputDir, "${filenamePrefix}_matrix-operations_$timestamp.csv")
+        .writeCSV(target.matrixSpaceWithLog.logger.getMeasurementsCSV())
+    File(outputDir, "${filenamePrefix}_ref-operations_$timestamp.csv")
+        .writeCSV(target.matrixSpaceWithLog.refLogger.getMeasurementsCSV())
+    File(outputDir, "${filenamePrefix}_summaries_$timestamp.txt")
+        .writeText(target.matrixSpaceWithLog.getFormattedSummaries())
 }

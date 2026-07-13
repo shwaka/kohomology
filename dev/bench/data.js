@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1783874405402,
+  "lastUpdate": 1783907587723,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -13446,6 +13446,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.495,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "b30df7801478a18121502261b217f1b0d1c86736",
+          "message": "fix(profile): use .getBasisForAugmentedDegree(degree) instead of [degree]",
+          "timestamp": "2026-07-13T10:39:41+09:00",
+          "tree_id": "ea56ec930e35089ba656335a41465c42dac1aee3",
+          "url": "https://github.com/shwaka/kohomology/commit/b30df7801478a18121502261b217f1b0d1c86736"
+        },
+        "date": 1783907586489,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.78,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.221,
             "unit": "s/op"
           }
         ]

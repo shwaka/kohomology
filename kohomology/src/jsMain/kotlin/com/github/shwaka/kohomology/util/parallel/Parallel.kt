@@ -5,3 +5,9 @@ internal actual fun <T, R> parallelMap(
     config: ParallelConfig,
     transform: (T) -> R,
 ): List<R> = values.map(transform)
+
+internal actual fun <T> parallelForEach(
+    values: List<T>,
+    config: ParallelConfig,
+    action: (T) -> Unit,
+): Unit = values.forEach(action)

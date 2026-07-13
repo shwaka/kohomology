@@ -17,3 +17,9 @@ internal expect fun <T, R> parallelMap(
     config: ParallelConfig = ParallelConfig(),
     transform: (T) -> R,
 ): List<R>
+
+internal expect fun <T> parallelForEach(
+    values: List<T>,
+    config: ParallelConfig = ParallelConfig(),
+    action: (T) -> Unit,
+)

@@ -30,6 +30,30 @@ internal actual fun <T, R> parallelMap(
     }
 }
 
+@OptIn(ExperimentalCoroutinesApi::class)
+internal actual fun <T> parallelForEach(
+    values: List<T>,
+    config: ParallelConfig,
+    action: (T) -> Unit,
+) {
+    if (values.size < config.minSize) {
+        values.forEach(action)
+        return
+    }
+    val dispatcher = config.parallelism?.let { parallelism ->
+        Dispatchers.Default.limitedParallelism(parallelism)
+    } ?: Dispatchers.Default
+    runBlocking {
+        values.chunked(config.chunkSize).map { chunk ->
+            async(dispatcher) {
+                chunk.forEach(action)
+            }
+        }.forEach { deferred ->
+            deferred.await()
+        }
+    }
+}
+
 private fun <T, R> parallelMapWithDefaultDispatcher(
     values: List<T>,
     chunkSize: Int,

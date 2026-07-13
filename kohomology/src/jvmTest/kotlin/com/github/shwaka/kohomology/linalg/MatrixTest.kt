@@ -738,6 +738,36 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> rowEchelonFormGenTest(
                 }
             }
         }
+        "rowEchelonForm.pivots should be in column range" {
+            checkAll(matrixArb) { mat ->
+                matrixSpace.context.run {
+                    val pivots = mat.rowEchelonForm.pivots
+                    pivots.all { pivot -> pivot in 0 until mat.colCount } shouldBe true
+                }
+            }
+        }
+        "rowEchelonForm.rank should be the number of pivots" {
+            checkAll(matrixArb) { mat ->
+                matrixSpace.context.run {
+                    val rowEchelonForm = mat.rowEchelonForm
+                    rowEchelonForm.rank shouldBe rowEchelonForm.pivots.size
+                }
+            }
+        }
+        "rowEchelonForm.matrix should have exactly pivots.size nonzero rows" {
+            checkAll(matrixArb) { mat ->
+                matrixSpace.context.run {
+                    val rowEchelonForm = mat.rowEchelonForm
+                    val rowEchelonMatrix = rowEchelonForm.matrix
+                    val nonZeroRowCount = (0 until mat.rowCount).count { rowIndex ->
+                        (0 until mat.colCount).any { colIndex ->
+                            rowEchelonMatrix[rowIndex, colIndex].isNotZero()
+                        }
+                    }
+                    nonZeroRowCount shouldBe rowEchelonForm.pivots.size
+                }
+            }
+        }
         "rowEchelonForm.pivots should explicitly describe the row order" {
             checkAll(matrixArb) { mat ->
                 matrixSpace.context.run {
@@ -754,6 +784,33 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> rowEchelonFormGenTest(
                     for (rowIndex in pivots.size until mat.rowCount) {
                         for (colIndex in 0 until mat.colCount) {
                             rowEchelonMatrix[rowIndex, colIndex] shouldBe zero
+                        }
+                    }
+                }
+            }
+        }
+        "rowEchelonForm.reducedMatrix should be in reduced row echelon form" {
+            checkAll(matrixArb) { mat ->
+                matrixSpace.context.run {
+                    val rowEchelonForm = mat.rowEchelonForm
+                    val reducedMatrix = rowEchelonForm.reducedMatrix
+                    val pivots = rowEchelonForm.pivots
+                    for (i in 0 until mat.rowCount) {
+                        val firstNonZeroIndex = (0 until mat.colCount).firstOrNull { j ->
+                            reducedMatrix[i, j].isNotZero()
+                        }
+                        if (i < pivots.size) {
+                            firstNonZeroIndex shouldBe pivots[i]
+                            reducedMatrix[i, pivots[i]] shouldBe one
+                        } else {
+                            firstNonZeroIndex shouldBe null
+                        }
+                    }
+                    for ((rowIndex, pivot) in pivots.withIndex()) {
+                        for (otherRowIndex in 0 until mat.rowCount) {
+                            if (otherRowIndex != rowIndex) {
+                                reducedMatrix[otherRowIndex, pivot] shouldBe zero
+                            }
                         }
                     }
                 }

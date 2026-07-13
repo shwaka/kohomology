@@ -1,6 +1,8 @@
 package com.github.shwaka.kohomology.profile
 
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpace
+import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceOfArkowitzLupton
+import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceOfArkowitzLuptonWithShiftDegree
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceWithMultiDegree
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree
 import com.github.shwaka.kohomology.profile.executable.ComputeReducedRowEchelonFormOfJordanMatrix
@@ -24,6 +26,8 @@ fun main() {
         ComputeRowEchelonFormOfDifferential(SparseMatrixSpaceOverRational),
         ComputeRowEchelonFormOfDifferential(DecomposedSparseMatrixSpaceOverRational),
         ComputeReducedRowEchelonFormOfJordanMatrix(SetMatrixSpaceOverF2Boolean, 5000),
+        CohomologyOfFreeLoopSpaceOfArkowitzLupton(SparseMatrixSpaceOverRational, 250),
+        CohomologyOfFreeLoopSpaceOfArkowitzLuptonWithShiftDegree(SparseMatrixSpaceOverRational, 300),
     )
     val defaultChoice = 0
     println("Select script to profile: (default = $defaultChoice)")

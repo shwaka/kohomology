@@ -71,7 +71,7 @@ private fun measurementTargetList(): List<MeasurementTarget> {
             CohomologyOfFreeLoopSpaceOfArkowitzLupton(matrixSpace, 250)
         },
         measurementTarget(SparseMatrixSpaceOverRational) { matrixSpace ->
-            CohomologyOfFreeLoopSpaceOfArkowitzLuptonWithShiftDegree(matrixSpace, 800)
+            CohomologyOfFreeLoopSpaceOfArkowitzLuptonWithShiftDegree(matrixSpace, 300)
         },
     )
 }

@@ -66,7 +66,7 @@ class CohomologyOfFreeLoopSpaceOfArkowitzLuptonWithShiftDegree<S : Scalar, V : N
 
         var result = ""
         for (degree in 0 until this.degreeLimit) {
-            result += freeLoopSpace.cohomology[degree].toString() + "\n"
+            result += freeLoopSpace.cohomology.getBasisForAugmentedDegree(degree).toString() + "\n"
         }
         return result
     }

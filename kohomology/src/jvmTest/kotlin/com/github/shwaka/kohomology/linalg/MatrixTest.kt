@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
 import com.github.shwaka.kohomology.jvmOnlyTag
+import com.github.shwaka.kohomology.linalg.echeloncalc.IndexedSparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.linalg.echeloncalc.InPlaceSparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.linalg.echeloncalc.NonInPlaceSparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.longRationalTag
@@ -1137,6 +1138,26 @@ class RationalSparseMatrixInPlaceCalculatorTest : FreeSpec({
     val matrixSpace = SparseMatrixSpace(
         numVectorSpace = SparseNumVectorSpaceOverRational,
         sparseRowEchelonFormCalculator = InPlaceSparseRowEchelonFormCalculator(
+            SparseNumVectorSpaceOverRational.field,
+            cancellationContext = null,
+        ),
+    )
+    // include(sparseMatrixSpaceTest(matrixSpace)) // fails around cache
+    include(matrixTest(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
+    include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
+    include(rowEchelonFormGenTest(matrixSpace, 3, 3))
+    include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
+})
+
+class RationalSparseMatrixIndexedCalculatorTest : FreeSpec({
+    tags(matrixTag, sparseMatrixTag, rationalTag)
+
+    val matrixSpace = SparseMatrixSpace(
+        numVectorSpace = SparseNumVectorSpaceOverRational,
+        sparseRowEchelonFormCalculator = IndexedSparseRowEchelonFormCalculator(
             SparseNumVectorSpaceOverRational.field,
             cancellationContext = null,
         ),

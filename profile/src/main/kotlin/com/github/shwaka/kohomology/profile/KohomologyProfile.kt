@@ -30,7 +30,11 @@ fun main() {
         ComputeRowEchelonFormOfDifferential(DecomposedSparseMatrixSpaceOverRational),
         ComputeReducedRowEchelonFormOfJordanMatrix(SetMatrixSpaceOverF2Boolean, 5000),
         CohomologyOfFreeLoopSpaceOfArkowitzLupton(SparseMatrixSpaceOverRational, 250),
-        CohomologyOfFreeLoopSpaceOfArkowitzLuptonWithShiftDegree(SparseMatrixSpaceOverRational, arDegreeLimit),
+        CohomologyOfFreeLoopSpaceOfArkowitzLuptonWithShiftDegree(
+            SparseMatrixSpaceOverRational,
+            arDegreeLimit,
+            label = "sequential",
+        ),
         CohomologyOfFreeLoopSpaceOfArkowitzLuptonWithShiftDegree(
             SparseMatrixSpace.fromParallel(
                 numVectorSpace = SparseNumVectorSpaceOverRational,
@@ -39,6 +43,14 @@ fun main() {
                 parallelism = 8,
             ),
             arDegreeLimit,
+            label = "parallel",
+        ),
+        CohomologyOfFreeLoopSpaceOfArkowitzLuptonWithShiftDegree(
+            SparseMatrixSpace.fromIndexed(
+                numVectorSpace = SparseNumVectorSpaceOverRational,
+            ),
+            arDegreeLimit,
+            label = "indexed",
         ),
     )
     val defaultChoice = 0

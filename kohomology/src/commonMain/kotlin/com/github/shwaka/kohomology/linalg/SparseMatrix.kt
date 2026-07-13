@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
+import com.github.shwaka.kohomology.linalg.echeloncalc.IndexedSparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.linalg.echeloncalc.InPlaceSparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.linalg.echeloncalc.ParallelInPlaceSparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.linalg.echeloncalc.SparseRowEchelonFormCalculator
@@ -350,6 +351,18 @@ public class SparseMatrixSpace<S : Scalar> internal constructor(
                     chunkSize = parallelChunkSize,
                     parallelism = parallelism,
                 ),
+            )
+            return SparseMatrixSpace(numVectorSpace, calculator)
+        }
+
+        public fun <S : Scalar> fromIndexed(
+            numVectorSpace: SparseNumVectorSpace<S>,
+            cancellationContext: CancellationContext? = null,
+        ): SparseMatrixSpace<S> {
+            // Do not save to cache
+            val calculator = IndexedSparseRowEchelonFormCalculator(
+                numVectorSpace.field,
+                cancellationContext = cancellationContext,
             )
             return SparseMatrixSpace(numVectorSpace, calculator)
         }

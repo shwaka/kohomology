@@ -1043,6 +1043,25 @@ class RationalSparseMatrixInPlaceCalculatorTest : FreeSpec({
     include(findPreimageGenTest(matrixSpace, 4, 3))
 })
 
+class RationalSparseMatrixParallelInPlaceCalculatorTest : FreeSpec({
+    tags(matrixTag, sparseMatrixTag, rationalTag)
+
+    val matrixSpace = SparseMatrixSpace.fromParallel(
+        numVectorSpace = SparseNumVectorSpaceOverRational,
+        parallelMinSize = 0,
+        parallelChunkSize = 1,
+        parallelism = 2,
+    )
+    // include(sparseMatrixSpaceTest(matrixSpace)) // fails around cache
+    include(matrixTest(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
+    include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
+    include(rowEchelonFormGenTest(matrixSpace, 3, 3))
+    include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
+})
+
 class IntMod2SparseMatrixTest : FreeSpec({
     tags(matrixTag, sparseMatrixTag, intModpTag)
 

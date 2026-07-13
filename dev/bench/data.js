@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1783907587723,
+  "lastUpdate": 1783925555199,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -13480,6 +13480,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.221,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "f31b2c968cb0c504b2bac6c733abac4a6dfa008b",
+          "message": "perf(core): optimize parallel sparse row echelon updates",
+          "timestamp": "2026-07-13T15:47:21+09:00",
+          "tree_id": "b492f40922385e8f2f09a3ec643d639b077a223b",
+          "url": "https://github.com/shwaka/kohomology/commit/f31b2c968cb0c504b2bac6c733abac4a6dfa008b"
+        },
+        "date": 1783925554294,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.9,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.31,
             "unit": "s/op"
           }
         ]

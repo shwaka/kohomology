@@ -730,6 +730,57 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> rowEchelonFormGenTest(
                 }
             }
         }
+        "rowEchelonForm.pivots should be strictly increasing" {
+            checkAll(matrixArb) { mat ->
+                matrixSpace.context.run {
+                    val pivots = mat.rowEchelonForm.pivots
+                    pivots.zipWithNext().all { (previous, next) -> previous < next } shouldBe true
+                }
+            }
+        }
+        "rowEchelonForm.pivots should explicitly describe the row order" {
+            checkAll(matrixArb) { mat ->
+                matrixSpace.context.run {
+                    val rowEchelonForm = mat.rowEchelonForm
+                    val rowEchelonMatrix = rowEchelonForm.matrix
+                    val pivots = rowEchelonForm.pivots
+                    pivots shouldBe pivots.sorted()
+                    for ((rowIndex, pivot) in pivots.withIndex()) {
+                        rowEchelonMatrix[rowIndex, pivot].isNotZero() shouldBe true
+                        for (colIndex in 0 until pivot) {
+                            rowEchelonMatrix[rowIndex, colIndex] shouldBe zero
+                        }
+                    }
+                    for (rowIndex in pivots.size until mat.rowCount) {
+                        for (colIndex in 0 until mat.colCount) {
+                            rowEchelonMatrix[rowIndex, colIndex] shouldBe zero
+                        }
+                    }
+                }
+            }
+        }
+        "rowEchelonForm.reducedMatrix should use the same pivot row order" {
+            checkAll(matrixArb) { mat ->
+                matrixSpace.context.run {
+                    val rowEchelonForm = mat.rowEchelonForm
+                    val reducedMatrix = rowEchelonForm.reducedMatrix
+                    val pivots = rowEchelonForm.pivots
+                    for ((rowIndex, pivot) in pivots.withIndex()) {
+                        reducedMatrix[rowIndex, pivot] shouldBe one
+                        for (otherRowIndex in 0 until mat.rowCount) {
+                            if (otherRowIndex != rowIndex) {
+                                reducedMatrix[otherRowIndex, pivot] shouldBe zero
+                            }
+                        }
+                    }
+                    for (rowIndex in pivots.size until mat.rowCount) {
+                        for (colIndex in 0 until mat.colCount) {
+                            reducedMatrix[rowIndex, colIndex] shouldBe zero
+                        }
+                    }
+                }
+            }
+        }
         "multiplying reducedTransformation should give the reduced row echelon form" {
             checkAll(matrixArb) { mat ->
                 matrixSpace.context.run {

@@ -305,7 +305,7 @@ public class SparseMatrixSpace<S : Scalar> internal constructor(
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？
         private val cache: MutableMap<SparseNumVectorSpace<*>, SparseMatrixSpace<*>> = mutableMapOf()
-        private val defaultAlgorithm: SparseRowEchelonFormAlgorithm =
+        internal val defaultAlgorithm: SparseRowEchelonFormAlgorithm =
             SparseRowEchelonFormAlgorithm.InPlace
 
         public fun <S : Scalar> from(

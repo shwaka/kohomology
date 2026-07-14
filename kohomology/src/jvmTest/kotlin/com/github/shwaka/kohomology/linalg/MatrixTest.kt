@@ -67,14 +67,21 @@ fun <S : Scalar> sparseMatrixSpaceTest(matrixSpace: SparseMatrixSpace<S>) = free
         "factory should return the cache for the explicit default row echelon algorithm" {
             SparseMatrixSpace.from(
                 numVectorSpace = numVectorSpace,
-                rowEchelonAlgorithm = SparseRowEchelonFormAlgorithm.InPlace,
+                rowEchelonAlgorithm = SparseMatrixSpace.defaultAlgorithm,
             ) shouldBeSameInstanceAs matrixSpace
         }
         "factory should not cache non-default row echelon algorithms" {
-            SparseMatrixSpace.from(
-                numVectorSpace = numVectorSpace,
-                rowEchelonAlgorithm = SparseRowEchelonFormAlgorithm.Indexed,
-            ) shouldNotBeSameInstanceAs matrixSpace
+            val nonDefaultAlgorithms = listOf(
+                SparseRowEchelonFormAlgorithm.InPlace,
+                SparseRowEchelonFormAlgorithm.Indexed,
+                SparseRowEchelonFormAlgorithm.Parallel(),
+            ).filter { algorithm -> algorithm != SparseMatrixSpace.defaultAlgorithm }
+            for (algorithm in nonDefaultAlgorithms) {
+                SparseMatrixSpace.from(
+                    numVectorSpace = numVectorSpace,
+                    rowEchelonAlgorithm = algorithm,
+                ) shouldNotBeSameInstanceAs matrixSpace
+            }
         }
     }
 

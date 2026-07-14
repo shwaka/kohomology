@@ -305,6 +305,9 @@ public class SparseMatrixSpace<S : Scalar> internal constructor(
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？
         private val cache: MutableMap<SparseNumVectorSpace<*>, SparseMatrixSpace<*>> = mutableMapOf()
+        private val defaultAlgorithm: SparseRowEchelonFormAlgorithm =
+            SparseRowEchelonFormAlgorithm.InPlace
+
         public fun <S : Scalar> from(
             numVectorSpace: SparseNumVectorSpace<S>,
         ): SparseMatrixSpace<S> {
@@ -312,7 +315,7 @@ public class SparseMatrixSpace<S : Scalar> internal constructor(
                 @Suppress("UNCHECKED_CAST")
                 return this.cache[numVectorSpace] as SparseMatrixSpace<S>
             } else {
-                val calculator = InPlaceSparseRowEchelonFormCalculator(
+                val calculator = this.defaultAlgorithm.createCalculator(
                     numVectorSpace.field,
                     cancellationContext = null,
                 )
@@ -328,7 +331,7 @@ public class SparseMatrixSpace<S : Scalar> internal constructor(
         ): SparseMatrixSpace<S> {
             return this.from(
                 numVectorSpace = numVectorSpace,
-                rowEchelonAlgorithm = SparseRowEchelonFormAlgorithm.InPlace,
+                rowEchelonAlgorithm = this.defaultAlgorithm,
                 cancellationContext = cancellationContext,
             )
         }
@@ -338,7 +341,7 @@ public class SparseMatrixSpace<S : Scalar> internal constructor(
             rowEchelonAlgorithm: SparseRowEchelonFormAlgorithm,
             cancellationContext: CancellationContext? = null,
         ): SparseMatrixSpace<S> {
-            if (rowEchelonAlgorithm == SparseRowEchelonFormAlgorithm.InPlace && cancellationContext == null) {
+            if (rowEchelonAlgorithm == this.defaultAlgorithm && cancellationContext == null) {
                 return this.from(numVectorSpace)
             }
             // Do not save to cache

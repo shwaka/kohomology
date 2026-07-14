@@ -327,19 +327,8 @@ public class SparseMatrixSpace<S : Scalar> internal constructor(
 
         public fun <S : Scalar> from(
             numVectorSpace: SparseNumVectorSpace<S>,
-            cancellationContext: CancellationContext?,
-        ): SparseMatrixSpace<S> {
-            return this.from(
-                numVectorSpace = numVectorSpace,
-                rowEchelonAlgorithm = this.defaultAlgorithm,
-                cancellationContext = cancellationContext,
-            )
-        }
-
-        public fun <S : Scalar> from(
-            numVectorSpace: SparseNumVectorSpace<S>,
-            rowEchelonAlgorithm: SparseRowEchelonFormAlgorithm,
             cancellationContext: CancellationContext? = null,
+            rowEchelonAlgorithm: SparseRowEchelonFormAlgorithm = this.defaultAlgorithm,
         ): SparseMatrixSpace<S> {
             if (rowEchelonAlgorithm == this.defaultAlgorithm && cancellationContext == null) {
                 return this.from(numVectorSpace)

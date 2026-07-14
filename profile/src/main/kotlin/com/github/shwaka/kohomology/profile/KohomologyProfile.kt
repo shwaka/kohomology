@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.profile
 
 import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
+import com.github.shwaka.kohomology.linalg.echeloncalc.SparseRowEchelonFormAlgorithm
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpace
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceOfArkowitzLupton
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceOfArkowitzLuptonWithShiftDegree
@@ -36,18 +37,21 @@ fun main() {
             label = "sequential",
         ),
         CohomologyOfFreeLoopSpaceOfArkowitzLuptonWithShiftDegree(
-            SparseMatrixSpace.fromParallel(
+            SparseMatrixSpace.from(
                 numVectorSpace = SparseNumVectorSpaceOverRational,
-                parallelMinSize = 128,
-                parallelChunkSize = 16,
-                parallelism = 8,
+                rowEchelonAlgorithm = SparseRowEchelonFormAlgorithm.Parallel(
+                    parallelMinSize = 128,
+                    parallelChunkSize = 16,
+                    parallelism = 8,
+                ),
             ),
             arDegreeLimit,
             label = "parallel",
         ),
         CohomologyOfFreeLoopSpaceOfArkowitzLuptonWithShiftDegree(
-            SparseMatrixSpace.fromIndexed(
+            SparseMatrixSpace.from(
                 numVectorSpace = SparseNumVectorSpaceOverRational,
+                rowEchelonAlgorithm = SparseRowEchelonFormAlgorithm.Indexed,
             ),
             arDegreeLimit,
             label = "indexed",

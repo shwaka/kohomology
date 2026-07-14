@@ -6,8 +6,8 @@ import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
 import com.github.shwaka.kohomology.jvmOnlyTag
 import com.github.shwaka.kohomology.linalg.echeloncalc.InPlaceSparseRowEchelonFormCalculator
-import com.github.shwaka.kohomology.linalg.echeloncalc.IndexedSparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.linalg.echeloncalc.NonInPlaceSparseRowEchelonFormCalculator
+import com.github.shwaka.kohomology.linalg.echeloncalc.SparseRowEchelonFormAlgorithm
 import com.github.shwaka.kohomology.longRationalTag
 import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverF2
@@ -63,6 +63,18 @@ fun <S : Scalar> sparseMatrixSpaceTest(matrixSpace: SparseMatrixSpace<S>) = free
         val numVectorSpace = matrixSpace.numVectorSpace
         "factory should return the cache if exists" {
             SparseMatrixSpace.from(numVectorSpace) shouldBeSameInstanceAs matrixSpace
+        }
+        "factory should return the cache for the explicit default row echelon algorithm" {
+            SparseMatrixSpace.from(
+                numVectorSpace = numVectorSpace,
+                rowEchelonAlgorithm = SparseRowEchelonFormAlgorithm.InPlace,
+            ) shouldBeSameInstanceAs matrixSpace
+        }
+        "factory should not cache non-default row echelon algorithms" {
+            SparseMatrixSpace.from(
+                numVectorSpace = numVectorSpace,
+                rowEchelonAlgorithm = SparseRowEchelonFormAlgorithm.Indexed,
+            ) shouldNotBeSameInstanceAs matrixSpace
         }
     }
 
@@ -1155,12 +1167,9 @@ class RationalSparseMatrixInPlaceCalculatorTest : FreeSpec({
 class RationalSparseMatrixIndexedCalculatorTest : FreeSpec({
     tags(matrixTag, sparseMatrixTag, rationalTag)
 
-    val matrixSpace = SparseMatrixSpace(
+    val matrixSpace = SparseMatrixSpace.from(
         numVectorSpace = SparseNumVectorSpaceOverRational,
-        sparseRowEchelonFormCalculator = IndexedSparseRowEchelonFormCalculator(
-            SparseNumVectorSpaceOverRational.field,
-            cancellationContext = null,
-        ),
+        rowEchelonAlgorithm = SparseRowEchelonFormAlgorithm.Indexed,
     )
     // include(sparseMatrixSpaceTest(matrixSpace)) // fails around cache
     include(matrixTest(matrixSpace))
@@ -1175,11 +1184,13 @@ class RationalSparseMatrixIndexedCalculatorTest : FreeSpec({
 class RationalSparseMatrixParallelInPlaceCalculatorTest : FreeSpec({
     tags(matrixTag, sparseMatrixTag, rationalTag)
 
-    val matrixSpace = SparseMatrixSpace.fromParallel(
+    val matrixSpace = SparseMatrixSpace.from(
         numVectorSpace = SparseNumVectorSpaceOverRational,
-        parallelMinSize = 0,
-        parallelChunkSize = 1,
-        parallelism = 2,
+        rowEchelonAlgorithm = SparseRowEchelonFormAlgorithm.Parallel(
+            parallelMinSize = 0,
+            parallelChunkSize = 1,
+            parallelism = 2,
+        ),
     )
     // include(sparseMatrixSpaceTest(matrixSpace)) // fails around cache
     include(matrixTest(matrixSpace))

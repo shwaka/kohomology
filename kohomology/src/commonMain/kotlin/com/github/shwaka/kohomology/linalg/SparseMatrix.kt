@@ -3,12 +3,11 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.echeloncalc.InPlaceSparseRowEchelonFormCalculator
-import com.github.shwaka.kohomology.linalg.echeloncalc.IndexedSparseRowEchelonFormCalculator
-import com.github.shwaka.kohomology.linalg.echeloncalc.ParallelInPlaceSparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.linalg.echeloncalc.SparseRowEchelonFormCalculator
+import com.github.shwaka.kohomology.linalg.echeloncalc.SparseRowEchelonFormAlgorithm
+import com.github.shwaka.kohomology.linalg.echeloncalc.createCalculator
 import com.github.shwaka.kohomology.util.MatrixFormatter
 import com.github.shwaka.kohomology.util.cancel.CancellationContext
-import com.github.shwaka.kohomology.util.parallel.ParallelConfig
 
 public class SparseMatrix<S : Scalar>(
     override val numVectorSpace: SparseNumVectorSpace<S>,
@@ -327,40 +326,23 @@ public class SparseMatrixSpace<S : Scalar> internal constructor(
             numVectorSpace: SparseNumVectorSpace<S>,
             cancellationContext: CancellationContext?,
         ): SparseMatrixSpace<S> {
-            // Do not save to cache
-            val calculator = InPlaceSparseRowEchelonFormCalculator(
-                numVectorSpace.field,
+            return this.from(
+                numVectorSpace = numVectorSpace,
+                rowEchelonAlgorithm = SparseRowEchelonFormAlgorithm.InPlace,
                 cancellationContext = cancellationContext,
             )
-            return SparseMatrixSpace(numVectorSpace, calculator)
         }
 
-        public fun <S : Scalar> fromParallel(
+        public fun <S : Scalar> from(
             numVectorSpace: SparseNumVectorSpace<S>,
-            cancellationContext: CancellationContext? = null,
-            parallelMinSize: Int = 128,
-            parallelChunkSize: Int = 16,
-            parallelism: Int? = null,
-        ): SparseMatrixSpace<S> {
-            // Do not save to cache
-            val calculator = ParallelInPlaceSparseRowEchelonFormCalculator(
-                numVectorSpace.field,
-                cancellationContext = cancellationContext,
-                parallelConfig = ParallelConfig(
-                    minSize = parallelMinSize,
-                    chunkSize = parallelChunkSize,
-                    parallelism = parallelism,
-                ),
-            )
-            return SparseMatrixSpace(numVectorSpace, calculator)
-        }
-
-        public fun <S : Scalar> fromIndexed(
-            numVectorSpace: SparseNumVectorSpace<S>,
+            rowEchelonAlgorithm: SparseRowEchelonFormAlgorithm,
             cancellationContext: CancellationContext? = null,
         ): SparseMatrixSpace<S> {
+            if (rowEchelonAlgorithm == SparseRowEchelonFormAlgorithm.InPlace && cancellationContext == null) {
+                return this.from(numVectorSpace)
+            }
             // Do not save to cache
-            val calculator = IndexedSparseRowEchelonFormCalculator(
+            val calculator = rowEchelonAlgorithm.createCalculator(
                 numVectorSpace.field,
                 cancellationContext = cancellationContext,
             )

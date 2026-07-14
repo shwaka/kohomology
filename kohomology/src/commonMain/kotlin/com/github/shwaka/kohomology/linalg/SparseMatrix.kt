@@ -3,8 +3,8 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.echeloncalc.InPlaceSparseRowEchelonFormCalculator
-import com.github.shwaka.kohomology.linalg.echeloncalc.SparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.linalg.echeloncalc.SparseRowEchelonFormAlgorithm
+import com.github.shwaka.kohomology.linalg.echeloncalc.SparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.linalg.echeloncalc.createCalculator
 import com.github.shwaka.kohomology.util.MatrixFormatter
 import com.github.shwaka.kohomology.util.cancel.CancellationContext

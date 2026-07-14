@@ -367,7 +367,7 @@ public class DecomposedSparseMatrixSpace<S : Scalar> private constructor(
                 @Suppress("UNCHECKED_CAST")
                 return this.cache[numVectorSpace] as DecomposedSparseMatrixSpace<S>
             } else {
-                val calculator = InPlaceSparseRowEchelonFormCalculator(
+                val calculator = SparseRowEchelonFormAlgorithm.default.createCalculator(
                     numVectorSpace.field,
                     cancellationContext = null,
                 )
@@ -379,10 +379,14 @@ public class DecomposedSparseMatrixSpace<S : Scalar> private constructor(
 
         public fun <S : Scalar> from(
             numVectorSpace: SparseNumVectorSpace<S>,
-            cancellationContext: CancellationContext?,
+            cancellationContext: CancellationContext? = null,
+            rowEchelonAlgorithm: SparseRowEchelonFormAlgorithm = SparseRowEchelonFormAlgorithm.default,
         ): DecomposedSparseMatrixSpace<S> {
+            if (rowEchelonAlgorithm == SparseRowEchelonFormAlgorithm.default && cancellationContext == null) {
+                return this.from(numVectorSpace)
+            }
             // Do not save to cache
-            val calculator = InPlaceSparseRowEchelonFormCalculator(
+            val calculator = rowEchelonAlgorithm.createCalculator(
                 numVectorSpace.field,
                 cancellationContext = cancellationContext,
             )

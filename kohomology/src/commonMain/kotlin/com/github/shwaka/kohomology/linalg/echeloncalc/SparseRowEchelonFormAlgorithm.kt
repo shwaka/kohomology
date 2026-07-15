@@ -22,6 +22,8 @@ public sealed interface SparseRowEchelonFormAlgorithm {
 
     public data object Indexed : SparseRowEchelonFormAlgorithm
 
+    public data object NonInPlace : SparseRowEchelonFormAlgorithm
+
     public companion object {
         public val default: SparseRowEchelonFormAlgorithm = Indexed
     }
@@ -47,6 +49,10 @@ internal fun <S : Scalar> SparseRowEchelonFormAlgorithm.createCalculator(
         )
         SparseRowEchelonFormAlgorithm.Indexed -> IndexedSparseRowEchelonFormCalculator(
             field,
+            cancellationContext = cancellationContext,
+        )
+        SparseRowEchelonFormAlgorithm.NonInPlace -> NonInPlaceSparseRowEchelonFormCalculator(
+            field = field,
             cancellationContext = cancellationContext,
         )
     }

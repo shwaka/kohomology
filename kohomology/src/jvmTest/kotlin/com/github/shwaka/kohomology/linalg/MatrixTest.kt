@@ -74,6 +74,7 @@ fun <S : Scalar> sparseMatrixSpaceTest(matrixSpace: SparseMatrixSpace<S>) = free
             val nonDefaultAlgorithms = listOf(
                 SparseRowEchelonFormAlgorithm.InPlace,
                 SparseRowEchelonFormAlgorithm.Indexed,
+                SparseRowEchelonFormAlgorithm.NonInPlace,
                 SparseRowEchelonFormAlgorithm.Parallel(),
             ).filter { algorithm -> algorithm != SparseRowEchelonFormAlgorithm.default }
             for (algorithm in nonDefaultAlgorithms) {

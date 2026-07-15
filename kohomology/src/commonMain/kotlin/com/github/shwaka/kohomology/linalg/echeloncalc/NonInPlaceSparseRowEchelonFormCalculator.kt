@@ -2,12 +2,14 @@ package com.github.shwaka.kohomology.linalg.echeloncalc
 
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.util.cancel.CancellationContext
 
 // SparseRowEchelonFormCalculator is slower than InPlaceSparseRowEchelonFormCalculator
 // and hence currently it is not used.
 // It is remaining here for debugging.
 internal class NonInPlaceSparseRowEchelonFormCalculator<S : Scalar>(
-    private val field: Field<S>
+    private val field: Field<S>,
+    private val cancellationContext: CancellationContext?,
 ) : SparseRowEchelonFormCalculator<S> {
     override fun rowEchelonForm(matrix: Map<Int, Map<Int, S>>, colCount: Int): SparseRowEchelonFormData<S> {
         return matrix.rowEchelonFormInternal(0, listOf(), 0, colCount)
@@ -16,15 +18,21 @@ internal class NonInPlaceSparseRowEchelonFormCalculator<S : Scalar>(
     override fun reduce(rowEchelonRowMap: Map<Int, Map<Int, S>>, pivots: List<Int>): Map<Int, Map<Int, S>> {
         val rank = pivots.size
         var reducedRowMap = rowEchelonRowMap.mapValues { (i, row) ->
+            this.checkCancellation()
             val elm: S = row[pivots[i]] ?: throw Exception("This can't happen!")
             this.field.context.run {
                 row * elm.inv()
             }
         }
         for (i in 0 until rank) {
+            this.checkCancellation()
             reducedRowMap = reducedRowMap.eliminateOtherRows(i, pivots[i])
         }
         return reducedRowMap
+    }
+
+    private fun checkCancellation() {
+        this.cancellationContext?.check()
     }
 
     private tailrec fun Map<Int, Map<Int, S>>.rowEchelonFormInternal(
@@ -34,6 +42,7 @@ internal class NonInPlaceSparseRowEchelonFormCalculator<S : Scalar>(
         colCount: Int
     ): SparseRowEchelonFormData<S> {
         // use 'tailrec' to avoid StackOverflowError
+        this@NonInPlaceSparseRowEchelonFormCalculator.checkCancellation()
         if (this.isEmpty()) {
             // 全ての成分が0の場合
             return SparseRowEchelonFormData(this, emptyList(), 0)

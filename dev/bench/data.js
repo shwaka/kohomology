@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1784101895049,
+  "lastUpdate": 1784124101477,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -13718,6 +13718,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.373,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "a55a9a8e3aaa55ee51b6827e2c8838fdd3959901",
+          "message": "feat(misc): add AGENTS.md",
+          "timestamp": "2026-07-15T22:55:52+09:00",
+          "tree_id": "6d0e267048e76b43802d0d2ec373f97e297d7fde",
+          "url": "https://github.com/shwaka/kohomology/commit/a55a9a8e3aaa55ee51b6827e2c8838fdd3959901"
+        },
+        "date": 1784124100764,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.87,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.266,
             "unit": "s/op"
           }
         ]

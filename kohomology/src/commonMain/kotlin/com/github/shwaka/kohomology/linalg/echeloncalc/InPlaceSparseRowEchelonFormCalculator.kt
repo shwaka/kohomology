@@ -40,6 +40,7 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(
         val rank = pivots.size
         val reducedRowMap = rowEchelonRowMap.toMutableMapDeeply()
         for ((i, row) in reducedRowMap) {
+            this.cancellationContext?.check()
             val elm: S = row[pivots[i]] ?: throw Exception("This can't happen!")
             val elmInv = this.field.context.run {
                 elm.inv()
@@ -47,6 +48,7 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(
             row.multiply(elmInv)
         }
         for (i in 0 until rank) {
+            this.cancellationContext?.check()
             reducedRowMap.eliminateRowsAboveWithNormalizedPivot(i, pivots[i])
         }
         return reducedRowMap

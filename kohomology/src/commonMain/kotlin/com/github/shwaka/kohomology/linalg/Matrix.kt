@@ -282,17 +282,25 @@ public abstract class RowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S,
     }
 
     public val transformation: M by lazy {
+        this.computeTransformation()
+    }
+    public val reducedTransformation: M by lazy {
+        this.computeReducedTransformation()
+    }
+
+    protected open fun computeTransformation(): M {
         val originalColCount = this.originalMatrix.colCount
         val augmentedColCount = this.augmentedOriginalMatrix.colCount
-        this.matrixSpace.context.run {
+        return this.matrixSpace.context.run {
             this@RowEchelonForm.augmentedOriginalMatrix.rowEchelonForm.matrix
                 .colSlice(originalColCount until augmentedColCount)
         }
     }
-    public val reducedTransformation: M by lazy {
+
+    protected open fun computeReducedTransformation(): M {
         val originalColCount = this.originalMatrix.colCount
         val augmentedColCount = this.augmentedOriginalMatrix.colCount
-        this.matrixSpace.context.run {
+        return this.matrixSpace.context.run {
             this@RowEchelonForm.augmentedOriginalMatrix.rowEchelonForm.reducedMatrix
                 .colSlice(originalColCount until augmentedColCount)
         }

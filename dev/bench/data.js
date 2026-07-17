@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1784193467457,
+  "lastUpdate": 1784261478579,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -13820,6 +13820,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.708,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "2f09206ad3feca0f3734245d079c02bfa6381cb2",
+          "message": "docs(core): add comments to RowEchelonForm.compute(Reduced)Transformation",
+          "timestamp": "2026-07-17T13:06:00+09:00",
+          "tree_id": "5afa1e378eae80c52de95d247f517125adf52f87",
+          "url": "https://github.com/shwaka/kohomology/commit/2f09206ad3feca0f3734245d079c02bfa6381cb2"
+        },
+        "date": 1784261477237,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.805,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.147,
             "unit": "s/op"
           }
         ]

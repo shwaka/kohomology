@@ -292,6 +292,7 @@ public abstract class RowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S,
         val originalColCount = this.originalMatrix.colCount
         val augmentedColCount = this.augmentedOriginalMatrix.colCount
         return this.matrixSpace.context.run {
+            // Use rowEchelonForm.matrix to preserve the usual RowEchelonForm and Matrix caches.
             this@RowEchelonForm.augmentedOriginalMatrix.rowEchelonForm.matrix
                 .colSlice(originalColCount until augmentedColCount)
         }
@@ -301,6 +302,7 @@ public abstract class RowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S,
         val originalColCount = this.originalMatrix.colCount
         val augmentedColCount = this.augmentedOriginalMatrix.colCount
         return this.matrixSpace.context.run {
+            // Use rowEchelonForm.reducedMatrix to preserve the usual RowEchelonForm and Matrix caches.
             this@RowEchelonForm.augmentedOriginalMatrix.rowEchelonForm.reducedMatrix
                 .colSlice(originalColCount until augmentedColCount)
         }

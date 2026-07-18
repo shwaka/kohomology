@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.linalg.sparseMatrixTag
 import com.github.shwaka.kohomology.myArbList
 import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.specific.Rational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverRational
 import io.kotest.assertions.withClue
 import io.kotest.core.spec.style.FreeSpec
@@ -42,6 +43,12 @@ class SparseRowEchelonFormCalculatorTest : FreeSpec({
             cancellationContext = null,
         ),
     )
+    val trackingCalculators = calculators.map { (name, calculator) ->
+        name to AugmentedTransformTrackingSparseRowEchelonFormCalculator(
+            baseCalculator = calculator,
+            field = field,
+        )
+    }
 
     "rowEchelonForm should satisfy sparse row echelon data invariants for fixed examples" {
         val examples = field.context.run {
@@ -144,6 +151,60 @@ class SparseRowEchelonFormCalculatorTest : FreeSpec({
             }
         }
     }
+
+    "rowEchelonFormWithTransformation should agree with ordinary rowEchelonForm" {
+        val rowMapArb = sparseRowMapArb(
+            valueArb = Arb.int(-5..5),
+            rowCount = 4,
+            colCount = 5,
+        )
+        checkAll(rowMapArb) { rowMap ->
+            for ((name, trackingCalculator) in trackingCalculators) {
+                withClue(name) {
+                    val data = trackingCalculator.rowEchelonFormWithTransformation(
+                        matrix = rowMap,
+                        rowCount = 4,
+                        colCount = 5,
+                    )
+                    val ordinaryData = trackingCalculator.rowEchelonForm(rowMap, colCount = 5)
+                    data.copy(transformationRowMap = null) shouldBe ordinaryData
+                    assertTransformationMatches(
+                        originalRowMap = rowMap,
+                        rowCount = 4,
+                        colCount = 5,
+                        data = data,
+                    )
+                }
+            }
+        }
+    }
+
+    "reduceWithTransformation should produce reducedTransformation matching reduced row echelon form" {
+        val rowMapArb = sparseRowMapArb(
+            valueArb = Arb.int(-5..5),
+            rowCount = 4,
+            colCount = 5,
+        )
+        checkAll(rowMapArb) { rowMap ->
+            for ((name, trackingCalculator) in trackingCalculators) {
+                withClue(name) {
+                    val data = trackingCalculator.rowEchelonFormWithTransformation(
+                        matrix = rowMap,
+                        rowCount = 4,
+                        colCount = 5,
+                    )
+                    val reducedData = trackingCalculator.reduceWithTransformation(data)
+                    reducedData.rowMap shouldBe trackingCalculator.reduce(data.rowMap, data.pivots)
+                    assertTransformationMatches(
+                        originalRowMap = rowMap,
+                        rowCount = 4,
+                        colCount = 5,
+                        data = reducedData,
+                    )
+                }
+            }
+        }
+    }
 })
 
 private fun <S : Scalar> SparseRowEchelonFormCalculator<S>.computeReducedRowMap(
@@ -197,6 +258,22 @@ private fun <S : Scalar> assertReducedRowEchelonMap(
                 (rowMap[targetRowIndex]?.get(pivot) ?: zero) shouldBe zero
             }
         }
+    }
+}
+
+private fun assertTransformationMatches(
+    originalRowMap: Map<Int, Map<Int, Rational>>,
+    rowCount: Int,
+    colCount: Int,
+    data: SparseRowEchelonFormData<Rational>,
+) {
+    val transformationRowMap = data.transformationRowMap
+        ?: error("Expected transformationRowMap")
+    SparseMatrixSpaceOverRational.context.run {
+        val originalMatrix = originalRowMap.toMatrix(rowCount, colCount)
+        val rowEchelonMatrix = data.rowMap.toMatrix(rowCount, colCount)
+        val transformation = transformationRowMap.toMatrix(rowCount, rowCount)
+        (transformation * originalMatrix) shouldBe rowEchelonMatrix
     }
 }
 

@@ -11,6 +11,12 @@ const execAsync = util.promisify(exec)
 const valueSeparator = "---value-sep---"
 const commitSeparator = "---commit-sep---"
 
+// Node.js defaults maxBuffer to 1 MiB, which is enough for roughly 4,500 commits
+// in this repository (about 230 bytes per commit on average).
+// Increase it to 16 MiB so the limit becomes roughly 70,000 commits,
+// which should be sufficient for the foreseeable future.
+const gitOutputMaxBuffer = 16 * 1024 * 1024 // 16MiB
+
 async function gitLog(): Promise<string> {
   const commitFormat = [
     "%H", // commit hash
@@ -20,7 +26,10 @@ async function gitLog(): Promise<string> {
     "%B" // commit message
   ].join(valueSeparator)
   const { stdout } = await execAsync(
-    `git log --reverse --pretty=format:"${commitSeparator}${commitFormat}" --date=iso-strict`
+    `git log --reverse --pretty=format:"${commitSeparator}${commitFormat}" --date=iso-strict`,
+    {
+      maxBuffer: gitOutputMaxBuffer,
+    },
   )
   return stdout
 }

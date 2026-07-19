@@ -1,5 +1,5 @@
 import { screen, waitFor, waitForElementToBeRemoved, within } from "@testing-library/react"
-import { UserEvent } from "@testing-library/user-event"
+import { type UserEvent } from "@testing-library/user-event"
 
 export class InputIdeal {
   private static async openDialog(user: UserEvent): Promise<HTMLElement> {

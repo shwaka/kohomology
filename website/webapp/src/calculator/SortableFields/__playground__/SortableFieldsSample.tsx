@@ -1,11 +1,11 @@
-import { ReactElement } from "react"
+import { type ReactElement } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useFieldArray, useForm } from "react-hook-form"
 
-import { FormData, SortableFields } from ".."
+import { type FormData, SortableFields } from ".."
 import { PersonRow } from "./PersonRow"
-import { PeopleFormInput, peopleFormValueSchema, Person } from "./schema"
+import { type PeopleFormInput, peopleFormValueSchema, type Person } from "./schema"
 
 export function SortableFieldsSample(): ReactElement {
   const defaultValues: PeopleFormInput = {

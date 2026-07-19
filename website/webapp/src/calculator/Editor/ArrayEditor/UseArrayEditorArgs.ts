@@ -1,5 +1,5 @@
-import { ArrayPath, DeepRequired, DefaultValues, FieldError, FieldErrorsImpl, FieldValues } from "react-hook-form"
-import { z } from "zod/v4"
+import { type ArrayPath, type DeepRequired, type DefaultValues, type FieldError, type FieldErrorsImpl, type FieldValues } from "react-hook-form"
+import { type z } from "zod/v4"
 
 import { type ArrayEditorRowComponentData } from "./ArrayEditorItem"
 

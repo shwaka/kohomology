@@ -1,4 +1,4 @@
-import { useEffect, ReactElement, ReactNode, Fragment } from "react"
+import { useEffect, type ReactElement, type ReactNode, Fragment } from "react"
 
 import Head from "@docusaurus/Head"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"

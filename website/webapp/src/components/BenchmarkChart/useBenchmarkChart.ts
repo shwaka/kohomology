@@ -1,10 +1,10 @@
-import { ReactNode } from "react"
+import { type ReactNode } from "react"
 
-import { Value, getChartProps } from "@components/ChartUtil/getChartProps"
+import { type Value, getChartProps } from "@components/ChartUtil/getChartProps"
 import { useTooltip } from "@components/ChartUtil/useTooltip"
-import { ChartProps } from "react-chartjs-2"
+import { type ChartProps } from "react-chartjs-2"
 
-import { BenchmarkDataHandler, BenchWithCommit, CommitWithDate } from "./BenchmarkDataHandler"
+import { type BenchmarkDataHandler, type BenchWithCommit, type CommitWithDate } from "./BenchmarkDataHandler"
 import { TooltipContent } from "./TooltipContent"
 
 // Colors from https://github.com/github/linguist/blob/master/lib/linguist/languages.yml

@@ -1,6 +1,6 @@
 import { isInJest } from "@site/src/utils/isInJest"
 
-import { MessageInput, MessageOutput, WFBase } from "./expose"
+import { type MessageInput, type MessageOutput, type WFBase } from "./expose"
 
 export class WorkerWrapper<WI, WO, WS, WF extends WFBase> {
   private readonly onmessageFunctions: Map<string, (workerOutput: MessageOutput<WO, WS, WF>) => void> = new Map()

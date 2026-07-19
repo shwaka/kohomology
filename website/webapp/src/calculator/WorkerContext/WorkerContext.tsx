@@ -1,6 +1,6 @@
-import { Context, createContext, ReactNode, useRef, useState, ReactElement, Dispatch, SetStateAction } from "react"
+import { type Context, createContext, type ReactNode, useRef, useState, type ReactElement, type Dispatch, type SetStateAction } from "react"
 
-import { WFBase } from "./expose"
+import { type WFBase } from "./expose"
 import { WorkerWrapper } from "./WorkerWrapper"
 
 type OmitIfEmpty<T, K extends string | number | symbol> =

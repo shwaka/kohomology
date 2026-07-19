@@ -1,8 +1,8 @@
-import { FieldOptions } from "@calculator/Editor"
-import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
+import { type FieldOptions } from "@calculator/Editor"
+import { type DeepRequired, type FieldError, type FieldErrorsImpl } from "react-hook-form"
 
-import { GeneratorFormInput } from "./schema/generatorArraySchema"
-import { Generator } from "./schema/generatorSchema"
+import { type GeneratorFormInput } from "./schema/generatorArraySchema"
+import { type Generator } from "./schema/generatorSchema"
 
 export const generatorFieldOptionsList: FieldOptions<GeneratorFormInput>[] = [
   {

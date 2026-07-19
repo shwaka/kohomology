@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 
-import { URLQueryResult } from "./URLQueryResult"
+import { type URLQueryResult } from "./URLQueryResult"
 
 export function useValueOfURLQueryResult<T>(
   urlQueryResult: URLQueryResult<T>,

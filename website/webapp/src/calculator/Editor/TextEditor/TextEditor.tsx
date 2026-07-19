@@ -1,9 +1,9 @@
-import { useCallback, ReactElement } from "react"
+import { useCallback, type ReactElement } from "react"
 
 import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
 import { Stack, TextField } from "@mui/material"
 import { useOverwritableTimeout } from "@site/src/utils/useOverwritableTimeout"
-import { DeepRequired, FieldError, FieldErrorsImpl, UseFormRegister, UseFormTrigger } from "react-hook-form"
+import { type DeepRequired, type FieldError, type FieldErrorsImpl, type UseFormRegister, type UseFormTrigger } from "react-hook-form"
 
 export interface TextEditorFormInput {
   text: string

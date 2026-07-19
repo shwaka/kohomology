@@ -1,4 +1,4 @@
-import { ComponentProps, ReactElement } from "react"
+import { type ComponentProps, type ReactElement } from "react"
 
 import { Button, CircularProgress, Stack } from "@mui/material"
 

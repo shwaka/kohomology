@@ -1,11 +1,11 @@
 import { useCallback, useEffect } from "react"
 
-import { StyledMessage } from "@calculator/styled/message"
+import { type StyledMessage } from "@calculator/styled/message"
 import { useWorker } from "@calculator/WorkerContext"
-import { RunAsync } from "@calculator/WorkerContext/useWorker"
+import { type RunAsync } from "@calculator/WorkerContext/useWorker"
 
 import { kohomologyWorkerContext } from "../kohomologyWorker/kohomologyWorkerContext"
-import { KohomologyWorkerFunc, WorkerInfo, KohomologyWorkerInput, KohomologyWorkerOutput } from "../kohomologyWorker/workerInterface"
+import { type KohomologyWorkerFunc, type WorkerInfo, type KohomologyWorkerInput, type KohomologyWorkerOutput } from "../kohomologyWorker/workerInterface"
 
 interface UseKohomologyWorkerArgs {
   defaultJson: string

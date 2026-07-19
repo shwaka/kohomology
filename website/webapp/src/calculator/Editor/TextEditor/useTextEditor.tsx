@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
 
-import { Editor, OnSubmit } from ".."
-import { TextEditorProps, TextEditor, TextEditorFormInput } from "./TextEditor"
+import { type Editor, type OnSubmit } from ".."
+import { type TextEditorProps, TextEditor, type TextEditorFormInput } from "./TextEditor"
 
 interface UseTextEditorArgs {
   text: string

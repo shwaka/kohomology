@@ -1,10 +1,10 @@
-import { ReactElement } from "react"
+import { type ReactElement } from "react"
 
-import { RowComponentProps } from "@calculator/SortableFields"
-import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
+import { type RowComponentProps } from "@calculator/SortableFields"
+import { type DeepRequired, type FieldError, type FieldErrorsImpl } from "react-hook-form"
 
-import { ArrayEditorItem, FieldOptions } from "../ArrayEditorItem"
-import { Indeterminate, IndeterminateFormInput } from "./schema"
+import { ArrayEditorItem, type FieldOptions } from "../ArrayEditorItem"
+import { type Indeterminate, type IndeterminateFormInput } from "./schema"
 
 const fieldOptionsList: FieldOptions<IndeterminateFormInput>[] = [
   {

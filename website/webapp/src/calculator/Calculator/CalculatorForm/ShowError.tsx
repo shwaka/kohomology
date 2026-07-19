@@ -1,4 +1,4 @@
-import { Fragment, useState, ReactElement, SyntheticEvent } from "react"
+import { Fragment, useState, type ReactElement, type SyntheticEvent } from "react"
 
 import { Alert, Snackbar } from "@mui/material"
 

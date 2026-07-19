@@ -1,6 +1,6 @@
-import { FieldOptions } from "@calculator/Editor"
+import { type FieldOptions } from "@calculator/Editor"
 
-import { IdealFormInput } from "./schema"
+import { type IdealFormInput } from "./schema"
 
 export const idealFieldOptionsList: FieldOptions<IdealFormInput>[] = [
   {

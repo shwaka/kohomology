@@ -1,7 +1,7 @@
 import { z } from "zod/v4"
-import { $ZodRawIssue } from "zod/v4/core"
+import { type $ZodRawIssue } from "zod/v4/core"
 
-import { generatorSchema, Generator } from "./generatorSchema"
+import { generatorSchema, type Generator } from "./generatorSchema"
 import { validateDifferentialValue, validateGeneratorDegrees, validateGeneratorNames } from "./validation"
 
 export const generatorArraySchema = z.array(generatorSchema).check((ctx) => {

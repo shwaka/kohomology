@@ -1,7 +1,7 @@
-import { SetStateAction, useState } from "react"
+import { type SetStateAction, useState } from "react"
 
-import { ConfirmDialog, ConfirmDialogProps } from "./ConfirmDialog"
-import { UseConfirmArgs, UseConfirmReturnValue } from "./useConfirm.types"
+import { ConfirmDialog, type ConfirmDialogProps } from "./ConfirmDialog"
+import { type UseConfirmArgs, type UseConfirmReturnValue } from "./useConfirm.types"
 
 type ResolveConfirm = (answer: boolean) => void
 

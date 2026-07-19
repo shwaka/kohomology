@@ -1,6 +1,6 @@
 import { generatorArrayToPrettyJson } from "@calculator/Calculator/jsonUtils"
 
-import { Generator } from "./generatorSchema"
+import { type Generator } from "./generatorSchema"
 
 export function generatorArrayToJson(generatorArray: Generator[]): string {
   const arr = generatorArray.map(

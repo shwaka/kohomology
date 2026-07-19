@@ -1,5 +1,5 @@
 import { getMyWorkerImpl } from "../__playground__/MyWorkerImpl"
-import { MyWorkerFunc, MyWorkerInput, MyWorkerOutput, MyWorkerState } from "../__playground__/MyWorkerInterface"
+import { type MyWorkerFunc, type MyWorkerInput, type MyWorkerOutput, type MyWorkerState } from "../__playground__/MyWorkerInterface"
 import { MockWorker } from "../__testutils__/MockWorker"
 import { createWorkerContext } from "../WorkerContext"
 

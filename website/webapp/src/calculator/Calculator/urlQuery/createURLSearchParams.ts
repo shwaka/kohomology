@@ -2,7 +2,7 @@ import { compressJson } from "../jsonUtils"
 import { dgaJsonToDsv } from "./dgaDsv"
 import { idealJsonToDsv } from "./idealDsv"
 import { ParamName } from "./ParamName"
-import { TargetName } from "../kohomologyWorker/workerInterface"
+import { type TargetName } from "../kohomologyWorker/workerInterface"
 
 type DgaEncodingFormat = "json" | "dsv" | "auto"
 

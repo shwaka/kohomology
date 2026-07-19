@@ -1,4 +1,4 @@
-import { ReactElement } from "react"
+import { type ReactElement } from "react"
 
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler } from "chart.js"
 import { Chart } from "react-chartjs-2"

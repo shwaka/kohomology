@@ -1,7 +1,7 @@
 import { useMemo } from "react"
 
 import { useColorMode } from "@docusaurus/theme-common"
-import { createTheme, Theme } from "@mui/material"
+import { createTheme, type Theme } from "@mui/material"
 
 export function useCustomTheme(): Theme {
   const { colorMode } = useColorMode()

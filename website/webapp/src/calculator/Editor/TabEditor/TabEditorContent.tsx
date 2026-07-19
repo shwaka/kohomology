@@ -1,6 +1,6 @@
-import { Fragment, ReactElement } from "react"
+import { Fragment, type ReactElement } from "react"
 
-import { TabItem } from "./TabItem"
+import { type TabItem } from "./TabItem"
 
 interface EditorContentProps<K extends string> {
   tabItems: { [T in K]: TabItem }

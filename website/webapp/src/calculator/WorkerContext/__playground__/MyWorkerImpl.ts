@@ -1,5 +1,5 @@
-import { CallbackData, UpdateWorkerState, WorkerImpl } from "../expose"
-import { MyWorkerFunc, MyWorkerInput, MyWorkerOutput, MyWorkerState } from "./MyWorkerInterface"
+import { type CallbackData, type UpdateWorkerState, type WorkerImpl } from "../expose"
+import { type MyWorkerFunc, type MyWorkerInput, type MyWorkerOutput, type MyWorkerState } from "./MyWorkerInterface"
 
 class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerFunc> {
   value: number

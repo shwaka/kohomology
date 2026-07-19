@@ -1,4 +1,4 @@
-import { MessageOutput } from "@calculator/WorkerContext/expose"
+import { type MessageOutput } from "@calculator/WorkerContext/expose"
 import { useLocation } from "@docusaurus/router"
 import { act, render, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
@@ -6,7 +6,7 @@ import userEvent from "@testing-library/user-event"
 import { Calculator } from "."
 import { InputJson } from "./__testutils__/InputJson"
 import { expectComputeCohomologyButtonToContain, waitForInitialState, getComputeCohomologyButton, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
-import { KohomologyWorkerFunc, KohomologyWorkerOutput, KohomologyWorkerState } from "./kohomologyWorker/workerInterface"
+import { type KohomologyWorkerFunc, type KohomologyWorkerOutput, type KohomologyWorkerState } from "./kohomologyWorker/workerInterface"
 
 const mockUseLocation = useLocation as unknown as jest.Mock
 mockUseLocation.mockReturnValue({

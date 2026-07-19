@@ -1,4 +1,4 @@
-import { UseConfirmArgs, UseConfirmReturnValue } from "../useConfirm.types"
+import { type UseConfirmArgs, type UseConfirmReturnValue } from "../useConfirm.types"
 
 export const mockConfirm = jest.fn()
 export const mockConfirmDialog = (<div data-testid="mock-confirm-dialog" />)

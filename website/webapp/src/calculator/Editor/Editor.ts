@@ -1,6 +1,6 @@
-import { ReactElement } from "react"
+import { type ReactElement } from "react"
 
-import { OnSubmit } from "./OnSubmit"
+import { type OnSubmit } from "./OnSubmit"
 
 export interface Editor {
   renderContent: (closeDialog: () => void) => ReactElement

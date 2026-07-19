@@ -1,9 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ArrayPath, FieldValues, useFieldArray, useForm } from "react-hook-form"
+import { type ArrayPath, type FieldValues, useFieldArray, useForm } from "react-hook-form"
 
-import { OnSubmit, Editor } from ".."
-import { ArrayEditorProps } from "./ArrayEditor"
-import { UseArrayEditorPropsArgs } from "./UseArrayEditorArgs"
+import { type OnSubmit, type Editor } from ".."
+import { type ArrayEditorProps } from "./ArrayEditor"
+import { type UseArrayEditorPropsArgs } from "./UseArrayEditorArgs"
 
 export interface UseArrayEditorPropsReturnValue<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> {
   editorWithoutRender: Omit<Editor, "renderContent">

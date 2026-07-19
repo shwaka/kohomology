@@ -1,7 +1,7 @@
 import { fromString } from "@calculator/styled/message"
-import { CallbackData, GetWorkerImpl, UpdateWorkerState, WFBase, WorkerImpl } from "@calculator/WorkerContext/expose"
+import { type CallbackData, type GetWorkerImpl, type UpdateWorkerState, type WFBase, type WorkerImpl } from "@calculator/WorkerContext/expose"
 
-import { SendMessage } from "../"
+import { type SendMessage } from "../"
 
 export interface SampleWorkerInput {
   value: number

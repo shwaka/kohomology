@@ -1,7 +1,7 @@
-import { IndeterminateFormInput } from "./schema"
-import { useArrayEditorProps, UseArrayEditorPropsReturnValue } from "../useArrayEditorProps"
+import { type IndeterminateFormInput } from "./schema"
+import { useArrayEditorProps, type UseArrayEditorPropsReturnValue } from "../useArrayEditorProps"
 import { indeterminateArrayEditorConfig } from "./indeterminateArrayEditorConfig"
-import { ArrayEditorValues } from "../UseArrayEditorArgs"
+import { type ArrayEditorValues } from "../UseArrayEditorArgs"
 
 export type UseIndeterminateArrayEditorPropsArgs = ArrayEditorValues<IndeterminateFormInput>
 

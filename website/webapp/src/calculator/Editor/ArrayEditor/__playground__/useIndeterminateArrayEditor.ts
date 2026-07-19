@@ -1,11 +1,11 @@
-import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
+import { type DeepRequired, type FieldError, type FieldErrorsImpl } from "react-hook-form"
 
-import { Editor } from "../.."
-import { UseIndeterminateArrayEditorPropsArgs } from "./useIndeterminateArrayEditorProps"
+import { type Editor } from "../.."
+import { type UseIndeterminateArrayEditorPropsArgs } from "./useIndeterminateArrayEditorProps"
 import { useArrayEditor } from "../useArrayEditor"
 import { indeterminateArrayEditorConfig } from "./indeterminateArrayEditorConfig"
 import { indeterminateFieldOptionsList } from "./indeterminateFieldOptionsList"
-import { IndeterminateFormInput } from "./schema"
+import { type IndeterminateFormInput } from "./schema"
 
 export function useIndeterminateArrayEditor(
   args: UseIndeterminateArrayEditorPropsArgs,

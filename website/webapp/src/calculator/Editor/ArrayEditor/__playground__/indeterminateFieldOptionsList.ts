@@ -1,7 +1,7 @@
-import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
+import { type DeepRequired, type FieldError, type FieldErrorsImpl } from "react-hook-form"
 
-import { FieldOptions } from "../ArrayEditorItem"
-import { Indeterminate, IndeterminateFormInput } from "./schema"
+import { type FieldOptions } from "../ArrayEditorItem"
+import { type Indeterminate, type IndeterminateFormInput } from "./schema"
 
 export const indeterminateFieldOptionsList: FieldOptions<IndeterminateFormInput>[] = [
   {

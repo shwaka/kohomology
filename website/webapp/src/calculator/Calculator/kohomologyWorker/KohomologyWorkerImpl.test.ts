@@ -1,7 +1,7 @@
-import { MessageOutput, MessageOutputUpdateState, MessageSendOutput } from "@calculator/WorkerContext/expose"
+import { type MessageOutput, type MessageOutputUpdateState, type MessageSendOutput } from "@calculator/WorkerContext/expose"
 
 import { getKohomologyWorkerImpl } from "./KohomologyWorkerImpl"
-import { KohomologyWorkerFunc, KohomologyWorkerInput, KohomologyWorkerOutput, KohomologyWorkerState } from "./workerInterface"
+import { type KohomologyWorkerFunc, type KohomologyWorkerInput, type KohomologyWorkerOutput, type KohomologyWorkerState } from "./workerInterface"
 
 function expectSendMessage(output: MessageOutput<KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc>): asserts output is MessageSendOutput<KohomologyWorkerOutput> {
   expect(output.type).toBe("output")

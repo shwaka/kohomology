@@ -1,4 +1,4 @@
-import { MessageOptions } from "./options"
+import { type MessageOptions } from "./options"
 
 export const stringTypes = ["text", "math"] as const
 export type StringType = typeof stringTypes[number]

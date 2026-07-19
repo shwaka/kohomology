@@ -1,13 +1,13 @@
-import { ReactElement } from "react"
+import { type ReactElement } from "react"
 
 import { findOrThrow } from "@calculator/Calculator/__testutils__/findOrThrow"
-import { TabItem } from "@calculator/Editor"
-import { render, within, renderHook, act, RenderHookResult } from "@testing-library/react"
-import userEvent, { UserEvent } from "@testing-library/user-event"
+import { type TabItem } from "@calculator/Editor"
+import { render, within, renderHook, act, type RenderHookResult } from "@testing-library/react"
+import userEvent, { type UserEvent } from "@testing-library/user-event"
 
 import { sphere } from "../examples"
 import { useTabItemArrayEditor } from "./"
-import { Generator } from "./schema/generatorSchema"
+import { type Generator } from "./schema/generatorSchema"
 
 class ArrayEditorTestUtil {
   // Record<string, never> means that renderHook's props is empty

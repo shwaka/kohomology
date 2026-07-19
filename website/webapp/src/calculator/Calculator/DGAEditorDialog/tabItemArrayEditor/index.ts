@@ -1,11 +1,11 @@
-import { Editor, useArrayEditor, TabItem } from "@calculator/Editor"
+import { type Editor, useArrayEditor, type TabItem } from "@calculator/Editor"
 import { getFirstUnused } from "@site/src/utils/getFirstUnused"
-import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
+import { type DeepRequired, type FieldError, type FieldErrorsImpl } from "react-hook-form"
 
 import { generatorFieldOptionsList } from "./generatorFieldOptionsList"
 import { generatorArrayToJson, jsonToGeneratorArray } from "./schema/ConvertGenerator"
-import { formValueSchema, GeneratorFormInput, globalErrorsSchema } from "./schema/generatorArraySchema"
-import { Generator } from "./schema/generatorSchema"
+import { formValueSchema, type GeneratorFormInput, globalErrorsSchema } from "./schema/generatorArraySchema"
+import { type Generator } from "./schema/generatorSchema"
 
 function useGeneratorArrayEditor(args: {
   json: string

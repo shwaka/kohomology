@@ -1,11 +1,11 @@
-import { Fragment, useState, ReactElement } from "react"
+import { Fragment, useState, type ReactElement } from "react"
 
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 import { render, screen, waitFor } from "@testing-library/react"
-import userEvent, { UserEvent } from "@testing-library/user-event"
+import userEvent, { type UserEvent } from "@testing-library/user-event"
 import * as R from "remeda"
 
-import { useIdealEditor, UseIdealEditorArgs } from "./useIdealEditor"
+import { useIdealEditor, type UseIdealEditorArgs } from "./useIdealEditor"
 
 type TestContainerProps = {
   useIdealEditorArgs: Omit<UseIdealEditorArgs, "idealJson" | "setIdealJson">

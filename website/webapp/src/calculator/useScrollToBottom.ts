@@ -1,4 +1,4 @@
-import { RefObject, DependencyList, useRef, useEffect } from "react"
+import { type RefObject, type DependencyList, useRef, useEffect } from "react"
 
 function isAtBottom(target: HTMLDivElement): boolean {
   // Check if target is scrolled to the bottom.

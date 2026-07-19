@@ -1,4 +1,4 @@
-import { useState, ReactElement } from "react"
+import { useState, type ReactElement } from "react"
 
 import { EditorDialog, useEditorDialog } from "../.."
 import { useTextEditor } from "../useTextEditor"

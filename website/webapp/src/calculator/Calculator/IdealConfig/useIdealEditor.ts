@@ -1,8 +1,8 @@
-import { useArrayEditor, Editor } from "@calculator/Editor"
-import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
+import { useArrayEditor, type Editor } from "@calculator/Editor"
+import { type DeepRequired, type FieldError, type FieldErrorsImpl } from "react-hook-form"
 
 import { idealFieldOptionsList } from "./idealFieldOptionsList"
-import { Generator, getFormValueSchema, IdealFormInput } from "./schema"
+import { type Generator, getFormValueSchema, type IdealFormInput } from "./schema"
 
 export interface UseIdealEditorArgs {
   idealJson: string

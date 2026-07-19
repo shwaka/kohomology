@@ -1,9 +1,9 @@
-import { Fragment, ReactElement } from "react"
+import { Fragment, type ReactElement } from "react"
 
 import { Tabs, Tab } from "@mui/material"
 
 import { useCanQuit } from ".."
-import { TabItem } from "./TabItem"
+import { type TabItem } from "./TabItem"
 
 interface TabEditorTitleProps<K extends string> {
   tabItems: { [T in K]: TabItem }

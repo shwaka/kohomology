@@ -1,9 +1,9 @@
-import { useEffect, useState, ReactElement } from "react"
+import { useEffect, useState, type ReactElement } from "react"
 
-import { MessageOutput } from "../expose"
+import { type MessageOutput } from "../expose"
 import { useWorker } from "../useWorker"
 import { myWorkerContext } from "./myWorkerContext"
-import { MyWorkerFunc, MyWorkerOutput, MyWorkerState } from "./MyWorkerInterface"
+import { type MyWorkerFunc, type MyWorkerOutput, type MyWorkerState } from "./MyWorkerInterface"
 
 function ShowWorkerOutputLog({ log, testid }: {
   log: MessageOutput<MyWorkerOutput, MyWorkerState, MyWorkerFunc>[]

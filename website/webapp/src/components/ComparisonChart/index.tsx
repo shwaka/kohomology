@@ -1,12 +1,12 @@
-import { ReactElement } from "react"
+import { type ReactElement } from "react"
 
 import CodeBlock from "@theme/CodeBlock"
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ChartData, ScatterController } from "chart.js"
-import { Chart, ChartProps } from "react-chartjs-2"
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, type ChartData, ScatterController } from "chart.js"
+import { Chart, type ChartProps } from "react-chartjs-2"
 
 import { getBackgroundColor, getBorderColor } from "./colors"
 import comparisonData from "./comparison.json"
-import { Target, tools, Tool } from "./comparisonKeys"
+import { type Target, tools, type Tool } from "./comparisonKeys"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController)
 

@@ -1,4 +1,4 @@
-import { Editor } from ".."
+import { type Editor } from ".."
 
 export interface TabItem {
   editor: Editor

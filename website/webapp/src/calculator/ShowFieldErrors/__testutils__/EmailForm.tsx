@@ -1,6 +1,6 @@
-import { ReactElement } from "react"
+import { type ReactElement } from "react"
 
-import { CriteriaMode, FieldErrors, useForm, UseFormHandleSubmit, UseFormRegister } from "react-hook-form"
+import { type CriteriaMode, type FieldErrors, useForm, type UseFormHandleSubmit, type UseFormRegister } from "react-hook-form"
 
 import { ShowFieldErrors } from "../"
 

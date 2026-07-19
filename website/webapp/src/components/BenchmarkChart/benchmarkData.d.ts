@@ -1,4 +1,4 @@
-import { BenchmarkData } from "./BenchmarkData"
+import { type BenchmarkData } from "./BenchmarkData"
 
 declare module "*/benchmarkData.json" {
   const value: BenchmarkData

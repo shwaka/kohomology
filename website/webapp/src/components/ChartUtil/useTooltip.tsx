@@ -1,7 +1,7 @@
-import { Fragment, ReactElement, ReactNode, useCallback, useState } from "react"
+import { Fragment, type ReactElement, type ReactNode, useCallback, useState } from "react"
 
 import { Tooltip } from "@mui/material"
-import { ActiveElement, ChartOptions } from "chart.js"
+import { type ActiveElement, type ChartOptions } from "chart.js"
 
 import { useArrayChanged } from "./useArrayChanged"
 

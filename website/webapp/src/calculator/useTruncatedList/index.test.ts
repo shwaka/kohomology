@@ -1,7 +1,7 @@
 import { renderHook, act } from "@testing-library/react"
 import * as R from "remeda"
 
-import { useTruncatedList, UseTruncatedListOptions } from "./"
+import { useTruncatedList, type UseTruncatedListOptions } from "./"
 
 describe("useTruncatedList with getWeight always returning 1", () => {
   for (const [itemCount, minCount, step] of [[6, 2, 2], [6, 3, 2], [9, 6, 2]]) {

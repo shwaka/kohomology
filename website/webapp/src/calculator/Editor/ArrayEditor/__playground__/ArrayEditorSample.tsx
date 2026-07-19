@@ -1,7 +1,7 @@
-import { useState, ReactElement } from "react"
+import { useState, type ReactElement } from "react"
 
 import { EditorDialog, useEditorDialog } from "../.."
-import { Indeterminate, IndeterminateFormInput } from "./schema"
+import { type Indeterminate, type IndeterminateFormInput } from "./schema"
 import { useIndeterminateArrayEditor } from "./useIndeterminateArrayEditor"
 
 const defaultArray: Indeterminate[] = [

@@ -1,4 +1,4 @@
-import { ReactElement } from "react"
+import { type ReactElement } from "react"
 
 import { NumberSchemaSample } from "@calculator/Calculator/DGAEditorDialog/tabItemArrayEditor/schema/__playground__/NumberSchemaSample"
 import { useCustomTheme } from "@calculator/Calculator/useCustomTheme"
@@ -14,7 +14,7 @@ import BrowserOnly from "@docusaurus/BrowserOnly"
 import { ThemeProvider } from "@mui/material"
 
 import { PlaygroundBox, usePlaygroundBox } from "./PlaygroundBox"
-import { SimpleTab } from "./SimpleTab"
+import { type SimpleTab } from "./SimpleTab"
 import { useSimpleTabs } from "./useSimpleTabs"
 
 const tabs = [

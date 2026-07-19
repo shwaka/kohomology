@@ -1,4 +1,4 @@
-import { CallbackData, expose, ExposedWorkerImpl, MessageInput, MessageOutput, WFBase, WorkerImpl } from "../expose"
+import { type CallbackData, expose, type ExposedWorkerImpl, type MessageInput, type MessageOutput, type WFBase, type WorkerImpl } from "../expose"
 
 export class MockWorker<WI, WO, WS, WF extends WFBase> {
   onmessage: (e: MessageEvent<MessageOutput<WO, WS, WF>>) => void

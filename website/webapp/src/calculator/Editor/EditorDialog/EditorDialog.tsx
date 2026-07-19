@@ -1,9 +1,9 @@
-import { ReactElement } from "react"
+import { type ReactElement } from "react"
 
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material"
 import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 
-import { OnSubmit } from "../OnSubmit"
+import { type OnSubmit } from "../OnSubmit"
 
 export interface EditorDialogProps {
   renderContent: (closeDialog: () => void) => ReactElement

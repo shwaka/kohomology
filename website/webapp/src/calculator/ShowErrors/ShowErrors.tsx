@@ -1,9 +1,9 @@
-import { ReactElement } from "react"
+import { type ReactElement } from "react"
 
 import { Alert } from "@mui/material"
 import { motion, AnimatePresence } from "motion/react"
 
-import { MessageWithType } from "./MessageWithType"
+import { type MessageWithType } from "./MessageWithType"
 
 export const magicMessageToHideError = "_HIDE_THIS_ERROR_"
 

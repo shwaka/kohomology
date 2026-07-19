@@ -1,11 +1,11 @@
-import { useCallback, ReactElement, HTMLInputTypeAttribute } from "react"
+import { useCallback, type ReactElement, type HTMLInputTypeAttribute } from "react"
 
 import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
-import { RowComponentProps } from "@calculator/SortableFields"
+import { type RowComponentProps } from "@calculator/SortableFields"
 import { Delete, DragHandle } from "@mui/icons-material"
-import { IconButton, InputBaseComponentProps, Stack, TextField, Tooltip } from "@mui/material"
+import { IconButton, type InputBaseComponentProps, Stack, TextField, Tooltip } from "@mui/material"
 import { useOverwritableTimeout } from "@site/src/utils/useOverwritableTimeout"
-import { DeepRequired, FieldError, FieldErrorsImpl, FieldPath, FieldValues } from "react-hook-form"
+import { type DeepRequired, type FieldError, type FieldErrorsImpl, type FieldPath, type FieldValues } from "react-hook-form"
 
 export interface FieldOptions<TFieldValues extends FieldValues> {
   key: string

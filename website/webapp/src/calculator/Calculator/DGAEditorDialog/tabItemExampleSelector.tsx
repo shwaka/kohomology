@@ -1,11 +1,11 @@
-import { useState, ReactElement } from "react"
+import { useState, type ReactElement } from "react"
 
-import { OnSubmit } from "@calculator/Editor"
-import { TabItem } from "@calculator/Editor"
-import { fromString, StyledMessage } from "@calculator/styled/message"
+import { type OnSubmit } from "@calculator/Editor"
+import { type TabItem } from "@calculator/Editor"
+import { fromString, type StyledMessage } from "@calculator/styled/message"
 import { ShowStyledMessage } from "@calculator/styled/ShowStyledMessage"
 import TeX from "@matejmazur/react-katex"
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material"
+import { FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent, Stack, TextField } from "@mui/material"
 import { FreeDGAWrapper } from "kohomology-js"
 
 import { arkowitzLupton, complexProjective, sevenManifold, sphere } from "./examples"

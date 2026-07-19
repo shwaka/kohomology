@@ -1,6 +1,6 @@
-import { renderHook, act, waitFor, RenderHookResult } from "@testing-library/react"
+import { renderHook, act, waitFor, type RenderHookResult } from "@testing-library/react"
 
-import { Indeterminate, IndeterminateFormInput } from "./__playground__/schema"
+import { type Indeterminate, type IndeterminateFormInput } from "./__playground__/schema"
 import { useIndeterminateArrayEditorProps } from "./__playground__/useIndeterminateArrayEditorProps"
 
 const defaultArray: Indeterminate[] = [

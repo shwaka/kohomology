@@ -1,6 +1,6 @@
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 import { screen, waitFor, within, act } from "@testing-library/react"
-import userEvent, { UserEvent } from "@testing-library/user-event"
+import userEvent, { type UserEvent } from "@testing-library/user-event"
 
 interface EditorDialogHandlerArgs {
   openDialogButtonText?: string

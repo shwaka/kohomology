@@ -1,8 +1,8 @@
-import { useCallback, ReactElement } from "react"
+import { useCallback, type ReactElement } from "react"
 
 import { useLocalStorage } from "@site/src/utils/useLocalStorage"
 
-import { SimpleTab } from "./SimpleTab"
+import { type SimpleTab } from "./SimpleTab"
 
 function isTabKey<K extends string>(tabKeys: K[], tabKey: string): tabKey is K {
   return (tabKeys as string[]).includes(tabKey)

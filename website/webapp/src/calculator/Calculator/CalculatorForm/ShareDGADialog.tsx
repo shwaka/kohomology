@@ -1,11 +1,11 @@
-import { Fragment, useState, ReactElement } from "react"
+import { Fragment, useState, type ReactElement } from "react"
 
 import useBaseUrl from "@docusaurus/useBaseUrl"
 import { Button, Dialog, DialogActions, DialogContent, TextField, Tooltip } from "@mui/material"
 import { useDomainUrl } from "@site/src/utils/useDomainUrl"
 import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 
-import { TargetName } from "../kohomologyWorker/workerInterface"
+import { type TargetName } from "../kohomologyWorker/workerInterface"
 import { createURLSearchParams } from "../urlQuery"
 
 export interface ShareDGAButtonProps {

@@ -1,9 +1,9 @@
-import { Fragment, useState, ReactElement, MouseEvent } from "react"
+import { Fragment, useState, type ReactElement, type MouseEvent } from "react"
 
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz"
 import { IconButton, Menu, MenuItem } from "@mui/material"
 
-import { MessageOptions } from "./options"
+import { type MessageOptions } from "./options"
 
 interface UseOptionsButtonArgs {
   containerClass: string

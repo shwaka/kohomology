@@ -1,10 +1,10 @@
-import { fromString, StyledMessage } from "@calculator/styled/message"
-import { CallbackData, UpdateWorkerState, WorkerImpl } from "@calculator/WorkerContext/expose"
+import { fromString, type StyledMessage } from "@calculator/styled/message"
+import { type CallbackData, type UpdateWorkerState, type WorkerImpl } from "@calculator/WorkerContext/expose"
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
-import { FreeDGAWrapper, ValidationResult, validateIdealGeneratorString, validateIdealJson } from "kohomology-js"
+import { FreeDGAWrapper, type ValidationResult, validateIdealGeneratorString, validateIdealJson } from "kohomology-js"
 
 import { toStyledMessage } from "./styled"
-import { KohomologyWorkerInput, KohomologyWorkerOutput, TargetName, ShowCohomology, WorkerInfo, KohomologyWorkerState, KohomologyWorkerFunc } from "./workerInterface"
+import { type KohomologyWorkerInput, type KohomologyWorkerOutput, type TargetName, type ShowCohomology, type WorkerInfo, type KohomologyWorkerState, type KohomologyWorkerFunc } from "./workerInterface"
 
 type KohomologyMessageHandlerLogger = {
   log?: (...messages: unknown[]) => void

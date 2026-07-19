@@ -1,4 +1,4 @@
-import { useState, ReactElement, useEffect } from "react"
+import { useState, type ReactElement, useEffect } from "react"
 
 import { Slider } from "@mui/material"
 import { range } from "remeda"

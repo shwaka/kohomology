@@ -1,4 +1,4 @@
-import { TabItem, useTextEditor } from "@calculator/Editor"
+import { type TabItem, useTextEditor } from "@calculator/Editor"
 import { validateJson } from "kohomology-js"
 
 export function useTabItemJsonEditor(args: {

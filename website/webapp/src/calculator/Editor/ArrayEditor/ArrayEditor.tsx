@@ -1,12 +1,12 @@
-import { ReactNode, ReactElement, FormEvent } from "react"
+import { type ReactNode, type ReactElement, type FormEvent } from "react"
 
 import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
-import { FormData, RowComponentProps, SortableFields } from "@calculator/SortableFields"
+import { type FormData, type RowComponentProps, SortableFields } from "@calculator/SortableFields"
 import { Add } from "@mui/icons-material"
 import { Button, Stack } from "@mui/material"
-import { ArrayPath, DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, FieldValues, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
+import { type ArrayPath, type DeepRequired, type FieldArrayWithId, type FieldError, type FieldErrorsImpl, type FieldValues, type UseFieldArrayAppend, type UseFieldArrayMove, type UseFieldArrayRemove, type UseFormGetValues, type UseFormRegister, type UseFormTrigger } from "react-hook-form"
 
-import { OnSubmit } from ".."
+import { type OnSubmit } from ".."
 
 export interface ArrayEditorProps<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> {
   register: UseFormRegister<TFieldValues>

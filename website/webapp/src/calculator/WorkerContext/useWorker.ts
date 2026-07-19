@@ -2,8 +2,8 @@ import { useCallback, useContext, useEffect } from "react"
 
 import { useSyncExternalStore } from "use-sync-external-store/shim" // for React < 18
 
-import { MessageInput, MessageInputCallFunc, MessageOutput, MessageOutputUpdateState, WFBase } from "./expose"
-import { WorkerContext } from "./WorkerContext"
+import { type MessageInput, type MessageInputCallFunc, type MessageOutput, type MessageOutputUpdateState, type WFBase } from "./expose"
+import { type WorkerContext } from "./WorkerContext"
 
 function isUpdateState<WO, WS, WF extends WFBase>(output: MessageOutput<WO, WS, WF>): output is MessageOutputUpdateState<WS> {
   return (output.type === "updateState")

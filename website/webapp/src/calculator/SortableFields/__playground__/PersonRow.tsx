@@ -1,9 +1,9 @@
-import { ReactElement } from "react"
+import { type ReactElement } from "react"
 
-import { DeepRequired, FieldErrorsImpl } from "react-hook-form"
+import { type DeepRequired, type FieldErrorsImpl } from "react-hook-form"
 
-import { RowComponentProps } from ".."
-import { PeopleFormInput } from "./schema"
+import { type RowComponentProps } from ".."
+import { type PeopleFormInput } from "./schema"
 
 export function PersonRow({
   draggableProps, index, formData: { register, errors, remove, trigger },

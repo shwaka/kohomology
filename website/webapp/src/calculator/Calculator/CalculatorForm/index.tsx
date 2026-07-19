@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useState, ReactElement, ReactNode } from "react"
+import { Fragment, useCallback, useState, type ReactElement, type ReactNode } from "react"
 
 import { EditorDialog } from "@calculator/Editor"
 import { ShowStyledMessage } from "@calculator/styled/ShowStyledMessage"
@@ -18,7 +18,7 @@ import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
 import { UsageButton, UsageDialog, useUsage } from "./UsageDialog"
 import { useKohomologyWorker } from "./useKohomologyWorker"
 import { useMutableArray } from "./useMutableArray"
-import { targetNames, TargetName } from "../kohomologyWorker/workerInterface"
+import { targetNames, type TargetName } from "../kohomologyWorker/workerInterface"
 import { useIdealJsonFromURLQuery } from "../urlQuery/useIdealJsonFromURLQuery"
 
 function StackItem({ children, "data-testid": testId }: { children: ReactNode, "data-testid"?: string }): ReactElement {

@@ -1,6 +1,6 @@
 import { idealDsvToJson } from "./idealDsv"
 import { ParamName } from "./ParamName"
-import { URLQueryResult } from "./URLQueryResult"
+import { type URLQueryResult } from "./URLQueryResult"
 import { useURLSearchParams } from "./useURLSearchParams"
 
 function getIdealJsonFromURLQuery(urlSearchParams: URLSearchParams): string | null {

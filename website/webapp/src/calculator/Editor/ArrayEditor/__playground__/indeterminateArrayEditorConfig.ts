@@ -1,8 +1,8 @@
 import { getFirstUnused } from "@site/src/utils/getFirstUnused"
-import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
+import { type DeepRequired, type FieldError, type FieldErrorsImpl } from "react-hook-form"
 
-import { Indeterminate, IndeterminateFormInput, indeterminateFormValueSchema, indeterminateGlobalErrorsSchema } from "./schema"
-import { ArrayEditorConfig } from "../UseArrayEditorArgs"
+import { type Indeterminate, type IndeterminateFormInput, indeterminateFormValueSchema, indeterminateGlobalErrorsSchema } from "./schema"
+import { type ArrayEditorConfig } from "../UseArrayEditorArgs"
 
 export const indeterminateArrayEditorConfig: ArrayEditorConfig<IndeterminateFormInput, "indeterminateArray"> = {
   getGlobalErrors, getNext,

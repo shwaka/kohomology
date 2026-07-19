@@ -1,11 +1,11 @@
-import { ReactElement } from "react"
+import { type ReactElement } from "react"
 
 import { githubMainUrl } from "@data"
 // import CodeBlock from '@theme/CodeBlock';
 import MyCodeBlock from "@site/src/components/MyCodeBlock"
 
 import styles from "./ImportKotlin.module.css"
-import { isRestricted, restrict, TextRange } from "./restrict"
+import { isRestricted, restrict, type TextRange } from "./restrict"
 
 const context = require.context("@site/sample", true, /\.kt$/)
 

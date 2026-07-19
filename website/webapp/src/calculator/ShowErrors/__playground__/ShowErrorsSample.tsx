@@ -1,8 +1,8 @@
-import { useCallback, useState, ReactElement } from "react"
+import { useCallback, useState, type ReactElement } from "react"
 
 import * as R from "remeda"
 
-import { MessageWithType } from "../MessageWithType"
+import { type MessageWithType } from "../MessageWithType"
 import { ShowErrors } from "../ShowErrors"
 
 interface UseCounterReturnValue {

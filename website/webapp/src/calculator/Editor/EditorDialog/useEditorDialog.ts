@@ -1,10 +1,10 @@
-import { useState, ReactElement } from "react"
+import { useState, type ReactElement } from "react"
 
 import { useConfirm } from "@calculator/ConfirmDialog"
 
-import { Editor } from ".."
-import { EditorDialogProps } from "./EditorDialog"
-import { OnSubmit } from "../OnSubmit"
+import { type Editor } from ".."
+import { type EditorDialogProps } from "./EditorDialog"
+import { type OnSubmit } from "../OnSubmit"
 
 type PreventQuit = (() => string | undefined) | undefined
 type UseCanQuitReturnValue = {

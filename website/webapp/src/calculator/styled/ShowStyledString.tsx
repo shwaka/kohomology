@@ -1,9 +1,9 @@
-import { Fragment, ReactElement } from "react"
+import { Fragment, type ReactElement } from "react"
 
 import TeX from "@matejmazur/react-katex"
 
 import "katex/dist/katex.min.css"
-import { StyledString } from "./message"
+import { type StyledString } from "./message"
 
 function Text({ content }: { content: string }): ReactElement {
   const lines = content.split("\n")

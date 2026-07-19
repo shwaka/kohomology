@@ -1,4 +1,4 @@
-import { useRef, useState, ReactElement, Fragment } from "react"
+import { useRef, useState, type ReactElement, Fragment } from "react"
 
 import benchmarkData from "@benchmark/core/dev/bench/benchmarkData.json"
 import benchmarkDataWebsite from "@benchmark/website/dev/bench/benchmarkData.json"
@@ -8,9 +8,9 @@ import { Box, Checkbox, FormControlLabel } from "@mui/material"
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler } from "chart.js"
 import { Chart } from "react-chartjs-2"
 
-import { BenchmarkDataHandler, BenchWithCommit, CommitWithDate } from "./BenchmarkDataHandler"
+import { BenchmarkDataHandler, type BenchWithCommit, type CommitWithDate } from "./BenchmarkDataHandler"
 import { movingAverage } from "./movingAverage"
-import { BenchmarkData } from "./schema/benchmarkDataSchema"
+import { type BenchmarkData } from "./schema/benchmarkDataSchema"
 import { useBenchmarkChart } from "./useBenchmarkChart"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)

@@ -1,4 +1,4 @@
-import { useCallback, useState, ReactElement, ChangeEvent, FormEvent, Fragment, SyntheticEvent } from "react"
+import { useCallback, useState, type ReactElement, type ChangeEvent, type FormEvent, Fragment, type SyntheticEvent } from "react"
 
 import TeX from "@matejmazur/react-katex"
 import { Tabs, Tab, Stack, Alert, Checkbox, FormControlLabel, RadioGroup, Radio } from "@mui/material"
@@ -7,7 +7,7 @@ import { ButtonWithProgress } from "./ButtonWithProgress"
 import { NumberField, useNumberField } from "./NumberField"
 import { StringField, useStringField } from "./StringField"
 import { CohomologyAsTex, getCohomologyAsString } from "./target"
-import { ShowCohomology, showCohomologyCandidates, TargetName, WorkerInfo, KohomologyWorkerInput } from "../kohomologyWorker/workerInterface"
+import { type ShowCohomology, showCohomologyCandidates, type TargetName, type WorkerInfo, type KohomologyWorkerInput } from "../kohomologyWorker/workerInterface"
 
 export type InputEvent = ChangeEvent<HTMLInputElement>
 

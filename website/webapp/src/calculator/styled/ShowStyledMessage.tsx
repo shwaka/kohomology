@@ -1,9 +1,9 @@
-import { CSSProperties, ReactElement } from "react"
+import { type CSSProperties, type ReactElement } from "react"
 
 import { useTruncatedList } from "@calculator/useTruncatedList"
-import { ColorMode, useColorMode } from "@docusaurus/theme-common"
+import { type ColorMode, useColorMode } from "@docusaurus/theme-common"
 
-import { MessageType, StyledMessage } from "./message"
+import { type MessageType, type StyledMessage } from "./message"
 import { OptionsButton, useOptionsButton } from "./OptionsButton"
 import { ShowStyledString } from "./ShowStyledString"
 

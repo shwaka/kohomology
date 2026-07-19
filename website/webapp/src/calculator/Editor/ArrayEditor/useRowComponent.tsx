@@ -1,9 +1,9 @@
-import { useCallback, ReactElement } from "react"
+import { useCallback, type ReactElement } from "react"
 
-import { RowComponentProps } from "@calculator/SortableFields"
-import { FieldValues } from "react-hook-form"
+import { type RowComponentProps } from "@calculator/SortableFields"
+import { type FieldValues } from "react-hook-form"
 
-import { ArrayEditorItem, ArrayEditorRowComponentData } from "./ArrayEditorItem"
+import { ArrayEditorItem, type ArrayEditorRowComponentData } from "./ArrayEditorItem"
 
 export function useRowComponent<TFieldValues extends FieldValues>(
   {

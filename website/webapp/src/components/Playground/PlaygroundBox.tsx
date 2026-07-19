@@ -1,4 +1,4 @@
-import { useCallback, ReactElement, ReactNode } from "react"
+import { useCallback, type ReactElement, type ReactNode } from "react"
 
 import { useRadio } from "./UseRadio"
 

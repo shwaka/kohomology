@@ -1,9 +1,9 @@
-import { useCallback, useMemo, useState, ReactElement } from "react"
+import { useCallback, useMemo, useState, type ReactElement } from "react"
 
-import { Editor } from ".."
+import { type Editor } from ".."
 import { TabEditorContent } from "./TabEditorContent"
 import { TabEditorTitle } from "./TabEditorTitle"
-import { TabItem } from "./TabItem"
+import { type TabItem } from "./TabItem"
 
 interface UseTabEditorArgs<K extends string> {
   tabItems: { [T in K]: TabItem }

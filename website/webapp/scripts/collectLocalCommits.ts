@@ -1,9 +1,9 @@
-import { execFile } from "child_process"
-import fs from "fs"
-import path from "path"
-import util from "util"
+import { execFile } from "node:child_process"
+import fs from "node:fs"
+import path from "node:path"
+import util from "node:util"
 
-import { LocalCommit, localCommitArraySchema } from "@components/BenchmarkChart/schema/localCommitSchema"
+import { type LocalCommit, localCommitArraySchema } from "@components/BenchmarkChart/schema/localCommitSchema"
 import { z } from "zod/v4"
 
 const execFileAsync = util.promisify(execFile)

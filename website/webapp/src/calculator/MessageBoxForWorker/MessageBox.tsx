@@ -1,8 +1,8 @@
-import { ReactElement } from "react"
+import { type ReactElement } from "react"
 
 import { Paper } from "@mui/material"
 
-import { StyledMessage } from "../styled/message"
+import { type StyledMessage } from "../styled/message"
 import { ShowStyledMessage } from "../styled/ShowStyledMessage"
 import { useScrollToBottom } from "../useScrollToBottom"
 

@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event"
 
 import { Calculator } from "."
 import { InputIdeal } from "./__testutils__/InputIdeal"
-import { ApplyMethod, InputArray, InputJson } from "./__testutils__/InputJson"
+import { type ApplyMethod, InputArray, InputJson } from "./__testutils__/InputJson"
 import { clickComputeCohomologyButton, clickRestartButton, expectComputeCohomologyButtonToContain, waitForInitialState, expectSnackbarToContainHTML, selectComputationTarget, expectResultsToContainMessages } from "./__testutils__/utilsOnCalculator"
 
 const mockUseLocation = useLocation as unknown as jest.Mock

@@ -1,15 +1,15 @@
-import { ReactElement, useMemo } from "react"
+import { type ReactElement, useMemo } from "react"
 
 import localCommits from "@benchmark/localCommits.json"
-import { TooltipContentProps } from "@components/ChartUtil/useTooltip"
+import { type TooltipContentProps } from "@components/ChartUtil/useTooltip"
 import { Divider, Stack } from "@mui/material"
 import { reverse } from "remeda"
 
-import { BenchWithCommit } from "../BenchmarkDataHandler"
+import { type BenchWithCommit } from "../BenchmarkDataHandler"
 import { groupBySeparatorKeys } from "./groupBySeparatorKeys"
 import { ShowCommit } from "./ShowCommit"
-import { Bench } from "../schema/benchmarkDataSchema"
-import { LocalCommit } from "../schema/localCommitSchema"
+import { type Bench } from "../schema/benchmarkDataSchema"
+import { type LocalCommit } from "../schema/localCommitSchema"
 
 function ShowCommits(
   { commitHash, commitHashArray }: {

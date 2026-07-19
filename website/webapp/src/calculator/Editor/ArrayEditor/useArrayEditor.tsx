@@ -1,8 +1,8 @@
-import { ArrayPath, FieldValues } from "react-hook-form"
+import { type ArrayPath, type FieldValues } from "react-hook-form"
 
-import { Editor } from ".."
+import { type Editor } from ".."
 import { ArrayEditor } from "./ArrayEditor"
-import { UseArrayEditorArgs } from "./UseArrayEditorArgs"
+import { type UseArrayEditorArgs } from "./UseArrayEditorArgs"
 import { useArrayEditorProps } from "./useArrayEditorProps"
 import { useRowComponent } from "./useRowComponent"
 

@@ -1,4 +1,4 @@
-import { Target, Tool } from "./comparisonKeys"
+import { type Target, type Tool } from "./comparisonKeys"
 
 declare module "*/comparison.json" {
   interface Data {

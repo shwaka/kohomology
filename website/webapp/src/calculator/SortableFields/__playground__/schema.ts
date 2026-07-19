@@ -1,6 +1,6 @@
 import { sumBy } from "remeda"
 import { z } from "zod/v4"
-import { $ZodRawIssue } from "zod/v4/core"
+import { type $ZodRawIssue } from "zod/v4/core"
 
 const personSchema = z.object({
   name: z.string().nonempty(),

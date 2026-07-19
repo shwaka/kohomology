@@ -2,7 +2,7 @@ import { magicMessageToHideError } from "@calculator/ShowFieldErrors"
 import { validateDifferentialValueOfTheLast } from "kohomology-js"
 
 import { generatorArrayToJson } from "./ConvertGenerator"
-import { Generator } from "./generatorSchema"
+import { type Generator } from "./generatorSchema"
 
 export function validateDifferentialValue(generatorArray: Generator[], index: number, value: string): true | string {
   if (generatorArray[index].differentialValue !== value) {

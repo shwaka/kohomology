@@ -1,7 +1,7 @@
-import { useState, ReactElement } from "react"
+import { useState, type ReactElement } from "react"
 
 import { render, screen, waitFor, within } from "@testing-library/react"
-import { UserEvent } from "@testing-library/user-event"
+import { type UserEvent } from "@testing-library/user-event"
 
 import { EditorDialog, useEditorDialog } from ".."
 import { useTextEditor } from "./useTextEditor"

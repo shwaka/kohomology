@@ -303,16 +303,20 @@ private class IdentityTrackingCalculator : TransformTrackingSparseRowEchelonForm
         matrix: Map<Int, Map<Int, Rational>>,
         rowCount: Int,
         colCount: Int,
-    ): SparseRowEchelonFormData<Rational> {
+    ): TransformTrackingSparseRowEchelonFormData<Rational> {
         this.rowEchelonFormWithTransformationCount++
-        return this.rowEchelonForm(matrix, colCount).copy(
+        val data = this.rowEchelonForm(matrix, colCount)
+        return TransformTrackingSparseRowEchelonFormData(
+            rowMap = data.rowMap,
+            pivots = data.pivots,
+            exchangeCount = data.exchangeCount,
             transformationRowMap = identityRowMap(rowCount),
         )
     }
 
     override fun reduceWithTransformation(
-        data: SparseRowEchelonFormData<Rational>,
-    ): SparseRowEchelonFormData<Rational> {
+        data: TransformTrackingSparseRowEchelonFormData<Rational>,
+    ): TransformTrackingSparseRowEchelonFormData<Rational> {
         this.reduceWithTransformationCount++
         return data
     }

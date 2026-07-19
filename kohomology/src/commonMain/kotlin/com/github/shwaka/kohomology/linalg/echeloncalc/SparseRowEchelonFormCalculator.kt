@@ -6,7 +6,13 @@ internal data class SparseRowEchelonFormData<S : Scalar>(
     val rowMap: Map<Int, Map<Int, S>>,
     val pivots: List<Int>,
     val exchangeCount: Int,
-    val transformationRowMap: Map<Int, Map<Int, S>>? = null,
+)
+
+internal data class TransformTrackingSparseRowEchelonFormData<S : Scalar>(
+    val rowMap: Map<Int, Map<Int, S>>,
+    val pivots: List<Int>,
+    val exchangeCount: Int,
+    val transformationRowMap: Map<Int, Map<Int, S>>,
 )
 
 internal interface SparseRowEchelonFormCalculator<S : Scalar> {
@@ -20,9 +26,9 @@ internal interface TransformTrackingSparseRowEchelonFormCalculator<S : Scalar> :
         matrix: Map<Int, Map<Int, S>>,
         rowCount: Int,
         colCount: Int,
-    ): SparseRowEchelonFormData<S>
+    ): TransformTrackingSparseRowEchelonFormData<S>
 
     fun reduceWithTransformation(
-        data: SparseRowEchelonFormData<S>,
-    ): SparseRowEchelonFormData<S>
+        data: TransformTrackingSparseRowEchelonFormData<S>,
+    ): TransformTrackingSparseRowEchelonFormData<S>
 }

@@ -1,7 +1,7 @@
 package com.github.shwaka.kohomology.linalg
 
-import com.github.shwaka.kohomology.linalg.echeloncalc.SparseRowEchelonFormData
 import com.github.shwaka.kohomology.linalg.echeloncalc.TransformTrackingSparseRowEchelonFormCalculator
+import com.github.shwaka.kohomology.linalg.echeloncalc.TransformTrackingSparseRowEchelonFormData
 
 internal interface SparseRowEchelonTransformationStrategy<S : Scalar> {
     fun computeTransformation(): SparseMatrix<S>
@@ -55,7 +55,7 @@ internal class TrackingSparseRowEchelonTransformationStrategy<S : Scalar>(
     private val rowCount = this.originalMatrix.rowCount
     private val colCount = this.originalMatrix.colCount
 
-    private val dataWithTransformation: SparseRowEchelonFormData<S> by lazy {
+    private val dataWithTransformation: TransformTrackingSparseRowEchelonFormData<S> by lazy {
         this.calculator.rowEchelonFormWithTransformation(
             matrix = this.originalMatrix.rowMap,
             rowCount = this.rowCount,
@@ -63,19 +63,23 @@ internal class TrackingSparseRowEchelonTransformationStrategy<S : Scalar>(
         )
     }
 
-    private val reducedDataWithTransformation: SparseRowEchelonFormData<S> by lazy {
+    private val reducedDataWithTransformation: TransformTrackingSparseRowEchelonFormData<S> by lazy {
         this.calculator.reduceWithTransformation(this.dataWithTransformation)
     }
 
     override fun computeTransformation(): SparseMatrix<S> {
-        val transformationRowMap = this.dataWithTransformation.transformationRowMap
-            ?: error("rowEchelonFormWithTransformation must return transformationRowMap")
-        return this.matrixSpace.fromRowMap(transformationRowMap, this.rowCount, this.rowCount)
+        return this.matrixSpace.fromRowMap(
+            this.dataWithTransformation.transformationRowMap,
+            this.rowCount,
+            this.rowCount,
+        )
     }
 
     override fun computeReducedTransformation(): SparseMatrix<S> {
-        val transformationRowMap = this.reducedDataWithTransformation.transformationRowMap
-            ?: error("reduceWithTransformation must return transformationRowMap")
-        return this.matrixSpace.fromRowMap(transformationRowMap, this.rowCount, this.rowCount)
+        return this.matrixSpace.fromRowMap(
+            this.reducedDataWithTransformation.transformationRowMap,
+            this.rowCount,
+            this.rowCount,
+        )
     }
 }

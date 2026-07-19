@@ -7,6 +7,8 @@ import io.kotest.matchers.maps.shouldContainKey
 import io.kotest.matchers.shouldBe
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.ExperimentalTime
+import kotlin.time.TestTimeSource
 
 private enum class TestOperation(
     override val displayName: String
@@ -70,6 +72,7 @@ private object TestSummaryFactory :
         }
 }
 
+@OptIn(ExperimentalTime::class)
 class OperationLoggerTest : FreeSpec({
     "formatSummaries should sort summaries by total duration" {
         val summaries: Map<TestOperation, TestSummary> = listOf(
@@ -89,9 +92,9 @@ class OperationLoggerTest : FreeSpec({
             ),
         ).associateBy { it.operation }
         val expected = """
-            |name total  max count metrics   
-            |Slow  20ms 15ms     2 maxSize=30
-            |Fast   5ms  5ms     1 maxSize=2 
+            |name total total_excl  max max_excl count metrics   
+            |Slow  20ms       20ms 15ms     15ms     2 maxSize=30
+            |Fast   5ms        5ms  5ms      5ms     1 maxSize=2 
         """.trimMargin()
 
         formatSummaries(summaries) shouldBe expected
@@ -165,6 +168,41 @@ class OperationLoggerTest : FreeSpec({
         logger.measurement[0].input shouldBe input
     }
 
+    "measureOperation should record exclusive durations across shared context" {
+        val timeSource = TestTimeSource()
+        val traceContext = OperationTraceContext(timeSource)
+        val outerLogger = OperationLogger(TestSummaryFactory, traceContext)
+        val innerLogger = OperationLogger(TestSummaryFactory, traceContext)
+        val outerInput = TestInput.Slow(size = 10)
+        val innerInput = TestInput.Fast(size = 2)
+
+        val result = outerLogger.measureOperation(outerInput) {
+            timeSource += 10.milliseconds
+            innerLogger.measureOperation(innerInput) {
+                timeSource += 30.milliseconds
+                "inner"
+            } shouldBe "inner"
+            timeSource += 20.milliseconds
+            "outer"
+        }
+
+        result shouldBe "outer"
+        outerLogger.measurement shouldBe listOf(
+            OperationMeasurement(
+                duration = 60.milliseconds,
+                input = outerInput,
+                exclusiveDuration = 30.milliseconds,
+            ),
+        )
+        innerLogger.measurement shouldBe listOf(
+            OperationMeasurement(
+                duration = 30.milliseconds,
+                input = innerInput,
+                exclusiveDuration = 30.milliseconds,
+            ),
+        )
+    }
+
     "getMeasurementsCSV should format measurements as CSV" {
         val logger = OperationLogger(TestSummaryFactory)
         logger.add(
@@ -180,9 +218,9 @@ class OperationLoggerTest : FreeSpec({
             ),
         )
         val expected = """
-            |operation,duration_ms,size,work_size
-            |Fast,1.0,2.0,
-            |Slow,3.0,5.0,25.0
+            |operation,duration_ms,exclusive_duration_ms,size,work_size
+            |Fast,1.0,1.0,2.0,
+            |Slow,3.0,3.0,5.0,25.0
         """.trimMargin()
 
         logger.getMeasurementsCSV() shouldBe expected
@@ -191,7 +229,7 @@ class OperationLoggerTest : FreeSpec({
     "toCSV should return header for empty measurements" {
         val measurements = emptyList<OperationMeasurement<TestOperation, TestInput>>()
 
-        measurements.toCSV() shouldBe "operation,duration_ms"
+        measurements.toCSV() shouldBe "operation,duration_ms,exclusive_duration_ms"
     }
 
     "castedInputs should cast inputs to the expected type" {

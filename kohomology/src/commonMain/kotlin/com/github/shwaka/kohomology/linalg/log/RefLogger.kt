@@ -149,6 +149,8 @@ public data class RefOperationSummary(
     override val maxDuration: Duration,
     override val totalDuration: Duration,
     public val metrics: RefOperationMetrics,
+    override val maxExclusiveDuration: Duration = maxDuration,
+    override val totalExclusiveDuration: Duration = totalDuration,
 ) : OperationSummary<RefOperation> {
     override val metricsText: String
         get() = metrics.toPrettyString()
@@ -176,6 +178,10 @@ public object RefOperationSummaryFactory :
                 acc + measurement.duration
             },
             metrics = this.createMetrics(operation, measurements),
+            maxExclusiveDuration = measurements.maxOfOrNull { it.exclusiveDuration } ?: Duration.ZERO,
+            totalExclusiveDuration = measurements.fold(Duration.ZERO) { acc, measurement ->
+                acc + measurement.exclusiveDuration
+            },
         )
     }
 
@@ -196,6 +202,9 @@ public object RefOperationSummaryFactory :
     }
 }
 
-public class RefLogger : OperationLogger<RefOperation, RefOperationInput, RefOperationSummary>(
-    RefOperationSummaryFactory
+public class RefLogger(
+    traceContext: OperationTraceContext = OperationTraceContext(),
+) : OperationLogger<RefOperation, RefOperationInput, RefOperationSummary>(
+    RefOperationSummaryFactory,
+    traceContext,
 )

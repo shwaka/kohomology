@@ -398,9 +398,9 @@ class MatrixLoggerTest : FreeSpec({
             ),
         ).associateBy { it.operation }
         val expected = """
-            |          name total  max count metrics
-            |MultiplyMatrix  10ms 10ms     1 maxRow1=2, maxCol1=3, maxCol2=4
-            |           Add   6ms  5ms     2 maxRow=4, maxCol=3
+            |          name total total_excl  max max_excl count metrics
+            |MultiplyMatrix  10ms       10ms 10ms     10ms     1 maxRow1=2, maxCol1=3, maxCol2=4
+            |           Add   6ms        6ms  5ms      5ms     2 maxRow=4, maxCol=3
         """.trimMargin()
 
         formatSummaries(summaries).trimLineEnds() shouldBe expected
@@ -421,9 +421,9 @@ class MatrixLoggerTest : FreeSpec({
             ),
         )
         val expected = """
-            |          name total  max count metrics
-            |MultiplyMatrix  10ms 10ms     1 maxRow1=2, maxCol1=3, maxCol2=4
-            |           Add   6ms  5ms     2 maxRow=4, maxCol=3
+            |          name total total_excl  max max_excl count metrics
+            |MultiplyMatrix  10ms       10ms 10ms     10ms     1 maxRow1=2, maxCol1=3, maxCol2=4
+            |           Add   6ms        6ms  5ms      5ms     2 maxRow=4, maxCol=3
         """.trimMargin()
 
         logger.getFormattedSummaries().trimLineEnds() shouldBe expected
@@ -443,9 +443,9 @@ class MatrixLoggerTest : FreeSpec({
             ),
         )
         val expected = """
-            |operation,duration_ms,col_count,first_col_count,first_row_count,row_count,second_col_count,second_row_count,size,work_size
-            |Add,1.0,3.0,,,2.0,,,6.0,6.0
-            |MultiplyMatrix,10.0,,3.0,2.0,,4.0,3.0,8.0,24.0
+            |operation,duration_ms,exclusive_duration_ms,col_count,first_col_count,first_row_count,row_count,second_col_count,second_row_count,size,work_size
+            |Add,1.0,1.0,3.0,,,2.0,,,6.0,6.0
+            |MultiplyMatrix,10.0,10.0,,3.0,2.0,,4.0,3.0,8.0,24.0
         """.trimMargin()
 
         logger.getMeasurementsCSV() shouldBe expected

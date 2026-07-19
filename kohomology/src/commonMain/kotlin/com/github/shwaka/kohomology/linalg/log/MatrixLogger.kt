@@ -239,6 +239,8 @@ public data class MatrixOperationSummary(
     override val maxDuration: Duration,
     override val totalDuration: Duration,
     public val metrics: MatrixOperationMetrics,
+    override val maxExclusiveDuration: Duration = maxDuration,
+    override val totalExclusiveDuration: Duration = totalDuration,
 ) : OperationSummary<MatrixOperation> {
     override val metricsText: String
         get() = metrics.toPrettyString()
@@ -270,6 +272,10 @@ public object MatrixOperationSummaryFactory :
                 acc + measurement.duration
             },
             metrics = this.createMetrics(operation, measurements),
+            maxExclusiveDuration = measurements.maxOfOrNull { it.exclusiveDuration } ?: Duration.ZERO,
+            totalExclusiveDuration = measurements.fold(Duration.ZERO) { acc, measurement ->
+                acc + measurement.exclusiveDuration
+            },
         )
     }
 
@@ -306,6 +312,9 @@ public object MatrixOperationSummaryFactory :
     }
 }
 
-public class MatrixLogger : OperationLogger<MatrixOperation, MatrixOperationInput, MatrixOperationSummary>(
-    MatrixOperationSummaryFactory
+public class MatrixLogger(
+    traceContext: OperationTraceContext = OperationTraceContext(),
+) : OperationLogger<MatrixOperation, MatrixOperationInput, MatrixOperationSummary>(
+    MatrixOperationSummaryFactory,
+    traceContext,
 )

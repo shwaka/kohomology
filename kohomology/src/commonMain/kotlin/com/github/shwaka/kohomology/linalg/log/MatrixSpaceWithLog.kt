@@ -12,8 +12,9 @@ import com.github.shwaka.kohomology.linalg.Scalar
 public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     public val originalMatrixSpace: MatrixSpace<S, V, M>,
 ) : MatrixSpace<S, V, M> {
-    public val logger: MatrixLogger = MatrixLogger()
-    public val refLogger: RefLogger = RefLogger()
+    private val traceContext: OperationTraceContext = OperationTraceContext()
+    public val logger: MatrixLogger = MatrixLogger(this.traceContext)
+    public val refLogger: RefLogger = RefLogger(this.traceContext)
 
     public fun getSummaries(): Map<OperationKind, OperationSummary<OperationKind>> {
         return this.logger.summaries() + this.refLogger.summaries()

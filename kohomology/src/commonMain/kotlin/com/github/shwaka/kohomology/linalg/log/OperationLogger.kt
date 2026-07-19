@@ -4,7 +4,7 @@ import com.github.shwaka.kohomology.util.Alignment
 import com.github.shwaka.kohomology.util.TableFormatter
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
-import kotlin.time.measureTimedValue
+import kotlin.time.TimeSource
 
 public interface OperationKind {
     public val displayName: String
@@ -19,7 +19,48 @@ public interface OperationInput<out K : OperationKind> {
 public data class OperationMeasurement<out K : OperationKind, out I : OperationInput<K>>(
     val duration: Duration,
     val input: I,
+    val exclusiveDuration: Duration = duration,
 )
+
+public class OperationTraceContext(
+    private val timeSource: TimeSource = TimeSource.Monotonic,
+) {
+    private class ActiveMeasurement {
+        var childDuration: Duration = Duration.ZERO
+    }
+
+    private val activeMeasurements: ArrayDeque<ActiveMeasurement> = ArrayDeque()
+
+    internal fun <T> measure(
+        record: (duration: Duration, exclusiveDuration: Duration) -> Unit,
+        block: () -> T,
+    ): T {
+        val activeMeasurement = ActiveMeasurement()
+        val start = this.timeSource.markNow()
+        this.activeMeasurements.addLast(activeMeasurement)
+        val value = try {
+            block()
+        } catch (throwable: Throwable) {
+            this.popActiveMeasurement(activeMeasurement)
+            throw throwable
+        }
+        val duration = start.elapsedNow()
+        val exclusiveDuration = maxOf(Duration.ZERO, duration - activeMeasurement.childDuration)
+        this.popActiveMeasurement(activeMeasurement)
+        record(duration, exclusiveDuration)
+        this.activeMeasurements.lastOrNull()?.let { parent ->
+            parent.childDuration += duration
+        }
+        return value
+    }
+
+    private fun popActiveMeasurement(expected: ActiveMeasurement) {
+        val actual = this.activeMeasurements.removeLastOrNull()
+        check(actual === expected) {
+            "OperationTraceContext stack is corrupted."
+        }
+    }
+}
 
 private fun String.escapeCSV(): String {
     val shouldQuote = this.any { it == ',' || it == '"' || it == '\n' || it == '\r' }
@@ -34,12 +75,13 @@ public fun <K : OperationKind, I : OperationInput<K>> List<OperationMeasurement<
     val numericValueKeys: List<String> = this.flatMap { measurement ->
         measurement.input.numericValues.keys
     }.distinct().sorted()
-    val header = listOf("operation", "duration_ms") + numericValueKeys
+    val header = listOf("operation", "duration_ms", "exclusive_duration_ms") + numericValueKeys
     val rows = this.map { measurement ->
         val numericValues = measurement.input.numericValues
         listOf(
             measurement.input.operation.displayName,
             measurement.duration.toDouble(DurationUnit.MILLISECONDS).toString(),
+            measurement.exclusiveDuration.toDouble(DurationUnit.MILLISECONDS).toString(),
         ) + numericValueKeys.map { key ->
             numericValues[key]?.toString() ?: ""
         }
@@ -53,6 +95,10 @@ public interface OperationSummary<out K : OperationKind> {
     public val invocationCount: Int
     public val maxDuration: Duration
     public val totalDuration: Duration
+    public val maxExclusiveDuration: Duration
+        get() = this.maxDuration
+    public val totalExclusiveDuration: Duration
+        get() = this.totalDuration
     public val metricsText: String
 }
 
@@ -63,7 +109,9 @@ public fun <K : OperationKind> formatSummaries(summaries: Map<K, OperationSummar
     val header = listOf(
         "name",
         "total",
+        "total_excl",
         "max",
+        "max_excl",
         "count",
         "metrics",
     )
@@ -71,12 +119,16 @@ public fun <K : OperationKind> formatSummaries(summaries: Map<K, OperationSummar
         listOf(
             summary.operation.displayName,
             summary.totalDuration.toString(DurationUnit.MILLISECONDS, 0),
+            summary.totalExclusiveDuration.toString(DurationUnit.MILLISECONDS, 0),
             summary.maxDuration.toString(DurationUnit.MILLISECONDS, 0),
+            summary.maxExclusiveDuration.toString(DurationUnit.MILLISECONDS, 0),
             summary.invocationCount.toString(),
             summary.metricsText,
         )
     }
     val alignments = listOf(
+        Alignment.RIGHT,
+        Alignment.RIGHT,
         Alignment.RIGHT,
         Alignment.RIGHT,
         Alignment.RIGHT,
@@ -95,7 +147,8 @@ public fun interface OperationSummaryFactory<K : OperationKind, I : OperationInp
 }
 
 public open class OperationLogger<K : OperationKind, I : OperationInput<K>, S : OperationSummary<K>>(
-    private val summaryFactory: OperationSummaryFactory<K, I, S>
+    private val summaryFactory: OperationSummaryFactory<K, I, S>,
+    private val traceContext: OperationTraceContext = OperationTraceContext(),
 ) {
     private val _measurements: MutableList<OperationMeasurement<K, I>> = mutableListOf()
 
@@ -107,14 +160,18 @@ public open class OperationLogger<K : OperationKind, I : OperationInput<K>, S : 
     }
 
     public fun <T> measureOperation(input: I, block: () -> T): T {
-        val (value, duration) = measureTimedValue(block)
-        this.add(
-            OperationMeasurement(
-                duration = duration,
-                input = input,
-            ),
+        return this.traceContext.measure(
+            record = { duration, exclusiveDuration ->
+                this.add(
+                    OperationMeasurement(
+                        duration = duration,
+                        input = input,
+                        exclusiveDuration = exclusiveDuration,
+                    ),
+                )
+            },
+            block = block,
         )
-        return value
     }
 
     public fun clear() {

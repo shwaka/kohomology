@@ -1,4 +1,4 @@
-import { eslintConfigShwakaOnsave } from "eslint-config-shwaka"
+import { eslintConfigShwakaOnsave } from "@shwaka/eslint-config-shwaka"
 import importPlugin from "eslint-plugin-import"
 import tseslint from "typescript-eslint"
 

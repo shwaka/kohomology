@@ -1,4 +1,4 @@
-import { eslintConfigShwakaReact } from "eslint-config-shwaka"
+import { eslintConfigShwakaReact } from "@shwaka/eslint-config-shwaka"
 import testingLibrary from "eslint-plugin-testing-library"
 import jestDom from "eslint-plugin-jest-dom"
 import tseslint from 'typescript-eslint'

@@ -83,6 +83,11 @@ cd ../profile
     - `'*Executable.main*'` may be more useful than `'*$className*'`
 7. Press `ENTER` in (B)
 
+### Operation logging
+1. Run `./gradlew exportOperationMeasurementsCSV -DmeasurementTarget=8` (several times) in `profile/`
+2. CSV files should be written at `profile/build/kohomology/operation-measurements`
+3. Run `./plot-operation-measurements.py --aggregate-stat median ../profile/build/kohomology/operation-measurements/cohom-LAL-300-shift_ref-operations_*.csv` in `scripts/`
+
 ### Generate documentation
 `./gradlew dokkaHtml`
 

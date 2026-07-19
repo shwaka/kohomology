@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1784459758785,
+  "lastUpdate": 1784465590049,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -13990,6 +13990,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.307,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "b6a8e573eefb3850c8ab9c92dd3486cbc79636e8",
+          "message": "fix(website): move `npm ci` outside of prepare_local_commits_json",
+          "timestamp": "2026-07-19T21:46:58+09:00",
+          "tree_id": "05e095ee9e64c9f7d95ff124e5d0794ac8f71f98",
+          "url": "https://github.com/shwaka/kohomology/commit/b6a8e573eefb3850c8ab9c92dd3486cbc79636e8"
+        },
+        "date": 1784465588673,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.86,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.433,
             "unit": "s/op"
           }
         ]

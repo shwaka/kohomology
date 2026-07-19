@@ -1,4 +1,4 @@
-import { type Context, createContext, type ReactNode, useRef, useState, type ReactElement, type Dispatch, type SetStateAction } from "react"
+import { type Context, createContext, type ReactNode, useState, type ReactElement, type Dispatch, type SetStateAction } from "react"
 
 import { type WFBase } from "./expose"
 import { WorkerWrapper } from "./WorkerWrapper"

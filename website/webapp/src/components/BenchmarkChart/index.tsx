@@ -1,4 +1,4 @@
-import { useRef, useState, type ReactElement, Fragment } from "react"
+import { useState, type ReactElement, Fragment, useMemo } from "react"
 
 import benchmarkData from "@benchmark/core/dev/bench/benchmarkData.json"
 import benchmarkDataWebsite from "@benchmark/website/dev/bench/benchmarkData.json"
@@ -79,9 +79,12 @@ function BenchmarkChartOf(
   { benchmarkData, color }: {
     benchmarkData: BenchmarkData
     color: `#${string}`
-  }): ReactElement {
-  const dataHandlerRef = useRef(new BenchmarkDataHandler(benchmarkData))
-  const dataHandler = dataHandlerRef.current
+  }
+): ReactElement {
+  const dataHandler = useMemo(
+    () => new BenchmarkDataHandler(benchmarkData),
+    [benchmarkData],
+  )
   const [showMovingAverage, setShowMovingAverage] = useState(false)
   const { isSelected, rangeSliderProps } = useRangeFilter({
     items: dataHandler.commits,

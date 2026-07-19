@@ -27,7 +27,7 @@ public sealed interface SparseRowEchelonFormAlgorithm {
     public data object NonInPlace : SparseRowEchelonFormAlgorithm
 
     public companion object {
-        public val default: SparseRowEchelonFormAlgorithm = Indexed
+        public val default: SparseRowEchelonFormAlgorithm = Markowitz
     }
 }
 

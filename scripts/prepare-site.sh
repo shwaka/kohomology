@@ -15,9 +15,17 @@ declare -A BENCHMARK_DESTINATION_LIST=(
     [benchmark-data-website]="benchmark-data/website"
 )
 
-function prepare_local_commits_json() {
-    cd "$ROOT_DIR"/website/webapp
+WEBAPP_DIR="$ROOT_DIR"/website/webapp
+
+function npm_ci_webapp() {
+    cd "$WEBAPP_DIR"
     npm ci
+}
+
+function prepare_local_commits_json() {
+    # npm_ci_webapp should be run before this.
+    # But `npm ci` cannot be called here because it breaks GitHub Actions workflow.
+    cd "$WEBAPP_DIR"
     npm run generate:localCommits
 }
 
@@ -68,9 +76,10 @@ function prepare_kohomology_js() {
 
 case "$command" in
     all)
-        # prepare_kohomology_js should be run before prepare_benchmark_data
-        # since prepare_local_commits_json runs `npm ci`, which requires kohomology-js
+        # prepare_kohomology_js should be run before npm_ci_webapp
+        # since it requires kohomology-js
         prepare_kohomology_js
+        npm_ci_webapp
         prepare_benchmark_data
         prepare_dokka
         ;;

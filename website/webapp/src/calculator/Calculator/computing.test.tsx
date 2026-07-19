@@ -1,4 +1,5 @@
 import { type MessageOutput } from "@calculator/WorkerContext/expose"
+import type * as WorkerWrapperModule from "@calculator/WorkerContext/WorkerWrapper"
 import { useLocation } from "@docusaurus/router"
 import { act, render, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
@@ -71,7 +72,9 @@ class OnmessageCapturer {
 const capturer = new OnmessageCapturer()
 
 jest.mock("@calculator/WorkerContext/WorkerWrapper", () => {
-  const originalModule = jest.requireActual<typeof import("@calculator/WorkerContext/WorkerWrapper")>("@calculator/WorkerContext/WorkerWrapper")
+  const originalModule = jest.requireActual<typeof WorkerWrapperModule>(
+    "@calculator/WorkerContext/WorkerWrapper",
+  )
   const OriginalWorkerWrapper = originalModule.WorkerWrapper
   const originalOnmessage = OriginalWorkerWrapper.prototype.onmessage
 

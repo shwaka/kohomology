@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1784465590049,
+  "lastUpdate": 1784467550364,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -14024,6 +14024,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.433,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "e28ebffe6a0b59d772d2e0d8d598c18e2fe2e86c",
+          "message": "refactor(core): split SparseRowEchelonTransformationStrategy.kt",
+          "timestamp": "2026-07-19T22:17:37+09:00",
+          "tree_id": "5c5fe5fc843ba1d5f7d65afeee8e12c9d8dbf6e8",
+          "url": "https://github.com/shwaka/kohomology/commit/e28ebffe6a0b59d772d2e0d8d598c18e2fe2e86c"
+        },
+        "date": 1784467548939,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.863,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.441,
             "unit": "s/op"
           }
         ]

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1784467550364,
+  "lastUpdate": 1784470667483,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -14058,6 +14058,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.441,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "eeb22fc45c2219e15c0429ef2881204bc2fd44b9",
+          "message": "refactor(core): add shareOperationContext to MatrixSpaceWithLog",
+          "timestamp": "2026-07-19T23:07:19+09:00",
+          "tree_id": "943e85e2e6580f1e96bb8a1aa139ede12ac136c6",
+          "url": "https://github.com/shwaka/kohomology/commit/eeb22fc45c2219e15c0429ef2881204bc2fd44b9"
+        },
+        "date": 1784470666284,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.79,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.063,
             "unit": "s/op"
           }
         ]

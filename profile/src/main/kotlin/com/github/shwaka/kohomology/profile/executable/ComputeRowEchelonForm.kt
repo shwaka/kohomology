@@ -8,9 +8,13 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.model.FreeLoopSpace
 
 class ComputeRowEchelonFormOfDifferential<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    private val matrixSpace: MatrixSpace<S, V, M>
+    private val matrixSpace: MatrixSpace<S, V, M>,
+    private val label: String? = null,
 ) : Executable() {
-    override val description: String = "compute row echelon form of a differential of a DGA with $matrixSpace"
+    override val description: String = buildString {
+        append("compute row echelon form of a differential of a DGA with $matrixSpace")
+        label?.let { append(" ($it)") }
+    }
     override val filename: String = "row-echelon-of-diff"
 
     private var matrix: M? = null
@@ -33,11 +37,43 @@ class ComputeRowEchelonFormOfDifferential<S : Scalar, V : NumVector<S>, M : Matr
     }
 }
 
+class ComputeReducedTransformationOfDifferential<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    private val matrixSpace: MatrixSpace<S, V, M>,
+    private val label: String? = null,
+) : Executable() {
+    override val description: String = buildString {
+        append("compute reduced transformation of a differential of a DGA with $matrixSpace")
+        label?.let { append(" ($it)") }
+    }
+    override val filename: String = "reduced-transformation-of-diff"
+
+    private var matrix: M? = null
+
+    override fun setupFun() {
+        val freeDGAlgebra = pullbackOfHopfFibrationOverS4(this.matrixSpace)
+        val freeLoopSpace = FreeLoopSpace(freeDGAlgebra)
+        val degree = 23
+        this.matrix = freeLoopSpace.differential[degree].matrix
+    }
+
+    override fun mainFun(): String {
+        val matrix: M = this.matrix ?: throw Exception("setupFun() is not called")
+        return this.matrixSpace.context.run {
+            println("${matrix.rowCount}, ${matrix.colCount}")
+            matrix.rowEchelonForm.reducedTransformation[0, 0].toString()
+        }
+    }
+}
+
 class ComputeReducedRowEchelonFormOfJordanMatrix<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val matrixSpace: MatrixSpace<S, V, M>,
     private val dim: Int,
+    private val label: String? = null,
 ) : Executable() {
-    override val description = "compute reduced row echelon form of a Jordan matrix with $matrixSpace"
+    override val description = buildString {
+        append("compute reduced row echelon form of a Jordan matrix with $matrixSpace")
+        label?.let { append(" ($it)") }
+    }
     override val filename: String = "row-echelon-of-jordan-$dim"
     private var matrix: M? = null
 

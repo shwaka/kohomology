@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpace
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceWithMultiDegree
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree
 import com.github.shwaka.kohomology.profile.executable.ComputeReducedRowEchelonFormOfJordanMatrix
+import com.github.shwaka.kohomology.profile.executable.ComputeReducedTransformationOfDifferential
 import com.github.shwaka.kohomology.profile.executable.ComputeRowEchelonFormOfDifferential
 import com.github.shwaka.kohomology.profile.executable.Executable
 import com.github.shwaka.kohomology.profile.executable.IsomorphismToCohomologyOfFreePathSpace
@@ -27,7 +28,22 @@ fun main() {
         CohomologyOfFreeLoopSpaceWithMultiDegree(SparseMatrixSpaceOverRational, 150),
         CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(SparseMatrixSpaceOverRational, 100),
         IsomorphismToCohomologyOfFreePathSpace(SparseMatrixSpaceOverRational, n = 5, degreeLimit = 70),
-        ComputeRowEchelonFormOfDifferential(SparseMatrixSpaceOverRational),
+        ComputeRowEchelonFormOfDifferential(SparseMatrixSpaceOverRational, label = "default"),
+        ComputeRowEchelonFormOfDifferential(
+            SparseMatrixSpace.from(
+                numVectorSpace = SparseNumVectorSpaceOverRational,
+                rowEchelonAlgorithm = SparseRowEchelonFormAlgorithm.Markowitz,
+            ),
+            label = "markowitz",
+        ),
+        ComputeReducedTransformationOfDifferential(SparseMatrixSpaceOverRational, label = "default"),
+        ComputeReducedTransformationOfDifferential(
+            SparseMatrixSpace.from(
+                numVectorSpace = SparseNumVectorSpaceOverRational,
+                rowEchelonAlgorithm = SparseRowEchelonFormAlgorithm.Markowitz,
+            ),
+            label = "markowitz",
+        ),
         ComputeRowEchelonFormOfDifferential(DecomposedSparseMatrixSpaceOverRational),
         ComputeReducedRowEchelonFormOfJordanMatrix(SetMatrixSpaceOverF2Boolean, 5000),
         CohomologyOfFreeLoopSpaceOfArkowitzLupton(SparseMatrixSpaceOverRational, 250),
@@ -55,6 +71,14 @@ fun main() {
             ),
             arDegreeLimit,
             label = "indexed",
+        ),
+        CohomologyOfFreeLoopSpaceOfArkowitzLuptonWithShiftDegree(
+            SparseMatrixSpace.from(
+                numVectorSpace = SparseNumVectorSpaceOverRational,
+                rowEchelonAlgorithm = SparseRowEchelonFormAlgorithm.Markowitz,
+            ),
+            arDegreeLimit,
+            label = "markowitz",
         ),
     )
     val defaultChoice = 0

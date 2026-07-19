@@ -158,7 +158,9 @@ const config = {
   ],
 }
 
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/**
+ * @returns {Promise<import('@docusaurus/types').Config>}
+ */
 async function createConfig() {
   const lightTheme = (await import("./src/prismThemes/prismLight.mjs")).default
   const darkTheme = (await import("./src/prismThemes/prismDark.mjs")).default

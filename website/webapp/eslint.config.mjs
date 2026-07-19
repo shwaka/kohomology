@@ -32,14 +32,10 @@ export default tseslint.config(
   },
   {
     // Enable type-aware linting for this standalone Docusaurus configuration file.
-    // Since it is not included in a tsconfig.json, allowDefaultProject lets the
-    // TypeScript project service provide type information for typed ESLint rules.
     files: ["docusaurus.config.mjs"],
     languageOptions: {
       parserOptions: {
-        projectService: {
-          allowDefaultProject: ["docusaurus.config.mjs"],
-        },
+        projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },

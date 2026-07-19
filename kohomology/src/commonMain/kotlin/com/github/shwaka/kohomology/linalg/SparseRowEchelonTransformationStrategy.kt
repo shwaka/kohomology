@@ -3,45 +3,45 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.linalg.echeloncalc.TransformTrackingSparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.linalg.echeloncalc.TransformTrackingSparseRowEchelonFormData
 
-internal interface SparseRowEchelonTransformationStrategy<S : Scalar> {
-    fun computeTransformation(): SparseMatrix<S>
-    fun computeReducedTransformation(): SparseMatrix<S>
+internal interface RowEchelonTransformationStrategy<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
+    fun computeTransformation(): M
+    fun computeReducedTransformation(): M
 }
 
-internal class AugmentationSparseRowEchelonTransformationStrategy<S : Scalar>(
-    private val matrixSpace: AbstractSparseMatrixSpace<S>,
-    private val originalMatrix: SparseMatrix<S>,
-) : SparseRowEchelonTransformationStrategy<S> {
-    private val augmentedOriginalMatrix: SparseMatrix<S> by lazy {
+internal class AugmentationRowEchelonTransformationStrategy<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    private val matrixSpace: MatrixSpace<S, V, M>,
+    private val originalMatrix: M,
+) : RowEchelonTransformationStrategy<S, V, M> {
+    private val augmentedOriginalMatrix: M by lazy {
         val rowCount = this.originalMatrix.rowCount
         this.matrixSpace.context.run {
             listOf(
-                this@AugmentationSparseRowEchelonTransformationStrategy.originalMatrix,
-                this@AugmentationSparseRowEchelonTransformationStrategy.matrixSpace.getIdentity(rowCount),
+                this@AugmentationRowEchelonTransformationStrategy.originalMatrix,
+                this@AugmentationRowEchelonTransformationStrategy.matrixSpace.getIdentity(rowCount),
             ).join()
         }
     }
 
-    private val augmentedRowEchelonForm: RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>> by lazy {
+    private val augmentedRowEchelonForm: RowEchelonForm<S, V, M> by lazy {
         this.matrixSpace.context.run {
-            this@AugmentationSparseRowEchelonTransformationStrategy.augmentedOriginalMatrix.rowEchelonForm
+            this@AugmentationRowEchelonTransformationStrategy.augmentedOriginalMatrix.rowEchelonForm
         }
     }
 
-    override fun computeTransformation(): SparseMatrix<S> {
+    override fun computeTransformation(): M {
         val originalColCount = this.originalMatrix.colCount
         val augmentedColCount = this.augmentedOriginalMatrix.colCount
         return this.matrixSpace.context.run {
-            this@AugmentationSparseRowEchelonTransformationStrategy.augmentedRowEchelonForm.matrix
+            this@AugmentationRowEchelonTransformationStrategy.augmentedRowEchelonForm.matrix
                 .colSlice(originalColCount until augmentedColCount)
         }
     }
 
-    override fun computeReducedTransformation(): SparseMatrix<S> {
+    override fun computeReducedTransformation(): M {
         val originalColCount = this.originalMatrix.colCount
         val augmentedColCount = this.augmentedOriginalMatrix.colCount
         return this.matrixSpace.context.run {
-            this@AugmentationSparseRowEchelonTransformationStrategy.augmentedRowEchelonForm.reducedMatrix
+            this@AugmentationRowEchelonTransformationStrategy.augmentedRowEchelonForm.reducedMatrix
                 .colSlice(originalColCount until augmentedColCount)
         }
     }
@@ -51,7 +51,7 @@ internal class TrackingSparseRowEchelonTransformationStrategy<S : Scalar>(
     private val matrixSpace: AbstractSparseMatrixSpace<S>,
     private val originalMatrix: SparseMatrix<S>,
     private val calculator: TransformTrackingSparseRowEchelonFormCalculator<S>,
-) : SparseRowEchelonTransformationStrategy<S> {
+) : RowEchelonTransformationStrategy<S, SparseNumVector<S>, SparseMatrix<S>> {
     private val rowCount = this.originalMatrix.rowCount
     private val colCount = this.originalMatrix.colCount
 

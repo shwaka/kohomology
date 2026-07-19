@@ -1,6 +1,8 @@
 package com.github.shwaka.kohomology.specific.f2
 
+import com.github.shwaka.kohomology.linalg.AugmentationRowEchelonTransformationStrategy
 import com.github.shwaka.kohomology.linalg.RowEchelonForm
+import com.github.shwaka.kohomology.linalg.RowEchelonTransformationStrategy
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.exchange
@@ -17,6 +19,13 @@ internal class NonInPlaceSetRowEchelonForm<S : Scalar>(
 ) : RowEchelonForm<S, SetNumVector<S>, SetMatrix<S>>(matrixSpace, originalMatrix) {
     private val rowCount = originalMatrix.rowCount
     private val colCount = originalMatrix.colCount
+    private val transformationStrategy:
+        RowEchelonTransformationStrategy<S, SetNumVector<S>, SetMatrix<S>> by lazy {
+            AugmentationRowEchelonTransformationStrategy(
+                matrixSpace = this.matrixSpace,
+                originalMatrix = this.originalMatrix,
+            )
+        }
     private val data: SetRowEchelonFormData<S> by lazy {
         val rowSetMap = this@NonInPlaceSetRowEchelonForm.originalMatrix.rowSetMap
         this.rowEchelonForm(rowSetMap, this.colCount)
@@ -43,6 +52,14 @@ internal class NonInPlaceSetRowEchelonForm<S : Scalar>(
             reducedRowSetMap = reducedRowSetMap.eliminateOtherRows(i, pivots[i])
         }
         return this.matrixSpace.fromRowSetMap(reducedRowSetMap, this.rowCount, this.colCount)
+    }
+
+    override fun computeTransformation(): SetMatrix<S> {
+        return this.transformationStrategy.computeTransformation()
+    }
+
+    override fun computeReducedTransformation(): SetMatrix<S> {
+        return this.transformationStrategy.computeReducedTransformation()
     }
 
     private fun rowEchelonForm(matrix: Map<Int, Set<Int>>, colCount: Int): SetRowEchelonFormData<S> {
@@ -140,6 +157,13 @@ internal class InPlaceSetRowEchelonForm<S : Scalar>(
 ) : RowEchelonForm<S, SetNumVector<S>, SetMatrix<S>>(matrixSpace, originalMatrix) {
     private val rowCount = originalMatrix.rowCount
     private val colCount = originalMatrix.colCount
+    private val transformationStrategy:
+        RowEchelonTransformationStrategy<S, SetNumVector<S>, SetMatrix<S>> by lazy {
+            AugmentationRowEchelonTransformationStrategy(
+                matrixSpace = this.matrixSpace,
+                originalMatrix = this.originalMatrix,
+            )
+        }
     private val data: SetRowEchelonFormData<S> by lazy {
         val rowSetMap = this@InPlaceSetRowEchelonForm.originalMatrix.rowSetMap
         this.rowEchelonForm(rowSetMap, this.colCount)
@@ -166,6 +190,14 @@ internal class InPlaceSetRowEchelonForm<S : Scalar>(
             reducedRowSetMap.eliminateOtherRows(i, pivots[i])
         }
         return this.matrixSpace.fromRowSetMap(reducedRowSetMap, this.rowCount, this.colCount)
+    }
+
+    override fun computeTransformation(): SetMatrix<S> {
+        return this.transformationStrategy.computeTransformation()
+    }
+
+    override fun computeReducedTransformation(): SetMatrix<S> {
+        return this.transformationStrategy.computeReducedTransformation()
     }
 
     private fun <K, T> Map<K, Set<T>>.toMutableDeeply(): MutableMap<K, MutableSet<T>> {

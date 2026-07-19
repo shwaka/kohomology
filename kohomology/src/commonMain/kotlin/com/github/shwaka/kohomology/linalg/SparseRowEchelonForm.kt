@@ -14,10 +14,10 @@ internal class SparseRowEchelonForm<S : Scalar>(
     private val data: SparseRowEchelonFormData<S> by lazy {
         this.calculator.rowEchelonForm(this@SparseRowEchelonForm.originalMatrix.rowMap, this.colCount)
     }
-    private val transformationStrategy: SparseRowEchelonTransformationStrategy<S> by lazy {
+    private val transformationStrategy: RowEchelonTransformationStrategy<S, SparseNumVector<S>, SparseMatrix<S>> by lazy {
         val trackingCalculator = this.calculator as? TransformTrackingSparseRowEchelonFormCalculator<S>
         if (trackingCalculator == null) {
-            AugmentationSparseRowEchelonTransformationStrategy(
+            AugmentationRowEchelonTransformationStrategy(
                 matrixSpace = this.sparseMatrixSpace,
                 originalMatrix = this.originalMatrix,
             )

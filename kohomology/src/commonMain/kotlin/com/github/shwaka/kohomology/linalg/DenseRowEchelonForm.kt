@@ -8,6 +8,13 @@ internal class DenseRowEchelonForm<S : Scalar>(
 ) : RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>>(matrixSpace, originalMatrix) {
     private val data: RowEchelonFormData<S> by lazy { this.matrixSpace.context.run { this@DenseRowEchelonForm.originalMatrix.toList().rowEchelonForm() } }
     private val field: Field<S> = matrixSpace.field
+    private val transformationStrategy: RowEchelonTransformationStrategy<S, DenseNumVector<S>, DenseMatrix<S>> by lazy {
+        AugmentationRowEchelonTransformationStrategy(
+            matrixSpace = this.matrixSpace,
+            originalMatrix = this.originalMatrix,
+        )
+    }
+
     override fun computeRowEchelonForm(): DenseMatrix<S> {
         return this.matrixSpace.fromRowList(this.data.matrix)
     }
@@ -35,6 +42,14 @@ internal class DenseRowEchelonForm<S : Scalar>(
             rawReducedMatrix = rawReducedMatrix.eliminateOtherRows(i, this.pivots[i])
         }
         return this.matrixSpace.fromRowList(rawReducedMatrix, colCount = this.originalMatrix.colCount)
+    }
+
+    override fun computeTransformation(): DenseMatrix<S> {
+        return this.transformationStrategy.computeTransformation()
+    }
+
+    override fun computeReducedTransformation(): DenseMatrix<S> {
+        return this.transformationStrategy.computeReducedTransformation()
     }
 
     private data class RowEchelonFormData<S : Scalar>(val matrix: List<List<S>>, val pivots: List<Int>, val exchangeCount: Int)

@@ -40,6 +40,13 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
             trackingCalculator.reduceWithTransformation(data)
         }
     }
+    private val augmentationTransformationStrategy:
+        RowEchelonTransformationStrategy<S, SparseNumVector<S>, SparseMatrix<S>> by lazy {
+            AugmentationRowEchelonTransformationStrategy(
+                matrixSpace = this.matrixSpace,
+                originalMatrix = this.originalMatrix,
+            )
+        }
 
     private fun computeData(): SparseRowEchelonFormData<S> {
         val dataList: List<SparseRowEchelonFormData<S>> = this.dataList
@@ -167,7 +174,7 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
             )
             this.matrixSpace.fromRowMap(transformationRowMap, this.rowCount, this.rowCount)
         } else {
-            super.computeTransformation()
+            this.augmentationTransformationStrategy.computeTransformation()
         }
     }
 
@@ -179,7 +186,7 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
             )
             this.matrixSpace.fromRowMap(transformationRowMap, this.rowCount, this.rowCount)
         } else {
-            super.computeReducedTransformation()
+            this.augmentationTransformationStrategy.computeReducedTransformation()
         }
     }
 

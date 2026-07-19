@@ -17,6 +17,7 @@ declare -A BENCHMARK_DESTINATION_LIST=(
 
 function prepare_local_commits_json() {
     cd "$ROOT_DIR"/website/webapp
+    npm ci
     npm run generate:localCommits
 }
 
@@ -67,9 +68,12 @@ function prepare_kohomology_js() {
 
 case "$command" in
     all)
+        # prepare_kohomology_js should be run before prepare_benchmark_data
+        # since prepare_local_commits_json runs `npm ci`, which requires kohomology-js
+        prepare_kohomology_js
         prepare_benchmark_data
         prepare_dokka
-        prepare_kohomology_js;;
+        ;;
     benchmark-data) prepare_benchmark_data;;
     benchmark-data-mock) prepare_benchmark_data_mock;;
     dokka) prepare_dokka;;

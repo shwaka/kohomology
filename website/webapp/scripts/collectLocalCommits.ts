@@ -1,4 +1,4 @@
-import { exec } from "child_process"
+import { execFile } from "child_process"
 import fs from "fs"
 import path from "path"
 import util from "util"
@@ -6,7 +6,7 @@ import util from "util"
 import { LocalCommit, localCommitArraySchema } from "@components/BenchmarkChart/schema/localCommitSchema"
 import { z } from "zod/v4"
 
-const execAsync = util.promisify(exec)
+const execFileAsync = util.promisify(execFile)
 
 const valueSeparator = "---value-sep---"
 const commitSeparator = "---commit-sep---"
@@ -23,11 +23,18 @@ async function gitLog(): Promise<string> {
     "%cn", // committer name
     "%ce", // committer email
     "%ad", // timestamp (ISO)
-    "%B" // commit message
+    "%B", // commit message
   ].join(valueSeparator)
-  const { stdout } = await execAsync(
-    `git log --reverse --pretty=format:"${commitSeparator}${commitFormat}" --date=iso-strict`,
+  const { stdout } = await execFileAsync(
+    "git",
+    [
+      "log",
+      "--reverse",
+      `--pretty=format:${commitSeparator}${commitFormat}`,
+      "--date=iso-strict",
+    ],
     {
+      encoding: "utf8",
       maxBuffer: gitOutputMaxBuffer,
     },
   )

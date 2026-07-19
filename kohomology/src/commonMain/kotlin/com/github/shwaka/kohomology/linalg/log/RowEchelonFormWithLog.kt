@@ -30,6 +30,26 @@ public class RowEchelonFormWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V
         }
     }
 
+    override fun computeTransformation(): M {
+        val input = RefOperationInput.Unreduced(
+            rowCount = this.originalMatrix.rowCount,
+            colCount = this.originalMatrix.colCount,
+        )
+        return this.logger.measureOperation(input) {
+            this.originalRowEchelonForm.transformation
+        }
+    }
+
+    override fun computeReducedTransformation(): M {
+        val input = RefOperationInput.Reduced(
+            rowCount = this.originalMatrix.rowCount,
+            colCount = this.originalMatrix.colCount,
+        )
+        return this.logger.measureOperation(input) {
+            this.originalRowEchelonForm.reducedTransformation
+        }
+    }
+
     override fun computePivots(): List<Int> {
         val input = RefOperationInput.Pivots(
             rowCount = this.originalMatrix.rowCount,

@@ -704,6 +704,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 val numVector = listOf(one, one).toNumVector()
                 mat.findPreimage(numVector) shouldBe null
             }
+            "findPreimage should return null for a nonzero vector and a zero map with zero source" {
+                val mat = matrixSpace.getZero(rowCount = 1, colCount = 0)
+                val numVector = listOf(one).toNumVector()
+                mat.findPreimage(numVector) shouldBe null
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.linalg.echeloncalc
 
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.sparseMatrixTag
 import com.github.shwaka.kohomology.myArbList
 import com.github.shwaka.kohomology.rationalTag
@@ -144,6 +145,25 @@ class SparseRowEchelonFormCalculatorTest : FreeSpec({
             }
         }
     }
+
+    "SparseRowEchelonForm should use transform tracking calculator if available" {
+        val trackingCalculator = IdentityTrackingCalculator()
+        val matrixSpace = SparseMatrixSpace(
+            numVectorSpace = SparseNumVectorSpaceOverRational,
+            sparseRowEchelonFormCalculator = trackingCalculator,
+        )
+        matrixSpace.context.run {
+            val matrix = listOf(
+                listOf(one, zero),
+                listOf(zero, one),
+            ).toMatrix()
+            matrix.rowEchelonForm.transformation shouldBe matrixSpace.getIdentity(2)
+            trackingCalculator.rowEchelonFormWithTransformationCount shouldBe 1
+            trackingCalculator.reduceWithTransformationCount shouldBe 0
+            matrix.rowEchelonForm.reducedTransformation shouldBe matrixSpace.getIdentity(2)
+            trackingCalculator.reduceWithTransformationCount shouldBe 1
+        }
+    }
 })
 
 private fun <S : Scalar> SparseRowEchelonFormCalculator<S>.computeReducedRowMap(
@@ -254,5 +274,54 @@ private fun sparseRowMapArb(
                 rowIndex to sparseRow
             }
         }.toMap()
+    }
+}
+
+private class IdentityTrackingCalculator : TransformTrackingSparseRowEchelonFormCalculator<Rational> {
+    var rowEchelonFormWithTransformationCount: Int = 0
+    var reduceWithTransformationCount: Int = 0
+
+    override fun rowEchelonForm(
+        matrix: Map<Int, Map<Int, Rational>>,
+        colCount: Int,
+    ): SparseRowEchelonFormData<Rational> {
+        return SparseRowEchelonFormData(
+            rowMap = matrix,
+            pivots = (0 until colCount).toList(),
+            exchangeCount = 0,
+        )
+    }
+
+    override fun reduce(
+        rowEchelonRowMap: Map<Int, Map<Int, Rational>>,
+        pivots: List<Int>,
+    ): Map<Int, Map<Int, Rational>> {
+        return rowEchelonRowMap
+    }
+
+    override fun rowEchelonFormWithTransformation(
+        matrix: Map<Int, Map<Int, Rational>>,
+        rowCount: Int,
+        colCount: Int,
+    ): SparseRowEchelonFormData<Rational> {
+        this.rowEchelonFormWithTransformationCount++
+        return this.rowEchelonForm(matrix, colCount).copy(
+            transformationRowMap = identityRowMap(rowCount),
+        )
+    }
+
+    override fun reduceWithTransformation(
+        data: SparseRowEchelonFormData<Rational>,
+    ): SparseRowEchelonFormData<Rational> {
+        this.reduceWithTransformationCount++
+        return data
+    }
+
+    private fun identityRowMap(rowCount: Int): Map<Int, Map<Int, Rational>> {
+        return SparseNumVectorSpaceOverRational.field.context.run {
+            (0 until rowCount).associateWith { rowIndex ->
+                mapOf(rowIndex to one)
+            }
+        }
     }
 }

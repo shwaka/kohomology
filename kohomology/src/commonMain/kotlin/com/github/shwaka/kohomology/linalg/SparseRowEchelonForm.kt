@@ -1,18 +1,35 @@
 package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.linalg.echeloncalc.SparseRowEchelonFormData
+import com.github.shwaka.kohomology.linalg.echeloncalc.TransformTrackingSparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.util.Sign
 
 internal class SparseRowEchelonForm<S : Scalar>(
-    matrixSpace: AbstractSparseMatrixSpace<S>,
+    private val sparseMatrixSpace: AbstractSparseMatrixSpace<S>,
     originalMatrix: SparseMatrix<S>
-) : RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>>(matrixSpace, originalMatrix) {
+) : RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>>(sparseMatrixSpace, originalMatrix) {
     private val rowCount = originalMatrix.rowCount
     private val colCount = originalMatrix.colCount
-    private val calculator = matrixSpace.sparseRowEchelonFormCalculator
+    private val calculator = sparseMatrixSpace.sparseRowEchelonFormCalculator
     private val data: SparseRowEchelonFormData<S> by lazy {
         this.calculator.rowEchelonForm(this@SparseRowEchelonForm.originalMatrix.rowMap, this.colCount)
     }
+    private val transformationStrategy: SparseRowEchelonTransformationStrategy<S> by lazy {
+        val trackingCalculator = this.calculator as? TransformTrackingSparseRowEchelonFormCalculator<S>
+        if (trackingCalculator == null) {
+            AugmentationSparseRowEchelonTransformationStrategy(
+                matrixSpace = this.sparseMatrixSpace,
+                originalMatrix = this.originalMatrix,
+            )
+        } else {
+            TrackingSparseRowEchelonTransformationStrategy(
+                matrixSpace = this.sparseMatrixSpace,
+                originalMatrix = this.originalMatrix,
+                calculator = trackingCalculator,
+            )
+        }
+    }
+
     override fun computeRowEchelonForm(): SparseMatrix<S> {
         return this.matrixSpace.fromRowMap(this.data.rowMap, this.rowCount, this.colCount)
     }
@@ -28,5 +45,13 @@ internal class SparseRowEchelonForm<S : Scalar>(
     override fun computeReducedRowEchelonForm(): SparseMatrix<S> {
         val reducedRowMap = this.calculator.reduce(this.data.rowMap, this.data.pivots)
         return this.matrixSpace.fromRowMap(reducedRowMap, this.rowCount, this.colCount)
+    }
+
+    override fun computeTransformation(): SparseMatrix<S> {
+        return this.transformationStrategy.computeTransformation()
+    }
+
+    override fun computeReducedTransformation(): SparseMatrix<S> {
+        return this.transformationStrategy.computeReducedTransformation()
     }
 }

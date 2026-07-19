@@ -33,17 +33,16 @@ function WorkerContextProvider<WI, WO, WS, WF extends WFBase>(
     createWorker: () => Worker
   } & ProviderProps<WS>
 ): ReactElement {
-  const wrapperRef = useRef<WorkerWrapper<WI, WO, WS, WF> | null>(null)
-  if (wrapperRef.current === null) {
-    wrapperRef.current = new WorkerWrapper(props.createWorker)
-  }
+  const [wrapper] = useState(
+    () => new WorkerWrapper<WI, WO, WS, WF>(props.createWorker),
+  )
   const stateAndSetState = useState<WS>(props.defaultState)
 
   const CurrentContext = props.context
   const StateContext = props.stateContext
 
   return (
-    <CurrentContext.Provider value={wrapperRef.current}>
+    <CurrentContext.Provider value={wrapper}>
       <StateContext.Provider value={stateAndSetState}>
         {props.children}
       </StateContext.Provider>

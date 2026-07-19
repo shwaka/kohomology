@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1784433927986,
+  "lastUpdate": 1784450123252,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -13888,6 +13888,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.602,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "36ece7744d17922bc472c9e8a9ad95222cfefdcc",
+          "message": "fix(website): set maxBuffer to execAsync in collectLocalCommits.ts",
+          "timestamp": "2026-07-19T17:28:27+09:00",
+          "tree_id": "97e5b7a5aa64b45fb71d2ea1f0669f96d79f51fc",
+          "url": "https://github.com/shwaka/kohomology/commit/36ece7744d17922bc472c9e8a9ad95222cfefdcc"
+        },
+        "date": 1784450122564,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.891,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.429,
             "unit": "s/op"
           }
         ]

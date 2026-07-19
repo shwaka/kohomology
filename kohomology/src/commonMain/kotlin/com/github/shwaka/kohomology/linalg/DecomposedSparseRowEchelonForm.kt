@@ -235,7 +235,24 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
                 }
             }
         }
+        for (rowIndex in 0 until this.rowCount) {
+            if (rowIndex in this.originalMatrix.rowMap) {
+                continue
+            }
+            val row = this.identityTransformationRow(rowIndex)
+            if (row in seenRows) {
+                continue
+            }
+            zeroRows.add(row)
+            seenRows.add(row)
+        }
         return zeroRows
+    }
+
+    private fun identityTransformationRow(rowIndex: Int): Map<Int, S> {
+        return this.matrixSpace.context.run {
+            mapOf(rowIndex to one)
+        }
     }
 
     private fun multiplyTransformationRowByOriginal(row: Map<Int, S>): Map<Int, S> {

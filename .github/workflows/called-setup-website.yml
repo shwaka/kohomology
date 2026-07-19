@@ -76,4 +76,6 @@ jobs:
         # Note: --install-links is added to .npmrc
         # By --install-links, local package (kohomology-js) is copied instead of being symlinked.
         # This is necessary since actions/cache does not follow symlinks.
+        env:
+          NODE_AUTH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
         working-directory: website/webapp

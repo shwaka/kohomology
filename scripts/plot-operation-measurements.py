@@ -68,7 +68,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--y-column",
-        default="duration_ms",
+        default="exclusive_duration_ms",
         help="Column used as the y-axis.",
     )
     parser.add_argument(
@@ -161,7 +161,7 @@ def numeric_value_columns(data: pd.DataFrame, y_column: str) -> list[str]:
     return [
         column
         for column in data.columns
-        if column not in ["operation", y_column, "measurement_index", "run_index"]
+        if column not in ["operation", y_column, "measurement_index", "run_index", "duration_ms", "exclusive_duration_ms"]
     ]
 
 

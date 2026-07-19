@@ -1138,6 +1138,60 @@ class RationalDecomposedSparseMatrixTest : FreeSpec({
     }
 })
 
+private fun rationalDecomposedSparseMatrixAlgorithmTest(
+    rowEchelonAlgorithm: SparseRowEchelonFormAlgorithm,
+) = freeSpec {
+    val matrixSpace = DecomposedSparseMatrixSpace.from(
+        numVectorSpace = SparseNumVectorSpaceOverRational,
+        rowEchelonAlgorithm = rowEchelonAlgorithm,
+    )
+    include(matrixTest(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
+    include(notImplementedDeterminantTest(matrixSpace)) // This should be replaced if sign is implemented
+    include(rowEchelonFormGenTest(matrixSpace, 3, 3))
+    include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
+}
+
+class RationalDecomposedSparseMatrixNonInPlaceCalculatorTest : FreeSpec({
+    tags(matrixTag, sparseMatrixTag, rationalTag)
+
+    include(rationalDecomposedSparseMatrixAlgorithmTest(SparseRowEchelonFormAlgorithm.NonInPlace))
+})
+
+class RationalDecomposedSparseMatrixInPlaceCalculatorTest : FreeSpec({
+    tags(matrixTag, sparseMatrixTag, rationalTag)
+
+    include(rationalDecomposedSparseMatrixAlgorithmTest(SparseRowEchelonFormAlgorithm.InPlace))
+})
+
+class RationalDecomposedSparseMatrixIndexedCalculatorTest : FreeSpec({
+    tags(matrixTag, sparseMatrixTag, rationalTag)
+
+    include(rationalDecomposedSparseMatrixAlgorithmTest(SparseRowEchelonFormAlgorithm.Indexed))
+})
+
+class RationalDecomposedSparseMatrixParallelInPlaceCalculatorTest : FreeSpec({
+    tags(matrixTag, sparseMatrixTag, rationalTag)
+
+    include(
+        rationalDecomposedSparseMatrixAlgorithmTest(
+            SparseRowEchelonFormAlgorithm.Parallel(
+                parallelMinSize = 0,
+                parallelChunkSize = 1,
+                parallelism = 2,
+            )
+        )
+    )
+})
+
+class RationalDecomposedSparseMatrixMarkowitzCalculatorTest : FreeSpec({
+    tags(matrixTag, sparseMatrixTag, rationalTag)
+
+    include(rationalDecomposedSparseMatrixAlgorithmTest(SparseRowEchelonFormAlgorithm.Markowitz))
+})
+
 class RationalSparseMatrixNonInPlaceCalculatorTest : FreeSpec({
     tags(matrixTag, sparseMatrixTag, rationalTag)
 

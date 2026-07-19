@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1784450123252,
+  "lastUpdate": 1784459154549,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -13922,6 +13922,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.429,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "225eec6b65d6aa0231431f72b09c39e0a1c0d811",
+          "message": "build(website): add NODE_AUTH_TOKEN to called-setup-website.yml",
+          "timestamp": "2026-07-19T19:39:23+09:00",
+          "tree_id": "2e6e048f5b05612ff01397f84038795b5aee1cc7",
+          "url": "https://github.com/shwaka/kohomology/commit/225eec6b65d6aa0231431f72b09c39e0a1c0d811"
+        },
+        "date": 1784459153188,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.783,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.312,
             "unit": "s/op"
           }
         ]

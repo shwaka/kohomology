@@ -34,6 +34,10 @@ class SparseRowEchelonFormCalculatorTest : FreeSpec({
             field = field,
             cancellationContext = null,
         ),
+        "Markowitz" to SparseRowEchelonFormAlgorithm.Markowitz.createCalculator(
+            field = field,
+            cancellationContext = null,
+        ),
         "Parallel" to SparseRowEchelonFormAlgorithm.Parallel(
             parallelMinSize = 0,
             parallelChunkSize = 1,
@@ -142,6 +146,74 @@ class SparseRowEchelonFormCalculatorTest : FreeSpec({
                     val data = calculator.rowEchelonForm(rowMap, colCount = 5)
                     assertRowEchelonData(data, field.zero)
                 }
+            }
+        }
+    }
+
+    "Markowitz transformation should transform original matrix to row echelon form" {
+        val matrixSpace = SparseMatrixSpace.from(
+            numVectorSpace = SparseNumVectorSpaceOverRational,
+            rowEchelonAlgorithm = SparseRowEchelonFormAlgorithm.Markowitz,
+        )
+        val examples = field.context.run {
+            listOf(
+                Triple(
+                    3,
+                    3,
+                    sparseRowMap(
+                        listOf(0, 0, 1),
+                        listOf(1, 0, 0),
+                        listOf(0, 1, 1),
+                    ),
+                ),
+                Triple(
+                    4,
+                    4,
+                    sparseRowMap(
+                        listOf(0, 2, 4, 0),
+                        listOf(0, 1, 2, 3),
+                        listOf(0, 0, 0, 5),
+                        listOf(0, 3, 6, 9),
+                    ),
+                ),
+                Triple(
+                    4,
+                    4,
+                    sparseRowMap(
+                        listOf(1, 2, 0, 0),
+                        listOf(2, 4, 0, 0),
+                        listOf(0, 0, 3, 6),
+                        listOf(0, 0, 1, 2),
+                    ),
+                ),
+            )
+        }
+        matrixSpace.context.run {
+            for ((rowCount, colCount, rowMap) in examples) {
+                val matrix = matrixSpace.fromRowMap(rowMap, rowCount, colCount)
+                val rowEchelonForm = matrix.rowEchelonForm
+                (rowEchelonForm.transformation * matrix) shouldBe rowEchelonForm.matrix
+                (rowEchelonForm.reducedTransformation * matrix) shouldBe rowEchelonForm.reducedMatrix
+            }
+        }
+    }
+
+    "Markowitz transformation should transform generated matrices" {
+        val matrixSpace = SparseMatrixSpace.from(
+            numVectorSpace = SparseNumVectorSpaceOverRational,
+            rowEchelonAlgorithm = SparseRowEchelonFormAlgorithm.Markowitz,
+        )
+        val rowMapArb = sparseRowMapArb(
+            valueArb = Arb.int(-5..5),
+            rowCount = 4,
+            colCount = 5,
+        )
+        checkAll(rowMapArb) { rowMap ->
+            matrixSpace.context.run {
+                val matrix = matrixSpace.fromRowMap(rowMap, rowCount = 4, colCount = 5)
+                val rowEchelonForm = matrix.rowEchelonForm
+                (rowEchelonForm.transformation * matrix) shouldBe rowEchelonForm.matrix
+                (rowEchelonForm.reducedTransformation * matrix) shouldBe rowEchelonForm.reducedMatrix
             }
         }
     }

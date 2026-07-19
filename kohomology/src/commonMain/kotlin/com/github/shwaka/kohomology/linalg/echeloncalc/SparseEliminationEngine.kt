@@ -8,10 +8,15 @@ internal class SparseEliminationEngine<S : Scalar>(
     private val field: Field<S>,
     matrix: Map<Int, Map<Int, S>>,
     private val cancellationContext: CancellationContext?,
+    private val pivotRowSelection: PivotRowSelection = PivotRowSelection.First,
+    transformationRowMap: Map<Int, Map<Int, S>>? = null,
 ) {
     private val rows: MutableMap<Int, MutableMap<Int, S>> = matrix
         .mapValues { (_, row) -> row.toMutableMap() }
         .toMutableMap()
+    private val transformationRows: MutableMap<Int, MutableMap<Int, S>>? = transformationRowMap
+        ?.mapValues { (_, row) -> row.toMutableMap() }
+        ?.toMutableMap()
     private val cols: MutableMap<Int, MutableSet<Int>> = mutableMapOf()
 
     init {
@@ -39,6 +44,16 @@ internal class SparseEliminationEngine<S : Scalar>(
         return SparseRowEchelonFormData(this.rows, pivots, exchangeCount)
     }
 
+    fun computeRowEchelonFormWithTransformation(colCount: Int): TransformTrackingSparseRowEchelonFormData<S> {
+        val data = this.computeRowEchelonForm(colCount)
+        return TransformTrackingSparseRowEchelonFormData(
+            rowMap = data.rowMap,
+            pivots = data.pivots,
+            exchangeCount = data.exchangeCount,
+            transformationRowMap = this.requireTransformationRows(),
+        )
+    }
+
     fun reduce(pivots: List<Int>): Map<Int, Map<Int, S>> {
         for ((rowIndex, pivot) in pivots.withIndex()) {
             val row = this.rows[rowIndex] ?: throw Exception("This can't happen!")
@@ -52,11 +67,47 @@ internal class SparseEliminationEngine<S : Scalar>(
         return this.rows
     }
 
+    fun reduceWithTransformation(pivots: List<Int>): TransformTrackingSparseRowEchelonFormData<S> {
+        val reducedRowMap = this.reduce(pivots)
+        return TransformTrackingSparseRowEchelonFormData(
+            rowMap = reducedRowMap,
+            pivots = pivots,
+            exchangeCount = 0,
+            transformationRowMap = this.requireTransformationRows(),
+        )
+    }
+
     private fun findPivotRow(colIndex: Int, rowIndexFrom: Int): Int? {
+        return when (this.pivotRowSelection) {
+            PivotRowSelection.First -> this.findFirstPivotRow(colIndex, rowIndexFrom)
+            PivotRowSelection.Markowitz -> this.findMarkowitzPivotRow(colIndex, rowIndexFrom)
+        }
+    }
+
+    private fun findFirstPivotRow(colIndex: Int, rowIndexFrom: Int): Int? {
+        return this.candidatePivotRows(colIndex, rowIndexFrom).minOrNull()
+    }
+
+    private fun findMarkowitzPivotRow(colIndex: Int, rowIndexFrom: Int): Int? {
+        val activeColumnSize = this.candidatePivotRows(colIndex, rowIndexFrom).count()
+        return this.candidatePivotRows(colIndex, rowIndexFrom)
+            .minWithOrNull(
+                compareBy<Int> { rowIndex ->
+                    this.markowitzCount(rowIndex, activeColumnSize)
+                }.thenBy { rowIndex -> rowIndex }
+            )
+    }
+
+    private fun candidatePivotRows(colIndex: Int, rowIndexFrom: Int): Sequence<Int> {
         return this.cols[colIndex]
             ?.asSequence()
             ?.filter { rowIndex -> rowIndex >= rowIndexFrom }
-            ?.minOrNull()
+            ?: emptySequence()
+    }
+
+    private fun markowitzCount(rowIndex: Int, activeColumnSize: Int): Long {
+        val rowSize = this.rows[rowIndex]?.size ?: 0
+        return (rowSize - 1).toLong() * (activeColumnSize - 1).toLong()
     }
 
     private fun exchangeRows(rowIndex1: Int, rowIndex2: Int) {
@@ -87,6 +138,7 @@ internal class SparseEliminationEngine<S : Scalar>(
                 rowSet.add(rowIndex1)
             }
         }
+        this.transformationRows?.exchangeRows(rowIndex1, rowIndex2)
     }
 
     private fun eliminateRowsBelow(rowIndex: Int, colIndex: Int) {
@@ -103,7 +155,7 @@ internal class SparseEliminationEngine<S : Scalar>(
             val targetRow = this.rows[targetRowIndex] ?: continue
             val coeff = targetRow[colIndex] ?: continue
             this.field.context.run {
-                this@SparseEliminationEngine.subtractMultiple(targetRowIndex, mainRow, coeff / elm)
+                this@SparseEliminationEngine.subtractMultiple(targetRowIndex, rowIndex, mainRow, coeff / elm)
             }
         }
     }
@@ -121,11 +173,11 @@ internal class SparseEliminationEngine<S : Scalar>(
             this.cancellationContext?.check()
             val targetRow = this.rows[targetRowIndex] ?: continue
             val coeff = targetRow[colIndex] ?: continue
-            this.subtractMultiple(targetRowIndex, mainRow, coeff)
+            this.subtractMultiple(targetRowIndex, rowIndex, mainRow, coeff)
         }
     }
 
-    private fun subtractMultiple(rowIndex: Int, other: Map<Int, S>, scalar: S) {
+    private fun subtractMultiple(rowIndex: Int, otherRowIndex: Int, other: Map<Int, S>, scalar: S) {
         val row = this.rows[rowIndex] ?: throw Exception("This can't happen!")
         this.field.context.run {
             for ((colIndex, value) in other) {
@@ -140,6 +192,7 @@ internal class SparseEliminationEngine<S : Scalar>(
         if (row.isEmpty()) {
             this.rows.remove(rowIndex)
         }
+        this.transformationRows?.subtractMultiple(rowIndex, otherRowIndex, scalar)
     }
 
     private fun multiplyRow(rowIndex: Int, scalar: S) {
@@ -157,6 +210,7 @@ internal class SparseEliminationEngine<S : Scalar>(
                 this@SparseEliminationEngine.setValue(rowIndex, colIndex, value * scalar)
             }
         }
+        this.transformationRows?.multiplyRow(rowIndex, scalar)
     }
 
     private fun setValue(rowIndex: Int, colIndex: Int, value: S) {
@@ -174,4 +228,69 @@ internal class SparseEliminationEngine<S : Scalar>(
             }
         }
     }
+
+    private fun requireTransformationRows(): Map<Int, Map<Int, S>> {
+        return this.transformationRows ?: error("transformationRowMap is required")
+    }
+
+    private fun MutableMap<Int, MutableMap<Int, S>>.exchangeRows(rowIndex1: Int, rowIndex2: Int) {
+        val row1 = this[rowIndex1]
+        val row2 = this[rowIndex2]
+        if (row2 == null) {
+            this.remove(rowIndex1)
+        } else {
+            this[rowIndex1] = row2
+        }
+        if (row1 == null) {
+            this.remove(rowIndex2)
+        } else {
+            this[rowIndex2] = row1
+        }
+    }
+
+    private fun MutableMap<Int, MutableMap<Int, S>>.subtractMultiple(
+        rowIndex: Int,
+        otherRowIndex: Int,
+        scalar: S,
+    ) {
+        val row = this[rowIndex] ?: throw Exception("This can't happen!")
+        val other = this[otherRowIndex] ?: throw Exception("This can't happen!")
+        this@SparseEliminationEngine.field.context.run {
+            for ((colIndex, value) in other) {
+                val oldValue = row[colIndex]
+                val newValue = when (oldValue) {
+                    null -> -value * scalar
+                    else -> this@SparseEliminationEngine.field.subtractProduct(oldValue, value, scalar)
+                }
+                if (newValue.isZero()) {
+                    row.remove(colIndex)
+                } else {
+                    row[colIndex] = newValue
+                }
+            }
+        }
+        if (row.isEmpty()) {
+            this.remove(rowIndex)
+        }
+    }
+
+    private fun MutableMap<Int, MutableMap<Int, S>>.multiplyRow(rowIndex: Int, scalar: S) {
+        val row = this[rowIndex] ?: throw Exception("This can't happen!")
+        if (scalar.isZero()) {
+            row.clear()
+            this.remove(rowIndex)
+            return
+        }
+        val entries = row.toList()
+        this@SparseEliminationEngine.field.context.run {
+            for ((colIndex, value) in entries) {
+                row[colIndex] = value * scalar
+            }
+        }
+    }
+}
+
+internal enum class PivotRowSelection {
+    First,
+    Markowitz,
 }

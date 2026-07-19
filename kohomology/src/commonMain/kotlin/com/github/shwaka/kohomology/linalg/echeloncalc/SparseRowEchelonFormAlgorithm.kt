@@ -22,6 +22,8 @@ public sealed interface SparseRowEchelonFormAlgorithm {
 
     public data object Indexed : SparseRowEchelonFormAlgorithm
 
+    public data object Markowitz : SparseRowEchelonFormAlgorithm
+
     public data object NonInPlace : SparseRowEchelonFormAlgorithm
 
     public companion object {
@@ -49,6 +51,10 @@ internal fun <S : Scalar> SparseRowEchelonFormAlgorithm.createCalculator(
         )
         SparseRowEchelonFormAlgorithm.Indexed -> IndexedSparseRowEchelonFormCalculator(
             field,
+            cancellationContext = cancellationContext,
+        )
+        SparseRowEchelonFormAlgorithm.Markowitz -> MarkowitzSparseRowEchelonFormCalculator(
+            field = field,
             cancellationContext = cancellationContext,
         )
         SparseRowEchelonFormAlgorithm.NonInPlace -> NonInPlaceSparseRowEchelonFormCalculator(

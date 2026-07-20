@@ -5,11 +5,14 @@ import com.github.shwaka.kohomology.dg.DGVectorSpace
 import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 public interface Contraction<D : Degree, BR : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
+    public val matrixSpace: MatrixSpace<S, V, M>
+
     public val retractDGVectorSpace: DGVectorSpace<D, BR, S, V, M>
     public val totalDGVectorSpace: DGVectorSpace<D, BT, S, V, M>
 

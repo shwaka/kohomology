@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1784470667483,
+  "lastUpdate": 1784552711481,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -14092,6 +14092,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.063,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "6e36fb53ceb4ea6eaf476efc98b20a5620dab6da",
+          "message": "feat(core): add CohomologyContraction.kt (WIP)",
+          "timestamp": "2026-07-20T21:14:36+09:00",
+          "tree_id": "5cf1613a4ae5eb9e84e4a9a6e898676659ddf2ce",
+          "url": "https://github.com/shwaka/kohomology/commit/6e36fb53ceb4ea6eaf476efc98b20a5620dab6da"
+        },
+        "date": 1784552710459,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.83,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.286,
             "unit": "s/op"
           }
         ]

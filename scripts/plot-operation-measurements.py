@@ -279,7 +279,7 @@ def plot_data(
             operation_data[x_column],
             operation_data[y_column],
             marker="o",
-            linewidth=1.5,
+            linestyle="None",
             label=operation,
         )
 
